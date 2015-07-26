@@ -1,0 +1,14 @@
+#security
+login_check:
+    path: /login_check
+
+logout:
+    path: /logout
+
+login:
+    path: /login
+    defaults: { _controller: MrsuhRealEstateBundle:Security:login }
+
+default:
+    path: /default
+    defaults: { _controller: MrsuhRealEstateBundle:Default:default }

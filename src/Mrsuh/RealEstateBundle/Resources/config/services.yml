@@ -1,0 +1,12 @@
+services:
+    wsse.security.authentication.provider:
+        class: Mrsuh\RealEstateBundle\Security\Authentication\Provider\WsseProvider
+        arguments:
+            - "" # User Provider
+            - "%kernel.cache_dir%/security/nonces"
+        public: false
+
+    wsse.security.authentication.listener:
+        class: Mrsuh\RealEstateBundle\Security\Firewall\WsseListener
+        arguments: ["@security.context", "@security.authentication.manager"]
+        public: false

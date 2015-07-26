@@ -1,0 +1,16 @@
+{% extends "MrsuhRealEstateBundle::Security/layout.html.twig" %}
+{% block content %}
+    <form action="{{ url('login_check') }}" method="POST">
+
+        <div class="form-group">
+            <input type="text" class="form-control"
+                   name="_username" value="{{ last_username }}"
+                   placeholder="login" required="true" style="margin-bottom: 10px"/>
+            <input type="password" class="form-control"
+                   name="_password" placeholder="password"
+                   required="true" style="margin-bottom: 10px"/>
+
+            <input type="submit" class="btn-primary form-control" name="login" value="SIGN IN"/>
+        </div>
+    </form>
+{% endblock %}

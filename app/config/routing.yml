@@ -1,0 +1,3 @@
+mrsuh_real_estate:
+    resource: "@MrsuhRealEstateBundle/Resources/config/routing.yml"
+    prefix:   /
