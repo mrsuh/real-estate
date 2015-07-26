@@ -6,13 +6,48 @@
 
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css">
+
+    <style>
+        hr {
+            border: none; /* Убираем границу для браузера Firefox */
+            color: #6f7d95; /* Цвет линии для остальных браузеров */
+            background-color: #6f7d95; /* Цвет линии для браузера Firefox и Opera */
+            height: 2px; /* Толщина линии */
+        }
+    </style>
 </head>
 <body>
-<a href="{{ url('logout') }}">выйти</a><br>
-{% block content %}{% endblock %}
+<div class="header">
+    {{ render(controller('MrsuhRealEstateBundle:Default:header')) }}
+    <div class="row">
+        <div class="col-md-8 col-md-offset-2">
+            <b>{{ pageName }}</b>
+            <hr></div></div>
+        </div>
+</div>
 
+<div class="content" >
+   <div class="row">
+       <div class="col-md-8 col-md-offset-2">
+           {% include "MrsuhRealEstateBundle::alert.html.twig" %}<br>
+          {% block content %}{% endblock %}
+       </div>
+   </div>
+</div>
 
-<script src="{{ asset("js/jquery-2.1.3.js") }}"></script>
+<div class="footer">
+    <div class="navbar-fixed-bottom row-fluid" style="height:50px;">
+        <div class="navbar-inner">
+            <div class="container text-center">
+                <hr>
+                footer
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<script src="//code.jquery.com/jquery-2.1.4.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
 {% block js %}{% endblock %}
 </body>

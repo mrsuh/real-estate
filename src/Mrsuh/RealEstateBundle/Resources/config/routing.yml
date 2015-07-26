@@ -9,6 +9,66 @@ login:
     path: /login
     defaults: { _controller: MrsuhRealEstateBundle:Security:login }
 
+
+#default
 default:
     path: /default
     defaults: { _controller: MrsuhRealEstateBundle:Default:default }
+
+#redirect
+redirect:
+    path: /
+    defaults: { _controller: MrsuhRealEstateBundle:Default:redirect }
+
+
+# profile
+profile:
+    path: /profile
+    defaults: { _controller: MrsuhRealEstateBundle:Profile:profile }
+
+#clients
+client:
+    path: /client
+    defaults: { _controller: MrsuhRealEstateBundle:Client:client }
+
+create_client:
+    path: /create-client
+    defaults: { _controller: MrsuhRealEstateBundle:Client:createClient }
+
+clients:
+    path: /clients
+    defaults: { _controller: MrsuhRealEstateBundle:Client:clients }
+
+find_client:
+    path: /find-client
+    defaults: { _controller: MrsuhRealEstateBundle:Client:findClient }
+
+#Advert
+advert:
+    path: /advert
+    defaults: { _controller: MrsuhRealEstateBundle:Advert:advert }
+
+find_advert:
+    path: /find-advert
+    defaults: { _controller: MrsuhRealEstateBundle:Advert:findAdvert }
+
+create_advert:
+    path: /create-advert
+    defaults: { _controller: MrsuhRealEstateBundle:Advert:createAdvert }
+
+#Users
+user:
+    path: /user
+    defaults: { _controller: MrsuhRealEstateBundle:User:user }
+
+users:
+    path: /users
+    defaults: { _controller: MrsuhRealEstateBundle:User:users }
+
+find_user:
+    path: /find-user
+    defaults: { _controller: MrsuhRealEstateBundle:User:findUser }
+
+create_user:
+    path: /create-user
+    defaults: { _controller: MrsuhRealEstateBundle:User:createUser }

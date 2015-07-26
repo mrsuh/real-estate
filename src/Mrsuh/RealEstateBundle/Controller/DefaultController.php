@@ -2,15 +2,28 @@
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\Security\Core\Security;
-use Mrsuh\RealEstateBundle\C;
 
 class DefaultController extends Controller
 {
     public function defaultAction(Request $request)
     {
-       $name =  $this->get('security.token_storage')->getToken()->getUser()->getUsername();
 
-        return $this->render('MrsuhRealEstateBundle:Default:default.html.twig', ['name' => $name]);
+        $this->addFlash(
+            'success',
+            'Hello'
+        );
+
+        return $this->render('MrsuhRealEstateBundle:Default:default.html.twig', ['pageName' => 'DEFAULT']);
+    }
+
+    public function redirectAction()
+    {
+        return $this->redirect($this->generateUrl('login'));
+    }
+
+    public function headerAction()
+    {
+        $name = $this->get('security.token_storage')->getToken()->getUser()->getUsername();
+        return $this->render('MrsuhRealEstateBundle:Default:header.html.twig', ['username' => $name]);
     }
 }
