@@ -10,7 +10,8 @@ class AdvertController extends Controller
 {
     public function createAdvertAction(Request $request)
     {
-        $form = $this->createForm(new CreateAdvertForm());
+        $params = $this->get('model.advert')->getAdvertParams();
+        $form = $this->createForm(new CreateAdvertForm($params));
 
         if ($request->isMethod('POST')) {
             $form->handleRequest($request);
@@ -23,7 +24,7 @@ class AdvertController extends Controller
                     'success',
                     'Ваши данные успешно сохранены'
                 );
-                $form = $this->createForm(new CreateAdvertForm());
+                $form = $this->createForm(new CreateAdvertForm($params));
 
             } catch(\Exception $e){
                 $this->addFlash(

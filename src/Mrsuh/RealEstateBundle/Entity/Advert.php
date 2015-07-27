@@ -24,21 +24,21 @@ class Advert
     /**
      * @var integer
      *
-     * @ORM\OneToOne(targetEntity="Mrsuh\RealEstate\Entity\User")
+     * @ORM\OneToOne(targetEntity="Mrsuh\RealEstateBundle\Entity\User")
      */
     private $user;
 
     /**
      * @var string
      *
-     * @ORM\OneToMany(targetEntity="Mrsuh\RealEstate\Entity\Seller")
+     * @ORM\OneToMany(targetEntity="Mrsuh\RealEstateBundle\Entity\Seller", mappedBy="advert")
      */
     private $seller;
 
     /**
      * @var string
      *
-     * @ORM\OneToOne(targetEntity="Mrsuh\RealEstate\Entity\AdvertDescription")
+     * @ORM\OneToOne(targetEntity="Mrsuh\RealEstateBundle\Entity\AdvertDescription")
      */
     private $description;
 
@@ -94,7 +94,7 @@ class Advert
     /**
      * @var integer
      *
-     * @ORM\OneToOne(targetEntity="Mrsuh\RealEstate\Entity\Object")
+     * @ORM\OneToOne(targetEntity="Mrsuh\RealEstateBundle\Entity\Object\Object")
      */
     private $object;
 

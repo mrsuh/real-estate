@@ -31,21 +31,21 @@ class Object
     /**
      * @var integer
      *
-     * @ORM\Column(name="type", type="integer")
+     * @ORM\OneToOne(targetEntity="Mrsuh\RealEstateBundle\Entity\Object\Type")
      */
     private $type;
 
     /**
      * @var integer
      *
-     * @ORM\Column(name="state", type="integer")
+     * @ORM\OneToOne(targetEntity="Mrsuh\RealEstateBundle\Entity\Object\State")
      */
     private $state;
 
     /**
      * @var integer
      *
-     * @ORM\Column(name="wall", type="integer")
+     * @ORM\OneToOne(targetEntity="Mrsuh\RealEstateBundle\Entity\Object\Wall")
      */
     private $wall;
 
@@ -115,14 +115,14 @@ class Object
     /**
      * @var integer
      *
-     * @ORM\Column(name="watterSupply", type="integer")
+     * @ORM\OneToOne(targetEntity="Mrsuh\RealEstateBundle\Entity\Object\WaterSupply")
      */
     private $watterSupply;
 
     /**
      * @var integer
      *
-     * @ORM\Column(name="heating", type="integer")
+     * @ORM\OneToOne(targetEntity="Mrsuh\RealEstateBundle\Entity\Object\Heating")
      */
     private $heating;
 
@@ -143,14 +143,14 @@ class Object
     /**
      * @var boolean
      *
-     * @ORM\Column(name="balcony", type="boolean")
+     * @ORM\OneToOne(targetEntity="Mrsuh\RealEstateBundle\Entity\Object\Balcony")
      */
     private $balcony;
 
     /**
      * @var integer
      *
-     * @ORM\Column(name="wc", type="integer")
+     * @ORM\OneToOne(targetEntity="Mrsuh\RealEstateBundle\Entity\Object\Wc")
      */
     private $wc;
 

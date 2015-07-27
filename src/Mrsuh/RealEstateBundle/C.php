@@ -8,6 +8,14 @@ class C
 
     const REPO_ROLE = 'MrsuhRealEstateBundle:Role';
     const REPO_USER = 'MrsuhRealEstateBundle:User';
+    const REPO_OBJECT_TYPE = 'MrsuhRealEstateBundle:Object\Type';
+    const REPO_OBJECT_BALCONY = 'MrsuhRealEstateBundle:Object\Balcony';
+    const REPO_OBJECT_HEATING = 'MrsuhRealEstateBundle:Object\Heating';
+    const REPO_OBJECT_STATE = 'MrsuhRealEstateBundle:Object\State';
+    const REPO_OBJECT_WALL = 'MrsuhRealEstateBundle:Object\Wall';
+    const REPO_OBJECT_WATER_SUPPLY = 'MrsuhRealEstateBundle:Object\WaterSupply';
+    const REPO_OBJECT_WC = 'MrsuhRealEstateBundle:Object\Wc';
+
     //roles
     const ROLE_ADMIN = 'ROLE_ADMIN';
     const ROLE_USER = 'ROLE_USER';

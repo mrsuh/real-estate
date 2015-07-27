@@ -26,5 +26,5 @@ services:
 
     model.advert:
         class: Mrsuh\RealEstateBundle\Model\AdvertModel
-        arguments: []
+        arguments: [@doctrine.orm.entity_manager]
 
