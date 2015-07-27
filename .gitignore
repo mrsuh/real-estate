@@ -5,7 +5,9 @@
 /app/logs/*
 !app/logs/.gitkeep
 /app/phpunit.xml
-/bin/
+/bin/doctrine
+/bin/doctrine.php
+/bin/security-checker
 /composer.phar
 /vendor/
 /web/bundles/

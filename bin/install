@@ -1,0 +1,46 @@
+php app/console doctrine:database:drop --force
+
+php app/console doctrine:database:create
+php app/console doctrine:schema:create
+
+if [ ! -e "app/config/fixtures/object/balcony.yml" ] ; then
+    cp app/config/fixtures/object/balcony.yml.dist app/config/fixtures/object/balcony.yml
+    echo "Fixtures created from balcony.yml.dist"
+fi
+
+if [ ! -e "app/config/fixtures/object/heating.yml" ] ; then
+    cp app/config/fixtures/object/heating.yml.dist app/config/fixtures/object/heating.yml
+    echo "Fixtures created from heating.yml.dist"
+fi
+
+if [ ! -e "app/config/fixtures/object/state.yml" ] ; then
+    cp app/config/fixtures/object/state.yml.dist app/config/fixtures/object/state.yml
+    echo "Fixtures created from state.yml.dist"
+fi
+
+if [ ! -e "app/config/fixtures/object/type.yml" ] ; then
+    cp app/config/fixtures/object/type.yml.dist app/config/fixtures/object/type.yml
+    echo "Fixtures created from type.yml.dist"
+fi
+
+if [ ! -e "app/config/fixtures/object/wall.yml" ] ; then
+    cp app/config/fixtures/object/wall.yml.dist app/config/fixtures/object/wall.yml
+    echo "Fixtures created from wall.yml.dist"
+fi
+
+if [ ! -e "app/config/fixtures/object/water_supply.yml" ] ; then
+    cp app/config/fixtures/object/water_supply.yml.dist app/config/fixtures/object/water_supply.yml
+    echo "Fixtures created from water_supply.yml.dist"
+fi
+
+if [ ! -e "app/config/fixtures/object/wc.yml" ] ; then
+    cp app/config/fixtures/object/wc.yml.dist app/config/fixtures/object/wc.yml
+    echo "Fixtures created from wc.yml.dist"
+fi
+
+
+
+yes | php app/console doctrine:fixtures:load
+
+php app/console cache:clear --env=prod
+php app/console cache:clear --env=dev
