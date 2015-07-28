@@ -5,9 +5,7 @@ namespace Mrsuh\RealEstateBundle;
 
 class C
 {
-
-    const REPO_ROLE = 'MrsuhRealEstateBundle:Role';
-    const REPO_USER = 'MrsuhRealEstateBundle:User';
+    const REPO_OBJECT = 'MrsuhRealEstateBundle:Object\Object';
     const REPO_OBJECT_TYPE = 'MrsuhRealEstateBundle:Object\Type';
     const REPO_OBJECT_BALCONY = 'MrsuhRealEstateBundle:Object\Balcony';
     const REPO_OBJECT_HEATING = 'MrsuhRealEstateBundle:Object\Heating';
@@ -20,6 +18,11 @@ class C
     const REPO_ADDRESS_REGION = 'MrsuhRealEstateBundle:Address\Region';
     const REPO_ADDRESS_REGION_CITY = 'MrsuhRealEstateBundle:Address\RegionCity';
     const REPO_ADDRESS_STREET = 'MrsuhRealEstateBundle:Address\Street';
+
+    const REPO_ROLE = 'MrsuhRealEstateBundle:Role';
+    const REPO_USER = 'MrsuhRealEstateBundle:User';
+    const REPO_ADVERT = 'MrsuhRealEstateBundle:Advert';
+
 
     //roles
     const ROLE_ADMIN = 'ROLE_ADMIN';

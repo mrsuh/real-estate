@@ -4,56 +4,35 @@ use Mrsuh\RealEstateBundle\C;
 
 class AdvertModel
 {
-    private $balconyRepo;
-    private $heatingRepo;
-    private $stateRepo;
-    private $typeRepo;
-    private $wallRepo;
-    private $waterSupplyRepo;
-    private $wcRepo;
-
-
-    private $cityRepo;
-    private $regionRepo;
-    private $regionCityRepo;
-    private $streetRepo;
+    private $paramRepo;
+    private $advertRepo;
+    private $objectRepo;
 
     public function __construct($em)
     {
-        $this->balconyRepo = $em->getRepository(C::REPO_OBJECT_BALCONY);
-        $this->heatingRepo = $em->getRepository(C::REPO_OBJECT_HEATING);
-        $this->stateRepo = $em->getRepository(C::REPO_OBJECT_STATE);
-        $this->typeRepo = $em->getRepository(C::REPO_OBJECT_TYPE);
-        $this->wallRepo = $em->getRepository(C::REPO_OBJECT_WALL);
-        $this->waterSupplyRepo = $em->getRepository(C::REPO_OBJECT_WATER_SUPPLY);
-        $this->wcRepo = $em->getRepository(C::REPO_OBJECT_WC);
-
-        $this->cityRepo = $em->getRepository(C::REPO_ADDRESS_CITY);
-        $this->regionRepo = $em->getRepository(C::REPO_ADDRESS_REGION);
-        $this->regionCityRepo = $em->getRepository(C::REPO_ADDRESS_REGION_CITY);
-        $this->streetRepo = $em->getRepository(C::REPO_ADDRESS_STREET);
+        $this->advertRepo = $em->getRepository(C::REPO_ADVERT);
+        $this->objectRepo = $em->getRepository(C::REPO_OBJECT);
+        $this->paramRepo = [
+            'balcony' => $em->getRepository(C::REPO_OBJECT_BALCONY),
+            'heating' => $em->getRepository(C::REPO_OBJECT_HEATING),
+            'state' => $em->getRepository(C::REPO_OBJECT_STATE),
+            'type' => $em->getRepository(C::REPO_OBJECT_TYPE),
+            'wall' =>$em->getRepository(C::REPO_OBJECT_WALL),
+            'water_supply' => $em->getRepository(C::REPO_OBJECT_WATER_SUPPLY),
+            'wc' => $em->getRepository(C::REPO_OBJECT_WC),
+            'city' => $em->getRepository(C::REPO_ADDRESS_CITY),
+            'region' => $em->getRepository(C::REPO_ADDRESS_REGION),
+            'region_city' => $em->getRepository(C::REPO_ADDRESS_REGION_CITY),
+            'street' => $em->getRepository(C::REPO_ADDRESS_STREET),
+        ];
     }
 
     public function getAdvertParams()
     {
         $params = [];
 
-        $repo = [
-            'balcony' => $this->balconyRepo->findAll(),
-            'heating' => $this->heatingRepo->findAll(),
-            'state' => $this->stateRepo->findAll(),
-            'type' => $this->typeRepo->findAll(),
-            'wall' => $this->wallRepo->findAll(),
-            'water_supply' => $this->waterSupplyRepo->findAll(),
-            'wc' => $this->wcRepo->findAll(),
-            'city' => $this->cityRepo->findAll(),
-            'region' => $this->regionRepo->findAll(),
-            'region_city' => $this->regionCityRepo->findAll(),
-            'street' => $this->streetRepo->findAll(),
-        ];
-
-        foreach($repo as $k => $r) {
-            foreach($r as $obj) {
+        foreach($this->paramRepo as $k => $r) {
+            foreach($r->findAll() as $obj) {
                 if(!array_key_exists($k, $params)) {
                     $params[$k] = [];
                 }
@@ -63,4 +42,35 @@ class AdvertModel
 
         return $params;
     }
+
+    public function setAdvertParams($params){
+        $array = ['object' => [], 'advert' => []];
+        foreach($params as $k => $v) {
+            if(stristr($k, 'object_')) {
+                $key = str_replace('object_', '', $k);
+                if(!array_key_exists($key, $this->paramRepo)) {
+                    $key = str_replace('object_', '', $k);
+                    $array['object'][$key] = $v;
+                    continue;
+                }
+                $repo = $this->paramRepo[$key];
+                $array['object'][$key] = $repo->findOneById($v);
+            }
+
+            if(stristr($k, 'advert_')) {
+                $key = str_replace('advert_', '', $k);
+                $array['advert'][$key] = $v;
+            }
+        }
+
+        return $array;
+    }
+
+    public function create($params)
+    {
+        $params['advert']['object'] = $this->objectRepo->create($params['object']);
+
+        $this->advertRepo->create($params['advert']);
+    }
+
 }

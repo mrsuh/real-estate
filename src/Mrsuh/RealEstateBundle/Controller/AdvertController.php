@@ -18,11 +18,13 @@ class AdvertController extends Controller
             $formData = $form->getData();
 
             try{
+                $newParams = $this->get('model.advert')->setAdvertParams($formData);
 
+                $this->get('model.advert')->create($newParams);
 
                 $this->addFlash(
                     'success',
-                    'Ваши данные успешно сохранены'
+                    'Ваше объявленеи успешно создано'
                 );
                 $form = $this->createForm(new CreateAdvertForm($params));
 

@@ -2,6 +2,7 @@
 
 namespace Mrsuh\RealEstateBundle\Repository;
 
+use Mrsuh\RealEstateBundle\Service\CommonFunction;
 use Doctrine\ORM\EntityRepository;
 use Mrsuh\RealEstateBundle\C;
 use Mrsuh\RealEstateBundle\Entity\Advert;
@@ -13,16 +14,22 @@ class AdvertRepository extends EntityRepository
     {
         $this->_em->beginTransaction();
         try {
-            $time = new \DateTime();
+
             $advert = new Advert();
-            $advert->setUser($params['user']);
-            $advert->setDescription($params['description']);
-            $advert->setComment($params['comment']);
-            $advert->setType($params['type']);
             $advert->setStatus(C::STATUS_ADVERT_ACTIVE);
+
+            $time = new \DateTime();
             $advert->setCreateTime($time);
             $advert->setUpdateTime($time);
-            $advert->setExpireTime($params['expire_time']);
+            $advert->setExpireTime($time);
+            $advert->setType(C::TYPE_ADVERT_RENT);
+
+            foreach (['user', 'description', 'comment', 'object', 'exclusive'] as $v) {
+                if (isset($params[$v]) && !is_null($p = $params[$v])) {
+                    $s = 'set' . CommonFunction::dashesToCamelCase($v);
+                    $advert->$s($p);
+                }
+            }
 
             $this->_em->persist($advert);
 
@@ -40,15 +47,14 @@ class AdvertRepository extends EntityRepository
     {
         $this->_em->beginTransaction();
         try {
-            $time = new \DateTime();
 
-            $advert->setUser($params['user']);
-            $advert->setDescription($params['description']);
-            $advert->setComment($params['comment']);
-            $advert->setType($params['type']);
-            $advert->setStatus($params['status']);
-            $advert->setUpdateTime($time);
-            $advert->setExpireTime($params['expire_time']);
+            $advert->setUpdateTime(new \DateTime());
+            foreach (['user', 'description', 'comment', 'type', 'status', 'expire_time'] as $v) {
+                if (isset($params[$v]) && !is_null($p = $params[$v])) {
+                    $s = 'set' . CommonFunction::dashesToCamelCase($v);
+                    $advert->$s($p);
+                }
+            }
 
             $this->_em->persist($advert);
 

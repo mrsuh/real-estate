@@ -12,19 +12,19 @@
     <br>
     <div class="row">
         <div class="col-md-2"><label>Время истечения объявления</label></div>
-        <div class="col-md-4">{{ form_widget(form.expire_time, {'attr': {'class': 'form-control' }}) }}</div>
+        <div class="col-md-4">{{ form_widget(form.advert_expire_time, {'attr': {'class': 'form-control' }}) }}</div>
         <div class="col-md-2"><label>Эксклюзив</label></div>
-        <div class="col-md-4">{{ form_widget(form.exclusive, {'attr': {'class': 'form-control' }}) }}</div>
+        <div class="col-md-4">{{ form_widget(form.advert_exclusive, {'attr': {'class': 'form-control' }}) }}</div>
     </div>
     <br>
     <div class="row">
         <div class="col-md-2"><label>Описание</label></div>
-        <div class="col-md-10">{{ form_widget(form.description, {'attr': {'class': 'form-control' }}) }}</div>
+        <div class="col-md-10">{{ form_widget(form.advert_description, {'attr': {'class': 'form-control' }}) }}</div>
     </div>
     <br>
     <div class="row">
         <div class="col-md-2"><label>Комментарии</label></div>
-        <div class="col-md-10">{{ form_widget(form.comment, {'attr': {'class': 'form-control' }}) }}</div>
+        <div class="col-md-10">{{ form_widget(form.advert_comment, {'attr': {'class': 'form-control' }}) }}</div>
     </div>
     <br>
 
@@ -33,10 +33,6 @@
     <div class="row">
         <div class="col-md-2"><label>Тип Объекта</label></div>
         <div class="col-md-4">{{ form_widget(form.object_type, {'attr': {'class': 'form-control' }}) }}</div>
-    </div>
-    <br>
-    <div class="row">
-
     </div>
     <br>
     <div class="row">
@@ -71,7 +67,7 @@
         <div class="col-md-2"><label>Материал стен</label></div>
         <div class="col-md-4">{{ form_widget(form.object_wall, {'attr': {'class': 'form-control' }}) }}</div>
         <div class="col-md-2"><label>Тип водоснабжения</label></div>
-        <div class="col-md-4">{{ form_widget(form.object_watter_supply, {'attr': {'class': 'form-control' }}) }}</div>
+        <div class="col-md-4">{{ form_widget(form.object_water_supply, {'attr': {'class': 'form-control' }}) }}</div>
     </div>
     <br>
 
@@ -107,7 +103,7 @@
     <br>
     <div class="row">
         <div class="col-md-2"><label>Район города</label></div>
-        <div class="col-md-4">{{ form_widget(form.object_city_region, {'attr': {'class': 'form-control' }}) }}</div>
+        <div class="col-md-4">{{ form_widget(form.object_region_city, {'attr': {'class': 'form-control' }}) }}</div>
         <div class="col-md-2"><label>Улица</label></div>
         <div class="col-md-4">{{ form_widget(form.object_street, {'attr': {'class': 'form-control' }}) }}</div>
     </div>

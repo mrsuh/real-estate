@@ -31,98 +31,102 @@ class Object
     /**
      * @var integer
      *
-     * @ORM\OneToOne(targetEntity="Mrsuh\RealEstateBundle\Entity\Object\Type")
+     * @ORM\ManyToOne(targetEntity="Mrsuh\RealEstateBundle\Entity\Object\Type")
+     * @ORM\JoinColumn(name="region", referencedColumnName="id")
      */
     private $type;
 
     /**
      * @var integer
      *
-     * @ORM\OneToOne(targetEntity="Mrsuh\RealEstateBundle\Entity\Object\State")
+     * @ORM\ManyToOne(targetEntity="Mrsuh\RealEstateBundle\Entity\Object\State")
+     * @ORM\JoinColumn(name="region", referencedColumnName="id")
      */
     private $state;
 
     /**
      * @var integer
      *
-     * @ORM\OneToOne(targetEntity="Mrsuh\RealEstateBundle\Entity\Object\Wall")
+     * @ORM\ManyToOne(targetEntity="Mrsuh\RealEstateBundle\Entity\Object\Wall")
+     * @ORM\JoinColumn(name="region", referencedColumnName="id")
      */
     private $wall;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="meterPrice", type="string", length=255)
+     * @ORM\Column(name="meterPrice", type="string", length=255, nullable=true)
      */
     private $meterPrice;
 
     /**
      * @var integer
      *
-     * @ORM\Column(name="roomNumber", type="integer")
+     * @ORM\Column(name="roomNumber", type="integer", nullable=true)
      */
     private $roomNumber;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="commonArea", type="string", length=255)
+     * @ORM\Column(name="commonArea", type="string", length=255, nullable=true)
      */
     private $commonArea;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="liveArea", type="string", length=255)
+     * @ORM\Column(name="liveArea", type="string", length=255, nullable=true)
      */
     private $liveArea;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="kitchenArea", type="string", length=255)
+     * @ORM\Column(name="kitchenArea", type="string", length=255, nullable=true)
      */
     private $kitchenArea;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="sectionArea", type="string", length=255)
+     * @ORM\Column(name="sectionArea", type="string", length=255, nullable=true)
      */
     private $sectionArea;
 
     /**
      * @var integer
      *
-     * @ORM\Column(name="floor", type="integer")
+     * @ORM\Column(name="floor", type="integer", nullable=true)
      */
     private $floor;
 
     /**
      * @var integer
      *
-     * @ORM\Column(name="floors", type="integer")
+     * @ORM\Column(name="floors", type="integer", nullable=true)
      */
     private $floors;
 
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="buildYear", type="datetime")
+     * @ORM\Column(name="buildYear", type="datetime", nullable=true)
      */
     private $buildYear;
 
     /**
      * @var integer
      *
-     * @ORM\OneToOne(targetEntity="Mrsuh\RealEstateBundle\Entity\Object\WaterSupply")
+     * @ORM\ManyToOne(targetEntity="Mrsuh\RealEstateBundle\Entity\Object\WaterSupply")
+     * @ORM\JoinColumn(name="region", referencedColumnName="id")
      */
-    private $watterSupply;
+    private $waterSupply;
 
     /**
-     * @var integer
      *
-     * @ORM\OneToOne(targetEntity="Mrsuh\RealEstateBundle\Entity\Object\Heating")
+     * @ORM\ManyToOne(targetEntity="Mrsuh\RealEstateBundle\Entity\Object\Heating")
+     * @ORM\JoinColumn(name="region", referencedColumnName="id")
      */
     private $heating;
 
@@ -143,63 +147,61 @@ class Object
     /**
      * @var boolean
      *
-     * @ORM\OneToOne(targetEntity="Mrsuh\RealEstateBundle\Entity\Object\Balcony")
+     * @ORM\ManyToOne(targetEntity="Mrsuh\RealEstateBundle\Entity\Object\Balcony")
+     * @ORM\JoinColumn(name="region", referencedColumnName="id")
      */
     private $balcony;
 
     /**
      * @var integer
      *
-     * @ORM\OneToOne(targetEntity="Mrsuh\RealEstateBundle\Entity\Object\Wc")
+     * @ORM\ManyToOne(targetEntity="Mrsuh\RealEstateBundle\Entity\Object\Wc")
+     * @ORM\JoinColumn(name="region", referencedColumnName="id")
      */
     private $wc;
 
     /**
-     * @var integer
-     *
-     * @ORM\Column(name="region", type="integer")
+     * @ORM\ManyToOne(targetEntity="Mrsuh\RealEstateBundle\Entity\Address\Region")
+     * @ORM\JoinColumn(name="region", referencedColumnName="id")
      */
     private $region;
 
     /**
-     * @var integer
-     *
-     * @ORM\Column(name="city", type="integer")
+     * @ORM\ManyToOne(targetEntity="Mrsuh\RealEstateBundle\Entity\Address\City")
+     * @ORM\JoinColumn(name="city", referencedColumnName="id")
      */
     private $city;
 
     /**
-     * @var integer
-     *
-     * @ORM\Column(name="cityRegion", type="integer")
+     * @ORM\ManyToOne(targetEntity="Mrsuh\RealEstateBundle\Entity\Address\RegionCity")
+     * @ORM\JoinColumn(name="region_city", referencedColumnName="id")
      */
-    private $cityRegion;
+    private $regionCity;
 
     /**
-     * @var integer
-     *
-     * @ORM\Column(name="street", type="integer")
+     * @ORM\ManyToOne(targetEntity="Mrsuh\RealEstateBundle\Entity\Address\Street")
+     * @ORM\JoinColumn(name="street", referencedColumnName="id")
      */
     private $street;
 
     /**
      * @var integer
      *
-     * @ORM\Column(name="house", type="integer")
+     * @ORM\Column(name="house", type="integer", nullable=true)
      */
     private $house;
 
     /**
      * @var integer
      *
-     * @ORM\Column(name="flat", type="integer")
+     * @ORM\Column(name="flat", type="integer", nullable=true)
      */
     private $flat;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="landmark", type="string", length=255)
+     * @ORM\Column(name="landmark", type="string", length=255, nullable=true)
      */
     private $landmark;
 
@@ -514,26 +516,26 @@ class Object
     }
 
     /**
-     * Set watterSupply
+     * Set waterSupply
      *
-     * @param integer $watterSupply
+     * @param integer $waterSupply
      * @return Object
      */
-    public function setWatterSupply($watterSupply)
+    public function setWaterSupply($waterSupply)
     {
-        $this->watterSupply = $watterSupply;
+        $this->waterSupply = $waterSupply;
 
         return $this;
     }
 
     /**
-     * Get watterSupply
+     * Get waterSupply
      *
      * @return integer 
      */
-    public function getWatterSupply()
+    public function getWaterSupply()
     {
-        return $this->watterSupply;
+        return $this->waterSupply;
     }
 
     /**
@@ -698,26 +700,26 @@ class Object
     }
 
     /**
-     * Set cityRegion
+     * Set regionCity
      *
-     * @param integer $cityRegion
+     * @param integer $regionCity
      * @return Object
      */
-    public function setCityRegion($cityRegion)
+    public function setRegionCity($regionCity)
     {
-        $this->cityRegion = $cityRegion;
+        $this->regionCity = $regionCity;
 
         return $this;
     }
 
     /**
-     * Get cityRegion
+     * Get regionCity
      *
      * @return integer 
      */
-    public function getCityRegion()
+    public function getRegionCity()
     {
-        return $this->cityRegion;
+        return $this->regionCity;
     }
 
     /**
@@ -810,5 +812,23 @@ class Object
     public function getLandmark()
     {
         return $this->landmark;
+    }
+
+    /**
+     * @return string
+     */
+    public function getKitchenArea()
+    {
+        return $this->kitchenArea;
+    }
+
+    /**
+     * @param string $kitchenArea
+     */
+    public function setKitchenArea($kitchenArea)
+    {
+        $this->kitchenArea = $kitchenArea;
+
+        return $this;
     }
 }

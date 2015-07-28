@@ -1,6 +1,6 @@
 <?php
 
-namespace Artvisio\CdnApiBundle\Service;
+namespace Mrsuh\RealEstateBundle\Service;
 
 class CommonFunction
 {
