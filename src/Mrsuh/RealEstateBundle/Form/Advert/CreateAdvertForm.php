@@ -17,8 +17,8 @@ class CreateAdvertForm extends AbstractType
     {
         $builder->add('seller_name', 'text');
         $builder->add('seller_phone', 'text');
-        $builder->add('description', 'text');
-        $builder->add('comment', 'text');
+        $builder->add('description', 'textarea');
+        $builder->add('comment', 'textarea');
         $builder->add('expire_time', 'text');
         $builder->add('exclusive', 'choice', ['choices' => ['true' => 'true', 'false' => 'false']]);
 
@@ -37,14 +37,16 @@ class CreateAdvertForm extends AbstractType
         $builder->add('object_heating', 'choice', ['choices' => $this->advert['heating']]);
         $builder->add('object_new_house', 'choice', ['choices' => ['true' => 'true', 'false' => 'false']]);
         $builder->add('object_wc', 'choice', ['choices' => $this->advert['wc']]);
+        $builder->add('object_balcony', 'choice', ['choices' => $this->advert['balcony']]);
+        $builder->add('object_mortgage', 'choice', ['choices' => ['true' => 'true', 'false' => 'false']]);
 
-        $builder->add('object_region', 'choice', ['choices' => ['true' => 'true', 'false' => 'false']]);
-        $builder->add('object_city', 'choice', ['choices' => ['true' => 'true', 'false' => 'false']]);
-        $builder->add('object_city_region', 'choice', ['choices' => ['true' => 'true', 'false' => 'false']]);
-        $builder->add('object_street', 'choice', ['choices' => ['true' => 'true', 'false' => 'false']]);
+        $builder->add('object_region', 'choice', ['choices' => $this->advert['region']]);
+        $builder->add('object_city', 'choice', ['choices' => $this->advert['city']]);
+        $builder->add('object_city_region', 'choice', ['choices' => $this->advert['region_city']]);
+        $builder->add('object_street', 'choice', ['choices' => $this->advert['street']]);
         $builder->add('object_house', 'text');
         $builder->add('object_flat', 'text');
-        $builder->add('object_landmark', 'text');
+        $builder->add('object_landmark', 'textarea');
 
         $builder->add('submit', 'submit', array('label' => 'Создать',));
     }
