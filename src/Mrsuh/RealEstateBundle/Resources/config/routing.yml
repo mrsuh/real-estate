@@ -44,9 +44,9 @@ find_client:
     defaults: { _controller: MrsuhRealEstateBundle:Client:findClient }
 
 #Advert
-advert:
-    path: /advert
-    defaults: { _controller: MrsuhRealEstateBundle:Advert:advert }
+edit_advert:
+    path: /edit-advert/{id}
+    defaults: { _controller: MrsuhRealEstateBundle:Advert:getAdvertById, id: id }
 
 find_advert:
     path: /find-advert

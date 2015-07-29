@@ -24,7 +24,7 @@ class AdvertRepository extends EntityRepository
             $advert->setExpireTime($time);
             $advert->setType(C::TYPE_ADVERT_RENT);
 
-            foreach (['user', 'description', 'comment', 'object', 'exclusive'] as $v) {
+            foreach (['user', 'description', 'object', 'exclusive'] as $v) {
                 if (isset($params[$v]) && !is_null($p = $params[$v])) {
                     $s = 'set' . CommonFunction::dashesToCamelCase($v);
                     $advert->$s($p);
@@ -49,7 +49,7 @@ class AdvertRepository extends EntityRepository
         try {
 
             $advert->setUpdateTime(new \DateTime());
-            foreach (['user', 'description', 'comment', 'type', 'status', 'expire_time'] as $v) {
+            foreach (['user', 'description', 'type', 'status', 'expire_time'] as $v) {
                 if (isset($params[$v]) && !is_null($p = $params[$v])) {
                     $s = 'set' . CommonFunction::dashesToCamelCase($v);
                     $advert->$s($p);

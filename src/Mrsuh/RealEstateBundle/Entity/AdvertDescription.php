@@ -8,7 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
  * AdvertDescription
  *
  * @ORM\Table()
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="Mrsuh\RealEstateBundle\Repository\AdvertDescriptionRepository")
  */
 class AdvertDescription
 {
@@ -24,9 +24,16 @@ class AdvertDescription
     /**
      * @var string
      *
+     * @ORM\Column(name="description", type="text")
+     */
+    private $description;
+
+    /**
+     * @var string
+     *
      * @ORM\Column(name="text", type="text")
      */
-    private $text;
+    private $comment;
 
 
     /**
@@ -40,25 +47,43 @@ class AdvertDescription
     }
 
     /**
-     * Set text
-     *
-     * @param string $text
-     * @return AdvertDescription
+     * @return string
      */
-    public function setText($text)
+    public function getDescription()
     {
-        $this->text = $text;
+        return $this->description;
+    }
+
+    /**
+     * @param string $description
+     */
+    public function setDescription($description)
+    {
+        $this->description = $description;
 
         return $this;
     }
 
     /**
-     * Get text
+     * Set comment
      *
-     * @return string 
+     * @param string $comment
+     * @return Advert
      */
-    public function getText()
+    public function setComment($comment)
     {
-        return $this->text;
+        $this->comment = $comment;
+
+        return $this;
+    }
+
+    /**
+     * Get comment
+     *
+     * @return string
+     */
+    public function getComment()
+    {
+        return $this->comment;
     }
 }

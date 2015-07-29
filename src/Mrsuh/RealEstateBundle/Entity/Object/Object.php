@@ -111,7 +111,7 @@ class Object
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="buildYear", type="datetime", nullable=true)
+     * @ORM\Column(name="buildYear", type="integer", nullable=true)
      */
     private $buildYear;
 

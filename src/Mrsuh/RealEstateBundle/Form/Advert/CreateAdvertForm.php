@@ -17,8 +17,8 @@ class CreateAdvertForm extends AbstractType
     {
         $builder->add('seller_name', 'text', ['required' => false, 'attr' =>['value' => null]]);
         $builder->add('seller_phone', 'text', ['required' => false, 'attr' =>['value' => null]]);
-        $builder->add('advert_description', 'textarea', ['required' => false, 'attr' =>['value' => null]]);
-        $builder->add('advert_comment', 'textarea', ['required' => false, 'attr' =>['value' => null]]);
+        $builder->add('description_description', 'textarea', ['required' => false, 'attr' =>['value' => null]]);
+        $builder->add('description_comment', 'textarea', ['required' => false, 'attr' =>['value' => null]]);
         $builder->add('advert_expire_time', 'text', ['required' => false, 'attr' =>['value' => null]]);
         $builder->add('advert_exclusive', 'choice', ['choices' => ['true' => 'да', 'false' => 'нет']]);
 
@@ -48,11 +48,11 @@ class CreateAdvertForm extends AbstractType
         $builder->add('object_flat', 'text', ['required' => false, 'attr' =>['value' => null]]);
         $builder->add('object_landmark', 'textarea', ['required' => false, 'attr' =>['value' => null]]);
 
-        $builder->add('submit', 'submit', array('label' => 'Создать',));
+        $builder->add('submit', 'submit', array('label' => 'Создать'));
     }
 
     public function getName()
     {
-        return 'editProfile';
+        return 'createAdvert';
     }
 }

@@ -24,7 +24,8 @@ class Advert
     /**
      * @var integer
      *
-     * @ORM\OneToOne(targetEntity="Mrsuh\RealEstateBundle\Entity\User")
+     * @ORM\ManyToOne(targetEntity="\Mrsuh\RealEstateBundle\Entity\User")
+     * @ORM\JoinColumn(name="user", referencedColumnName="id")
      */
     private $user;
 
@@ -41,13 +42,6 @@ class Advert
      * @ORM\OneToOne(targetEntity="Mrsuh\RealEstateBundle\Entity\AdvertDescription")
      */
     private $description;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="comment", type="string", length=255, nullable=true)
-     */
-    private $comment;
 
     /**
      * @var integer
@@ -176,29 +170,6 @@ class Advert
     public function getDescription()
     {
         return $this->description;
-    }
-
-    /**
-     * Set comment
-     *
-     * @param string $comment
-     * @return Advert
-     */
-    public function setComment($comment)
-    {
-        $this->comment = $comment;
-
-        return $this;
-    }
-
-    /**
-     * Get comment
-     *
-     * @return string 
-     */
-    public function getComment()
-    {
-        return $this->comment;
     }
 
     /**

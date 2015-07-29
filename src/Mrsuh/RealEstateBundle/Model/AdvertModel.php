@@ -7,11 +7,14 @@ class AdvertModel
     private $paramRepo;
     private $advertRepo;
     private $objectRepo;
+    private $advertDescriptRepo;
 
     public function __construct($em)
     {
         $this->advertRepo = $em->getRepository(C::REPO_ADVERT);
         $this->objectRepo = $em->getRepository(C::REPO_OBJECT);
+        $this->advertDescriptRepo = $em->getRepository(C::REPO_ADVERT_DESCRIPTION);
+
         $this->paramRepo = [
             'balcony' => $em->getRepository(C::REPO_OBJECT_BALCONY),
             'heating' => $em->getRepository(C::REPO_OBJECT_HEATING),
@@ -57,6 +60,11 @@ class AdvertModel
                 $array['object'][$key] = $repo->findOneById($v);
             }
 
+            if(stristr($k, 'description_')) {
+                $key = str_replace('description_', '', $k);
+                $array['description'][$key] = $v;
+            }
+
             if(stristr($k, 'advert_')) {
                 $key = str_replace('advert_', '', $k);
                 $array['advert'][$key] = $v;
@@ -66,11 +74,17 @@ class AdvertModel
         return $array;
     }
 
-    public function create($params)
+    public function create($params, $user)
     {
         $params['advert']['object'] = $this->objectRepo->create($params['object']);
-
+        $params['advert']['user'] = $user;
+        $params['advert']['description'] = $this->advertDescriptRepo->create($params['description']);
         $this->advertRepo->create($params['advert']);
+    }
+
+    public function getOneById($id)
+    {
+        return $this->advertRepo->findOneById($id);
     }
 
 }
