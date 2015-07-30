@@ -8,9 +8,9 @@ use Doctrine\ORM\Mapping as ORM;
  * WaterSupply
  *
  * @ORM\Table()
- * @ORM\Entity(repositoryClass="Mrsuh\RealEstateBundle\Repository\Object\WaterSupplyRepository")
+ * @ORM\Entity(repositoryClass="Mrsuh\RealEstateBundle\Repository\Object\ObjectWaterSupplyRepository")
  */
-class WaterSupply
+class ObjectWaterSupply
 {
     /**
      * @var integer

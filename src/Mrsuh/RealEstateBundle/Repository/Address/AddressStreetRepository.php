@@ -1,18 +1,18 @@
 <?php
 
-namespace Mrsuh\RealEstateBundle\Repository\Object;
+namespace Mrsuh\RealEstateBundle\Repository\Address;
 
 use Doctrine\ORM\EntityRepository;
-use Mrsuh\RealEstateBundle\Entity\Object\Wall;
+use Mrsuh\RealEstateBundle\Entity\Address\AddressStreet;
 
 
-class WallRepository extends EntityRepository
+class AddressStreetRepository extends EntityRepository
 {
     public function create($name)
     {
         $this->_em->beginTransaction();
         try {
-            $obj = new Wall();
+            $obj = new AddressStreet();
             $obj->setName($name);
 
             $this->_em->persist($obj);

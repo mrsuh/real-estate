@@ -1,18 +1,18 @@
 <?php
 
-namespace Mrsuh\RealEstateBundle\Repository\Address;
+namespace Mrsuh\RealEstateBundle\Repository\Object;
 
 use Doctrine\ORM\EntityRepository;
-use Mrsuh\RealEstateBundle\Entity\Address\Region;
+use Mrsuh\RealEstateBundle\Entity\Object\ObjectState;
 
 
-class RegionRepository extends EntityRepository
+class ObjectStateRepository extends EntityRepository
 {
     public function create($name)
     {
         $this->_em->beginTransaction();
         try {
-            $obj = new Region();
+            $obj = new ObjectState();
             $obj->setName($name);
 
             $this->_em->persist($obj);

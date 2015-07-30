@@ -1,18 +1,18 @@
 <?php
 
-namespace Mrsuh\RealEstateBundle\Repository\Object;
+namespace Mrsuh\RealEstateBundle\Repository\Address;
 
 use Doctrine\ORM\EntityRepository;
-use Mrsuh\RealEstateBundle\Entity\Object\Wc;
+use Mrsuh\RealEstateBundle\Entity\Address\AddressRegionCity;
 
 
-class WcRepository extends EntityRepository
+class AddressRegionCityRepository extends EntityRepository
 {
     public function create($name)
     {
         $this->_em->beginTransaction();
         try {
-            $obj = new Wc();
+            $obj = new AddressRegionCity();
             $obj->setName($name);
 
             $this->_em->persist($obj);

@@ -3,16 +3,16 @@
 namespace Mrsuh\RealEstateBundle\Repository\Object;
 
 use Doctrine\ORM\EntityRepository;
-use Mrsuh\RealEstateBundle\Entity\Object\Type;
+use Mrsuh\RealEstateBundle\Entity\Object\ObjectWaterSupply;
 
 
-class TypeRepository extends EntityRepository
+class ObjectWaterSupplyRepository extends EntityRepository
 {
     public function create($name)
     {
         $this->_em->beginTransaction();
         try {
-            $obj = new Type();
+            $obj = new ObjectWaterSupply();
             $obj->setName($name);
 
             $this->_em->persist($obj);

@@ -15,12 +15,21 @@ class CreateAdvertForm extends AbstractType
 
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('seller_name', 'text', ['required' => false, 'attr' =>['value' => null]]);
-        $builder->add('seller_phone', 'text', ['required' => false, 'attr' =>['value' => null]]);
+        $builder->add('seller_name1', 'text', ['required' => false, 'attr' =>['value' => null]]);
+        $builder->add('seller_phone1', 'text', ['required' => false, 'attr' =>['value' => null]]);
+        $builder->add('seller_name2', 'text', ['required' => false, 'attr' =>['value' => null]]);
+        $builder->add('seller_phone2', 'text', ['required' => false, 'attr' =>['value' => null]]);
+        $builder->add('seller_name3', 'text', ['required' => false, 'attr' =>['value' => null]]);
+        $builder->add('seller_phone3', 'text', ['required' => false, 'attr' =>['value' => null]]);
+
         $builder->add('description_description', 'textarea', ['required' => false, 'attr' =>['value' => null]]);
         $builder->add('description_comment', 'textarea', ['required' => false, 'attr' =>['value' => null]]);
+
         $builder->add('advert_expire_time', 'text', ['required' => false, 'attr' =>['value' => null]]);
         $builder->add('advert_exclusive', 'choice', ['choices' => ['true' => 'да', 'false' => 'нет']]);
+        $builder->add('advert_type', 'choice', ['choices' => ['true' => 'да', 'false' => 'нет']]);
+        $builder->add('advert_category', 'choice', ['choices' => ['true' => 'да', 'false' => 'нет']]);
+        $builder->add('advert_price', 'text');
 
         $builder->add('object_type', 'choice', ['choices' => $this->advert['type']]);
         $builder->add('object_state', 'choice', ['choices' => $this->advert['state']]);

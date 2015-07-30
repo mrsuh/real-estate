@@ -5,12 +5,12 @@ namespace Mrsuh\RealEstateBundle\Entity\Object;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Wc
+ * Type
  *
  * @ORM\Table()
- * @ORM\Entity(repositoryClass="Mrsuh\RealEstateBundle\Repository\Object\WcRepository")
+ * @ORM\Entity(repositoryClass="Mrsuh\RealEstateBundle\Repository\Object\ObjectTypeRepository")
  */
-class Wc
+class ObjectType
 {
     /**
      * @var integer
@@ -43,7 +43,7 @@ class Wc
      * Set name
      *
      * @param string $name
-     * @return Wc
+     * @return Type
      */
     public function setName($name)
     {

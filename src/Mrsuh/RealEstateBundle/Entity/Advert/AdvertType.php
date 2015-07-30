@@ -1,16 +1,16 @@
 <?php
 
-namespace Mrsuh\RealEstateBundle\Entity\Address;
+namespace Mrsuh\RealEstateBundle\Entity\Advert;
 
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Region
+ * AdvertType
  *
  * @ORM\Table()
- * @ORM\Entity(repositoryClass="Mrsuh\RealEstateBundle\Repository\Address\RegionRepository")
+ * @ORM\Entity(repositoryClass="Mrsuh\RealEstateBundle\Repository\Advert\AdvertTypeRepository")
  */
-class Region
+class AdvertType
 {
     /**
      * @var integer
@@ -43,7 +43,7 @@ class Region
      * Set name
      *
      * @param string $name
-     * @return Region
+     * @return AdvertType
      */
     public function setName($name)
     {

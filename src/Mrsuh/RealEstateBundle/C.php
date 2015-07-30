@@ -6,23 +6,26 @@ namespace Mrsuh\RealEstateBundle;
 class C
 {
     const REPO_OBJECT = 'MrsuhRealEstateBundle:Object\Object';
-    const REPO_OBJECT_TYPE = 'MrsuhRealEstateBundle:Object\Type';
-    const REPO_OBJECT_BALCONY = 'MrsuhRealEstateBundle:Object\Balcony';
-    const REPO_OBJECT_HEATING = 'MrsuhRealEstateBundle:Object\Heating';
-    const REPO_OBJECT_STATE = 'MrsuhRealEstateBundle:Object\State';
-    const REPO_OBJECT_WALL = 'MrsuhRealEstateBundle:Object\Wall';
-    const REPO_OBJECT_WATER_SUPPLY = 'MrsuhRealEstateBundle:Object\WaterSupply';
-    const REPO_OBJECT_WC = 'MrsuhRealEstateBundle:Object\Wc';
+    const REPO_OBJECT_TYPE = 'MrsuhRealEstateBundle:Object\ObjectType';
+    const REPO_OBJECT_BALCONY = 'MrsuhRealEstateBundle:Object\ObjectBalcony';
+    const REPO_OBJECT_HEATING = 'MrsuhRealEstateBundle:Object\ObjectHeating';
+    const REPO_OBJECT_STATE = 'MrsuhRealEstateBundle:Object\ObjectState';
+    const REPO_OBJECT_WALL = 'MrsuhRealEstateBundle:Object\ObjectWall';
+    const REPO_OBJECT_WATER_SUPPLY = 'MrsuhRealEstateBundle:Object\ObjectWaterSupply';
+    const REPO_OBJECT_WC = 'MrsuhRealEstateBundle:Object\ObjectWc';
 
-    const REPO_ADDRESS_CITY = 'MrsuhRealEstateBundle:Address\City';
-    const REPO_ADDRESS_REGION = 'MrsuhRealEstateBundle:Address\Region';
-    const REPO_ADDRESS_REGION_CITY = 'MrsuhRealEstateBundle:Address\RegionCity';
-    const REPO_ADDRESS_STREET = 'MrsuhRealEstateBundle:Address\Street';
-    const REPO_ADVERT_DESCRIPTION = 'MrsuhRealEstateBundle:AdvertDescription';
+    const REPO_ADDRESS_CITY = 'MrsuhRealEstateBundle:Address\AddressCity';
+    const REPO_ADDRESS_REGION = 'MrsuhRealEstateBundle:Address\AddressRegion';
+    const REPO_ADDRESS_REGION_CITY = 'MrsuhRealEstateBundle:Address\AddressRegionCity';
+    const REPO_ADDRESS_STREET = 'MrsuhRealEstateBundle:Address\AddressStreet';
 
     const REPO_ROLE = 'MrsuhRealEstateBundle:Role';
     const REPO_USER = 'MrsuhRealEstateBundle:User';
-    const REPO_ADVERT = 'MrsuhRealEstateBundle:Advert';
+
+    const REPO_ADVERT = 'MrsuhRealEstateBundle:Advert\Advert';
+    const REPO_ADVERT_CATEGORY = 'MrsuhRealEstateBundle:Advert\AdvertCategory';
+    const REPO_ADVERT_TYPE = 'MrsuhRealEstateBundle:Advert\AdvertType';
+    const REPO_ADVERT_DESCRIPTION = 'MrsuhRealEstateBundle:Advert\AdvertDescription';
 
     //roles
     const ROLE_ADMIN = 'ROLE_ADMIN';

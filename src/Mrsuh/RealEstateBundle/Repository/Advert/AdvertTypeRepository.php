@@ -1,18 +1,20 @@
 <?php
 
-namespace Mrsuh\RealEstateBundle\Repository\Object;
+namespace Mrsuh\RealEstateBundle\Repository\Advert;
 
+use Mrsuh\RealEstateBundle\Service\CommonFunction;
 use Doctrine\ORM\EntityRepository;
-use Mrsuh\RealEstateBundle\Entity\Object\State;
+use Mrsuh\RealEstateBundle\C;
+use Mrsuh\RealEstateBundle\Entity\Advert\AdvertType;
 
 
-class StateRepository extends EntityRepository
+class AdvertTypeRepository extends EntityRepository
 {
     public function create($name)
     {
         $this->_em->beginTransaction();
         try {
-            $obj = new State();
+            $obj = new AdvertType();
             $obj->setName($name);
 
             $this->_em->persist($obj);

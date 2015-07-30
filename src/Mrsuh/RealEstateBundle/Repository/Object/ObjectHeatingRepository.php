@@ -1,18 +1,18 @@
 <?php
 
-namespace Mrsuh\RealEstateBundle\Repository\Address;
+namespace Mrsuh\RealEstateBundle\Repository\Object;
 
 use Doctrine\ORM\EntityRepository;
-use Mrsuh\RealEstateBundle\Entity\Address\City;
+use Mrsuh\RealEstateBundle\Entity\Object\ObjectHeating;
 
 
-class CityRepository extends EntityRepository
+class ObjectHeatingRepository extends EntityRepository
 {
     public function create($name)
     {
         $this->_em->beginTransaction();
         try {
-            $obj = new City();
+            $obj = new ObjectHeating();
             $obj->setName($name);
 
             $this->_em->persist($obj);

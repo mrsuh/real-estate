@@ -1,6 +1,6 @@
 <?php
 
-namespace Mrsuh\RealEstateBundle\Entity;
+namespace Mrsuh\RealEstateBundle\Entity\Advert;
 
 use Doctrine\ORM\Mapping as ORM;
 
@@ -8,7 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
  * Advert
  *
  * @ORM\Table()
- * @ORM\Entity(repositoryClass="Mrsuh\RealEstateBundle\Repository\AdvertRepository")
+ * @ORM\Entity(repositoryClass="Mrsuh\RealEstateBundle\Repository\Advert\AdvertRepository")
  */
 class Advert
 {
@@ -32,21 +32,56 @@ class Advert
     /**
      * @var string
      *
-     * @ORM\OneToMany(targetEntity="Mrsuh\RealEstateBundle\Entity\Seller", mappedBy="advert")
+     * @ORM\Column(name="seller_name1", type="string", length=255, nullable=true)
      */
-    private $seller;
+    private $sellerName1;
 
     /**
      * @var string
      *
-     * @ORM\OneToOne(targetEntity="Mrsuh\RealEstateBundle\Entity\AdvertDescription")
+     * @ORM\Column(name="seller_name2", type="string", length=255, nullable=true)
+     */
+    private $sellerName2;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="seller_name3", type="string", length=255, nullable=true)
+     */
+    private $sellerName3;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="seller_phone1", type="string", length=255, nullable=true)
+     */
+    private $sellerPhone1;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="seller_phone2", type="string", length=255, nullable=true)
+     */
+    private $sellerPhone2;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="seller_phone3", type="string", length=255, nullable=true)
+     */
+    private $sellerPhone3;
+
+    /**
+     * @var string
+     *
+     * @ORM\OneToOne(targetEntity="Mrsuh\RealEstateBundle\Entity\Advert\AdvertDescription")
      */
     private $description;
 
     /**
-     * @var integer
      *
-     * @ORM\Column(name="type", type="integer")
+     * @ORM\ManyToOne(targetEntity="Mrsuh\RealEstateBundle\Entity\Advert\AdvertType")
+     * @ORM\JoinColumn(name="type", referencedColumnName="id")
      */
     private $type;
 
@@ -92,6 +127,19 @@ class Advert
      */
     private $object;
 
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="price", type="integer", nullable=true)
+     */
+    private $price;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="Mrsuh\RealEstateBundle\Entity\Advert\AdvertCategory")
+     * @ORM\JoinColumn(name="category", referencedColumnName="id")
+     */
+    private $category;
+
 
     /**
      * Get id
@@ -124,29 +172,6 @@ class Advert
     public function getUser()
     {
         return $this->user;
-    }
-
-    /**
-     * Set sellerName1
-     *
-     * @param string $seller
-     * @return Advert
-     */
-    public function setSeller($seller)
-    {
-        $this->seller = $seller;
-
-        return $this;
-    }
-
-    /**
-     * Get sellerName1
-     *
-     * @return integer
-     */
-    public function getSeller()
-    {
-        return $this->seller;
     }
 
     /**
@@ -332,4 +357,151 @@ class Advert
     {
         return $this->object;
     }
+
+    /**
+     * @return mixed
+     */
+    public function getCategory()
+    {
+        return $this->category;
+    }
+
+    /**
+     * @param mixed $category
+     */
+    public function setCategory($category)
+    {
+        $this->category = $category;
+
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getPrice()
+    {
+        return $this->price;
+    }
+
+    /**
+     * @param string $price
+     */
+    public function setPrice($price)
+    {
+        $this->price = $price;
+
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getSellerName1()
+    {
+        return $this->sellerName1;
+    }
+
+    /**
+     * @param string $sellerName1
+     */
+    public function setSellerName1($sellerName1)
+    {
+        $this->sellerName1 = $sellerName1;
+
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getSellerName2()
+    {
+        return $this->sellerName2;
+    }
+
+    /**
+     * @param string $sellerName2
+     */
+    public function setSellerName2($sellerName2)
+    {
+        $this->sellerName2 = $sellerName2;
+
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getSellerName3()
+    {
+        return $this->sellerName3;
+    }
+
+    /**
+     * @param string $sellerName3
+     */
+    public function setSellerName3($sellerName3)
+    {
+        $this->sellerName3 = $sellerName3;
+
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getSellerPhone1()
+    {
+        return $this->sellerPhone1;
+    }
+
+    /**
+     * @param string $sellerPhone1
+     */
+    public function setSellerPhone1($sellerPhone1)
+    {
+        $this->sellerPhone1 = $sellerPhone1;
+
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getSellerPhone2()
+    {
+        return $this->sellerPhone2;
+    }
+
+    /**
+     * @param string $sellerPhone2
+     */
+    public function setSellerPhone2($sellerPhone2)
+    {
+        $this->sellerPhone2 = $sellerPhone2;
+
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getSellerPhone3()
+    {
+        return $this->sellerPhone3;
+    }
+
+    /**
+     * @param string $sellerPhone3
+     */
+    public function setSellerPhone3($sellerPhone3)
+    {
+        $this->sellerPhone3 = $sellerPhone3;
+
+        return $this;
+    }
+
+
+
 }

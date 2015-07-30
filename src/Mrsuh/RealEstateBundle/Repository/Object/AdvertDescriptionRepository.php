@@ -1,11 +1,11 @@
 <?php
 
-namespace Mrsuh\RealEstateBundle\Repository;
+namespace Mrsuh\RealEstateBundle\Repository\Advert;
 
 use Mrsuh\RealEstateBundle\Service\CommonFunction;
 use Doctrine\ORM\EntityRepository;
 use Mrsuh\RealEstateBundle\C;
-use Mrsuh\RealEstateBundle\Entity\AdvertDescription;
+use Mrsuh\RealEstateBundle\Entity\Advert\AdvertDescription;
 
 
 class AdvertDescriptionRepository extends EntityRepository

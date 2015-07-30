@@ -8,9 +8,9 @@ use Doctrine\ORM\Mapping as ORM;
  * Heating
  *
  * @ORM\Table()
- * @ORM\Entity(repositoryClass="Mrsuh\RealEstateBundle\Repository\Object\HeatingRepository")
+ * @ORM\Entity(repositoryClass="Mrsuh\RealEstateBundle\Repository\Object\ObjectHeatingRepository")
  */
-class Heating
+class ObjectHeating
 {
     /**
      * @var integer

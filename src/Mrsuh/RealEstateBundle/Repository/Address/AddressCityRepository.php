@@ -3,16 +3,16 @@
 namespace Mrsuh\RealEstateBundle\Repository\Address;
 
 use Doctrine\ORM\EntityRepository;
-use Mrsuh\RealEstateBundle\Entity\Address\Street;
+use Mrsuh\RealEstateBundle\Entity\Address\AddressCity;
 
 
-class StreetRepository extends EntityRepository
+class AddressCityRepository extends EntityRepository
 {
     public function create($name)
     {
         $this->_em->beginTransaction();
         try {
-            $obj = new Street();
+            $obj = new AddressCity();
             $obj->setName($name);
 
             $this->_em->persist($obj);

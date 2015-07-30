@@ -3,16 +3,16 @@
 namespace Mrsuh\RealEstateBundle\Repository\Object;
 
 use Doctrine\ORM\EntityRepository;
-use Mrsuh\RealEstateBundle\Entity\Object\Balcony;
+use Mrsuh\RealEstateBundle\Entity\Object\ObjectType;
 
 
-class BalconyRepository extends EntityRepository
+class ObjectTypeRepository extends EntityRepository
 {
     public function create($name)
     {
         $this->_em->beginTransaction();
         try {
-            $obj = new Balcony();
+            $obj = new ObjectType();
             $obj->setName($name);
 
             $this->_em->persist($obj);

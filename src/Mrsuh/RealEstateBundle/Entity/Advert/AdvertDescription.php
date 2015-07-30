@@ -1,6 +1,6 @@
 <?php
 
-namespace Mrsuh\RealEstateBundle\Entity;
+namespace Mrsuh\RealEstateBundle\Entity\Advert;
 
 use Doctrine\ORM\Mapping as ORM;
 
@@ -8,7 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
  * AdvertDescription
  *
  * @ORM\Table()
- * @ORM\Entity(repositoryClass="Mrsuh\RealEstateBundle\Repository\AdvertDescriptionRepository")
+ * @ORM\Entity(repositoryClass="Mrsuh\RealEstateBundle\Repository\Advert\AdvertDescriptionRepository")
  */
 class AdvertDescription
 {

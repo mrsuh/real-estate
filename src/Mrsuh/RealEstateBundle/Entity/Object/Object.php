@@ -31,7 +31,7 @@ class Object
     /**
      * @var integer
      *
-     * @ORM\ManyToOne(targetEntity="Mrsuh\RealEstateBundle\Entity\Object\Type")
+     * @ORM\ManyToOne(targetEntity="Mrsuh\RealEstateBundle\Entity\Object\ObjectType")
      * @ORM\JoinColumn(name="region", referencedColumnName="id")
      */
     private $type;
@@ -39,7 +39,7 @@ class Object
     /**
      * @var integer
      *
-     * @ORM\ManyToOne(targetEntity="Mrsuh\RealEstateBundle\Entity\Object\State")
+     * @ORM\ManyToOne(targetEntity="Mrsuh\RealEstateBundle\Entity\Object\ObjectState")
      * @ORM\JoinColumn(name="region", referencedColumnName="id")
      */
     private $state;
@@ -47,7 +47,7 @@ class Object
     /**
      * @var integer
      *
-     * @ORM\ManyToOne(targetEntity="Mrsuh\RealEstateBundle\Entity\Object\Wall")
+     * @ORM\ManyToOne(targetEntity="Mrsuh\RealEstateBundle\Entity\Object\ObjectWall")
      * @ORM\JoinColumn(name="region", referencedColumnName="id")
      */
     private $wall;
@@ -118,14 +118,14 @@ class Object
     /**
      * @var integer
      *
-     * @ORM\ManyToOne(targetEntity="Mrsuh\RealEstateBundle\Entity\Object\WaterSupply")
+     * @ORM\ManyToOne(targetEntity="Mrsuh\RealEstateBundle\Entity\Object\ObjectWaterSupply")
      * @ORM\JoinColumn(name="region", referencedColumnName="id")
      */
     private $waterSupply;
 
     /**
      *
-     * @ORM\ManyToOne(targetEntity="Mrsuh\RealEstateBundle\Entity\Object\Heating")
+     * @ORM\ManyToOne(targetEntity="Mrsuh\RealEstateBundle\Entity\Object\ObjectHeating")
      * @ORM\JoinColumn(name="region", referencedColumnName="id")
      */
     private $heating;
@@ -147,7 +147,7 @@ class Object
     /**
      * @var boolean
      *
-     * @ORM\ManyToOne(targetEntity="Mrsuh\RealEstateBundle\Entity\Object\Balcony")
+     * @ORM\ManyToOne(targetEntity="Mrsuh\RealEstateBundle\Entity\Object\ObjectBalcony")
      * @ORM\JoinColumn(name="region", referencedColumnName="id")
      */
     private $balcony;
@@ -155,31 +155,31 @@ class Object
     /**
      * @var integer
      *
-     * @ORM\ManyToOne(targetEntity="Mrsuh\RealEstateBundle\Entity\Object\Wc")
+     * @ORM\ManyToOne(targetEntity="Mrsuh\RealEstateBundle\Entity\Object\ObjectWc")
      * @ORM\JoinColumn(name="region", referencedColumnName="id")
      */
     private $wc;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Mrsuh\RealEstateBundle\Entity\Address\Region")
+     * @ORM\ManyToOne(targetEntity="Mrsuh\RealEstateBundle\Entity\Address\AddressRegion")
      * @ORM\JoinColumn(name="region", referencedColumnName="id")
      */
     private $region;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Mrsuh\RealEstateBundle\Entity\Address\City")
+     * @ORM\ManyToOne(targetEntity="Mrsuh\RealEstateBundle\Entity\Address\AddressCity")
      * @ORM\JoinColumn(name="city", referencedColumnName="id")
      */
     private $city;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Mrsuh\RealEstateBundle\Entity\Address\RegionCity")
+     * @ORM\ManyToOne(targetEntity="Mrsuh\RealEstateBundle\Entity\Address\AddressRegionCity")
      * @ORM\JoinColumn(name="region_city", referencedColumnName="id")
      */
     private $regionCity;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Mrsuh\RealEstateBundle\Entity\Address\Street")
+     * @ORM\ManyToOne(targetEntity="Mrsuh\RealEstateBundle\Entity\Address\AddressStreet")
      * @ORM\JoinColumn(name="street", referencedColumnName="id")
      */
     private $street;

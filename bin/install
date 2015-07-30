@@ -59,6 +59,15 @@ if [ ! -e "app/config/fixtures/address/street.yml" ] ; then
     echo "Fixtures created from street.yml.dist"
 fi
 
+if [ ! -e "app/config/fixtures/advert/type.yml" ] ; then
+    cp app/config/fixtures/advert/type.yml.dist app/config/fixtures/advert/type.yml
+    echo "Fixtures created from advert/type.yml.dist"
+fi
+
+if [ ! -e "app/config/fixtures/advert/category.yml" ] ; then
+    cp app/config/fixtures/advert/category.yml.dist app/config/fixtures/advert/category.yml
+    echo "Fixtures created from advert/category.yml.dist"
+fi
 
 yes | php app/console doctrine:fixtures:load
 

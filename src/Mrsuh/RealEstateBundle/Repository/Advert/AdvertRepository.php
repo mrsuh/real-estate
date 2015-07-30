@@ -1,11 +1,11 @@
 <?php
 
-namespace Mrsuh\RealEstateBundle\Repository;
+namespace Mrsuh\RealEstateBundle\Repository\Advert;
 
 use Mrsuh\RealEstateBundle\Service\CommonFunction;
 use Doctrine\ORM\EntityRepository;
 use Mrsuh\RealEstateBundle\C;
-use Mrsuh\RealEstateBundle\Entity\Advert;
+use Mrsuh\RealEstateBundle\Entity\Advert\Advert;
 
 
 class AdvertRepository extends EntityRepository
@@ -24,7 +24,7 @@ class AdvertRepository extends EntityRepository
             $advert->setExpireTime($time);
             $advert->setType(C::TYPE_ADVERT_RENT);
 
-            foreach (['user', 'description', 'object', 'exclusive'] as $v) {
+            foreach (['user', 'description', 'object', 'exclusive', 'seller_name1', 'seller_name2', 'seller_name3', 'seller_phone1', 'seller_phone2', 'seller_phone3' ] as $v) {
                 if (isset($params[$v]) && !is_null($p = $params[$v])) {
                     $s = 'set' . CommonFunction::dashesToCamelCase($v);
                     $advert->$s($p);
