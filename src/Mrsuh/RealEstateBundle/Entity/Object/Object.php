@@ -32,7 +32,7 @@ class Object
      * @var integer
      *
      * @ORM\ManyToOne(targetEntity="Mrsuh\RealEstateBundle\Entity\Object\ObjectType")
-     * @ORM\JoinColumn(name="region", referencedColumnName="id")
+     * @ORM\JoinColumn(name="type", referencedColumnName="id")
      */
     private $type;
 
@@ -40,7 +40,7 @@ class Object
      * @var integer
      *
      * @ORM\ManyToOne(targetEntity="Mrsuh\RealEstateBundle\Entity\Object\ObjectState")
-     * @ORM\JoinColumn(name="region", referencedColumnName="id")
+     * @ORM\JoinColumn(name="state", referencedColumnName="id")
      */
     private $state;
 
@@ -48,7 +48,7 @@ class Object
      * @var integer
      *
      * @ORM\ManyToOne(targetEntity="Mrsuh\RealEstateBundle\Entity\Object\ObjectWall")
-     * @ORM\JoinColumn(name="region", referencedColumnName="id")
+     * @ORM\JoinColumn(name="wall", referencedColumnName="id")
      */
     private $wall;
 
@@ -119,14 +119,14 @@ class Object
      * @var integer
      *
      * @ORM\ManyToOne(targetEntity="Mrsuh\RealEstateBundle\Entity\Object\ObjectWaterSupply")
-     * @ORM\JoinColumn(name="region", referencedColumnName="id")
+     * @ORM\JoinColumn(name="watter_supply", referencedColumnName="id")
      */
     private $waterSupply;
 
     /**
      *
      * @ORM\ManyToOne(targetEntity="Mrsuh\RealEstateBundle\Entity\Object\ObjectHeating")
-     * @ORM\JoinColumn(name="region", referencedColumnName="id")
+     * @ORM\JoinColumn(name="heating", referencedColumnName="id")
      */
     private $heating;
 
@@ -148,7 +148,7 @@ class Object
      * @var boolean
      *
      * @ORM\ManyToOne(targetEntity="Mrsuh\RealEstateBundle\Entity\Object\ObjectBalcony")
-     * @ORM\JoinColumn(name="region", referencedColumnName="id")
+     * @ORM\JoinColumn(name="balcony", referencedColumnName="id")
      */
     private $balcony;
 
@@ -156,7 +156,7 @@ class Object
      * @var integer
      *
      * @ORM\ManyToOne(targetEntity="Mrsuh\RealEstateBundle\Entity\Object\ObjectWc")
-     * @ORM\JoinColumn(name="region", referencedColumnName="id")
+     * @ORM\JoinColumn(name="wc", referencedColumnName="id")
      */
     private $wc;
 

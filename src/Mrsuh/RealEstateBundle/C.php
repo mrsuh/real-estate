@@ -32,20 +32,11 @@ class C
     const ROLE_USER = 'ROLE_USER';
     const ROLE_SYSTEM = 'ROLE_SYSTEM';
 
-    //name for check_login
-    const WSSE_NAME = 'wsse_username';
-    const WSSE_PASS = 'wsse_password';
-
     //object status
     const STATUS_OBJECT_ACTIVE = 1;
     const STATUS_OBJECT_ARCHIVE = 2;
     const STATUS_OBJECT_RECALL = 3;
     const STATUS_OBJECT_NOT_RESPONSE = 4;
-
-
-    //advert type
-    const TYPE_ADVERT_RENT = 1;
-    const TYPE_ADVERT_SALE = 2;
 
     //advert status
     const STATUS_ADVERT_ACTIVE = 1;

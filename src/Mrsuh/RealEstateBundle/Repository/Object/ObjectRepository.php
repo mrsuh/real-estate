@@ -19,41 +19,39 @@ class ObjectRepository extends EntityRepository
             $object->setStatus(C::STATUS_OBJECT_ACTIVE);
 
             foreach ([
-                         'type',
-                         'state',
-                         'status',
-                         'wall',
-                         'room_number',
-                         'common_area',
-                         'live_area',
-                         'kitchen_area',
-                         'section_area',
-                         'floor',
-                         'floors',
-                         'build_year',
-                         'watter_supply',
-                         'heating',
-                         'new_house',
-                         'wc',
-                         'balcony',
-                         'mortgage',
-                         'region',
-                         'city',
-                         'region_city',
-                         'street',
-                         'house',
-                         'flat',
-                         'landmark'
+                         'object_type',
+                         'object_state',
+                         'object_wall',
+                         'object_room_number',
+                         'object_common_area',
+                         'object_live_area',
+                         'object_kitchen_area',
+                         'object_section_area',
+                         'object_floor',
+                         'object_floors',
+                         'object_build_year',
+                         'object_water_supply',
+                         'object_heating',
+                         'object_new_house',
+                         'object_wc',
+                         'object_balcony',
+                         'object_mortgage',
+                         'object_region',
+                         'object_city',
+                         'object_region_city',
+                         'object_street',
+                         'object_house',
+                         'object_flat',
+                         'object_landmark'
                      ] as $v) {
                 if (isset($params[$v]) && !is_null($p = $params[$v])) {
-                    $s = 'set' . CommonFunction::dashesToCamelCase($v);
+                    $s = 'set' . CommonFunction::dashesToCamelCase(str_replace('object_', '', $v));
                     $object->$s($p);
                 }
             }
 
             $this->_em->persist($object);
 
-            $this->_em->flush();
             $this->_em->commit();
         } catch (\Exception $e) {
             $this->_em->rollback();
@@ -96,7 +94,7 @@ class ObjectRepository extends EntityRepository
                          'landmark'
                      ] as $v) {
                 if (isset($params[$v]) && !is_null($p = $params[$v])) {
-                    $s = 'set' . CommonFunction::dashesToCamelCase($v);
+                    $s = 'set' . CommonFunction::dashesToCamelCase(str_replace('object_', '', $v));
                     $object->$s($p);
                 }
             }

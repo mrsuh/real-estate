@@ -22,11 +22,25 @@ class AdvertRepository extends EntityRepository
             $advert->setCreateTime($time);
             $advert->setUpdateTime($time);
             $advert->setExpireTime($time);
-            $advert->setType(C::TYPE_ADVERT_RENT);
 
-            foreach (['user', 'description', 'object', 'exclusive', 'seller_name1', 'seller_name2', 'seller_name3', 'seller_phone1', 'seller_phone2', 'seller_phone3' ] as $v) {
+            foreach ([
+                         'advert_user',
+                         'advert_type',
+                         'advert_description',
+                         'advert_object',
+                         'advert_exclusive',
+                         'advert_seller_name1',
+                         'advert_seller_name2',
+                         'advert_seller_name3',
+                         'advert_seller_phone1',
+                         'advert_seller_phone2',
+                         'advert_seller_phone3',
+                         'advert_price',
+                         'advert_category'
+
+                     ] as $v) {
                 if (isset($params[$v]) && !is_null($p = $params[$v])) {
-                    $s = 'set' . CommonFunction::dashesToCamelCase($v);
+                    $s = 'set' . CommonFunction::dashesToCamelCase(str_replace('advert_', '', $v));
                     $advert->$s($p);
                 }
             }
@@ -49,9 +63,18 @@ class AdvertRepository extends EntityRepository
         try {
 
             $advert->setUpdateTime(new \DateTime());
-            foreach (['user', 'description', 'type', 'status', 'expire_time'] as $v) {
+            foreach ([
+                         'advert_user',
+                         'advert_description',
+                         'advert_type',
+                         'advert_status',
+                         'advert_expire_time',
+                         'advert_price',
+                         'advert_category'
+
+                     ] as $v) {
                 if (isset($params[$v]) && !is_null($p = $params[$v])) {
-                    $s = 'set' . CommonFunction::dashesToCamelCase($v);
+                    $s = 'set' . CommonFunction::dashesToCamelCase(str_replace('advert_', '', $v));
                     $advert->$s($p);
                 }
             }

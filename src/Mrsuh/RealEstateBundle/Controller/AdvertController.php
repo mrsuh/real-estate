@@ -26,7 +26,7 @@ class AdvertController extends Controller
 
                 $this->addFlash(
                     'success',
-                    'Ваше объявленеи успешно создано'
+                    'Ваше объявление успешно создано'
                 );
                 $this->redirect($this->generateUrl('find_advert'));
 
@@ -51,8 +51,10 @@ class AdvertController extends Controller
             $formData = $form->getData();
         }
 
+        $adverts = $this->get('model.advert')->findByParam();
 
-        return $this->render('MrsuhRealEstateBundle:Advert:find_advert.html.twig', ['pageName' => 'Поиск объявления', 'form' => $form->createView()]);
+
+        return $this->render('MrsuhRealEstateBundle:Advert:find_advert.html.twig', ['pageName' => 'Поиск объявления', 'adverts' => $adverts, 'form' => $form->createView()]);
     }
 
     public function getAdvertByIdAction($id, Request $request)

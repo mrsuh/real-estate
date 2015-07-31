@@ -6,23 +6,23 @@
     <hr>
     <div class="row">
         <div class="col-md-2"><label>Имя продавца 1</label></div>
-        <div class="col-md-4">{{ form_widget(form.seller_name1, {'attr': {'class': 'form-control' }}) }}</div>
+        <div class="col-md-4">{{ form_widget(form.advert_seller_name1, {'attr': {'class': 'form-control' }}) }}</div>
         <div class="col-md-2"><label>Телефон продавца 1</label></div>
-        <div class="col-md-4">{{ form_widget(form.seller_phone1, {'attr': {'class': 'form-control' }}) }}</div>
+        <div class="col-md-4">{{ form_widget(form.advert_seller_phone1, {'attr': {'class': 'form-control' }}) }}</div>
     </div>
     <br>
     <div class="row">
         <div class="col-md-2"><label>Имя продавца 2</label></div>
-        <div class="col-md-4">{{ form_widget(form.seller_name2, {'attr': {'class': 'form-control' }}) }}</div>
+        <div class="col-md-4">{{ form_widget(form.advert_seller_name2, {'attr': {'class': 'form-control' }}) }}</div>
         <div class="col-md-2"><label>Телефон продавца 2</label></div>
-        <div class="col-md-4">{{ form_widget(form.seller_phone2, {'attr': {'class': 'form-control' }}) }}</div>
+        <div class="col-md-4">{{ form_widget(form.advert_seller_phone2, {'attr': {'class': 'form-control' }}) }}</div>
     </div>
     <br>
     <div class="row">
         <div class="col-md-2"><label>Имя продавца 3</label></div>
-        <div class="col-md-4">{{ form_widget(form.seller_name3, {'attr': {'class': 'form-control' }}) }}</div>
+        <div class="col-md-4">{{ form_widget(form.advert_seller_name3, {'attr': {'class': 'form-control' }}) }}</div>
         <div class="col-md-2"><label>Телефон продавца 3</label></div>
-        <div class="col-md-4">{{ form_widget(form.seller_phone3, {'attr': {'class': 'form-control' }}) }}</div>
+        <div class="col-md-4">{{ form_widget(form.advert_seller_phone3, {'attr': {'class': 'form-control' }}) }}</div>
     </div>
     <br>
     <label>Характеристики</label>
@@ -66,6 +66,8 @@
         <div class="col-md-2">{{ form_widget(form.object_section_area, {'attr': {'class': 'form-control' }}) }}</div>
         <div class="col-md-2"><label>Год постройки</label></div>
         <div class="col-md-2">{{ form_widget(form.object_build_year, {'attr': {'class': 'form-control' }}) }}</div>
+        <div class="col-md-2"><label>Цена за квадратный метр</label></div>
+        <div class="col-md-2">{{ form_widget(form.object_meter_price, {'attr': {'class': 'form-control' }}) }}</div>
     </div>
     <br>
     <div class="row">
@@ -141,11 +143,35 @@
     <hr>
     <div class="row">
         <div class="col-md-2"><label>Время истечения объявления</label></div>
-        <div class="col-md-4">{{ form_widget(form.advert_expire_time, {'attr': {'class': 'form-control' }}) }}</div>
+        <div class="col-md-4">{{ form_widget(form.advert_expire_time, {'attr': {'class': 'form-control date'}}) }}</div>
 
     </div>
     <br>
     {{ form_widget(form.submit, {'attr': {'class': 'btn btn-success' }}) }}
     {{ form_end(form) }}
 
+{% endblock %}
+
+{% block js %}
+<script>
+    $(function() {
+
+        var object_meter_price =  $( "#createAdvert_object_meter_price");
+        var advert_price =  $( "#createAdvert_advert_price");
+        var object_common_area =  $( "#createAdvert_object_common_area");
+        var advert_expire_time =  $( "#createAdvert_advert_expire_time");
+
+        var mathMeterPrice = function()
+        {
+            console.info();
+            var meters = object_common_area.val();
+            var price = advert_price.val();
+            object_meter_price.val(price/meters);
+        };
+
+        object_common_area.change(function(){console.info(111)});
+        advert_price.change(mathMeterPrice);
+        advert_expire_time.datepicker();
+    });
+</script>
 {% endblock %}

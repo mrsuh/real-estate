@@ -22,7 +22,6 @@ class AdvertDescriptionRepository extends EntityRepository
 
             $this->_em->persist($obj);
 
-            $this->_em->flush();
             $this->_em->commit();
         } catch (\Exception $e) {
             $this->_em->rollback();
