@@ -25,23 +25,23 @@ class CreateAdvertForm extends AbstractType
         $builder->add('description_description', 'textarea', ['required' => false, 'attr' =>['value' => null]]);
         $builder->add('description_comment', 'textarea', ['required' => false, 'attr' =>['value' => null]]);
 
-        $builder->add('advert_expire_time', 'text', ['required' => false, 'attr' =>['value' => null]]);
+        $builder->add('advert_expire_time', 'text', ['required' => true, 'attr' =>['value' => null]]);
         $builder->add('advert_exclusive', 'choice', ['choices' => [1 => 'да', 0 => 'нет']]);
         $builder->add('advert_type', 'choice', ['choices' =>  $this->params['advert_type']]);
         $builder->add('advert_category', 'choice', ['choices' =>  $this->params['advert_category']]);
         $builder->add('advert_price', 'text', ['required' => false]);
+        $builder->add('advert_meter_price', 'text', ['required' => false, 'attr' =>['value' => null]]);
 
         $builder->add('object_type', 'choice', ['choices' => $this->params['object_type']]);
         $builder->add('object_state', 'choice', ['choices' => $this->params['object_state']]);
         $builder->add('object_wall', 'choice', ['choices' => $this->params['object_wall']]);
         $builder->add('object_room_number', 'text', ['required' => false, 'attr' =>['value' => null]]);
-        $builder->add('object_common_area', 'text', ['required' => false, 'attr' =>['value' => null]]);
-        $builder->add('object_meter_price', 'text', ['required' => false, 'attr' =>['value' => null]]);
-        $builder->add('object_live_area', 'text', ['required' => false, 'attr' =>['value' => null]]);
-        $builder->add('object_kitchen_area', 'text', ['required' => false, 'attr' =>['value' => null]]);
+        $builder->add('object_common_area', 'text', ['required' => true, 'attr' =>['value' => null]]);
+        $builder->add('object_live_area', 'text', ['required' => true, 'attr' =>['value' => null]]);
+        $builder->add('object_kitchen_area', 'text', ['required' => true, 'attr' =>['value' => null]]);
         $builder->add('object_section_area', 'text', ['required' => false, 'attr' =>['value' => null]]);
-        $builder->add('object_floor', 'text', ['required' => false, 'attr' =>['value' => null]]);
-        $builder->add('object_floors', 'text', ['required' => false, 'attr' =>['value' => null]]);
+        $builder->add('object_floor', 'text', ['required' => true, 'attr' =>['value' => null]]);
+        $builder->add('object_floors', 'text', ['required' => true, 'attr' =>['value' => null]]);
         $builder->add('object_build_year', 'text', ['required' => false, 'attr' =>['value' => null]]);
         $builder->add('object_water_supply', 'choice', ['choices' => $this->params['object_water_supply']]);
         $builder->add('object_heating', 'choice', ['choices' => $this->params['object_heating']]);

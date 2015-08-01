@@ -20,6 +20,7 @@
                     <ul class="dropdown-menu">
                         <li><a href="{{ url('find_advert') }}">Поиск объявления</a></li>
                         <li><a href="{{ url('create_advert') }}">Подать объявление</a></li>
+                        <li><a href="{{ url('list_advert') }}">Список объявлений</a></li>
                     </ul>
                 </li>
 
@@ -33,7 +34,7 @@
             </ul>
 
             <ul class="nav navbar-nav navbar-right">
-                <li><img src="{{ asset('img/scarlett_square.jpg') }}" alt="..." class="img-circle" style="width:40px; margin-top:5px"></li>
+                <li><img src="{{ asset('img/scarlett_square.jpg') }}" class="img-circle" style="width:40px; margin-top:5px"></li>
                 <li><a href="{{ url('profile') }}" >{{ username }}</a></li>
                 <li><a href="{{ url('logout') }}" class="glyphicon glyphicon-log-out"></a></li>
             </ul>

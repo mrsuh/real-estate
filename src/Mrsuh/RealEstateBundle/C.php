@@ -44,4 +44,21 @@ class C
     const STATUS_ADVERT_DELETED = 3;
     const STATUS_ADVERT_AGENT = 4;
 
+    const OBJECT_TYPE_HOUSE = 'Дом(коттедж)';
+    const OBJECT_TYPE_EARTH_AREA = 'Земельный участок';
+    const OBJECT_TYPE_FLAT = 'Квартира';
+    const OBJECT_TYPE_COMMERCE = 'Коммерческая';
+    const OBJECT_TYPE_ROOM = 'Комната';
+
+
+    const HOUSE_NUMBER = 1;
+    const PHONE_NUMBER = 2;
+    const STREET_NAME= 3;
+    const LANDMARK = 4;
+    const DESCRIPTION = 5;
+
+    const SEARCH_STRING = 'search_string';
+    const SEARCH_EXTENSION= 'search_extension';
+    const SEARCH_PERIOD= 'search_period';
+
 }

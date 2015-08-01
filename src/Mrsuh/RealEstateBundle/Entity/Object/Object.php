@@ -53,13 +53,6 @@ class Object
     private $wall;
 
     /**
-     * @var string
-     *
-     * @ORM\Column(name="meterPrice", type="string", length=255, nullable=true)
-     */
-    private $meterPrice;
-
-    /**
      * @var integer
      *
      * @ORM\Column(name="roomNumber", type="integer", nullable=true)
@@ -306,29 +299,6 @@ class Object
     public function getWall()
     {
         return $this->wall;
-    }
-
-    /**
-     * Set meterPrice
-     *
-     * @param string $meterPrice
-     * @return Object
-     */
-    public function setMeterPrice($meterPrice)
-    {
-        $this->meterPrice = $meterPrice;
-
-        return $this;
-    }
-
-    /**
-     * Get meterPrice
-     *
-     * @return string 
-     */
-    public function getMeterPrice()
-    {
-        return $this->meterPrice;
     }
 
     /**

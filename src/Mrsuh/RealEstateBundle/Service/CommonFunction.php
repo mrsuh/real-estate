@@ -40,4 +40,15 @@ class CommonFunction
     {
         return in_array($currentRole, $roles);
     }
+
+    public static function stringToDateTime($date)
+    {
+        if(null === $date) {
+            return null;
+        }
+
+        list($day, $month, $year) = explode('.', $date);
+        $date = date('Y-m-d H:i:s', mktime(0, 0, 0, $month, $day, $year));
+        return new \DateTime($date);
+    }
 } 

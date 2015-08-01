@@ -48,6 +48,10 @@ edit_advert:
     path: /edit-advert/{id}
     defaults: { _controller: MrsuhRealEstateBundle:Advert:getAdvertById, id: id }
 
+list_advert:
+    path: /list-advert
+    defaults: { _controller: MrsuhRealEstateBundle:Advert:getList }
+
 find_advert:
     path: /find-advert
     defaults: { _controller: MrsuhRealEstateBundle:Advert:findAdvert }

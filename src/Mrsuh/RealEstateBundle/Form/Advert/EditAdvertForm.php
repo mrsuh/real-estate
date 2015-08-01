@@ -32,13 +32,13 @@ class EditAdvertForm extends AbstractType
         $builder->add('advert_type', 'choice', ['choices' =>  $this->params['advert_type'], 'data' => $this->advert->getType()->getId()]);
         $builder->add('advert_category', 'choice', ['choices' =>  $this->params['advert_category'], 'data' => $this->advert->getCategory()->getId()]);
         $builder->add('advert_price', 'text', ['required' => false, 'data' => $this->advert->getPrice()]);
+        $builder->add('advert_meter_price', 'text', ['required' => false, 'data' => $this->advert->getMeterPrice()]);
 
         $builder->add('object_type', 'choice', ['choices' => $this->params['object_type'], 'data' => $this->advert->getObject()->getType()->getId()]);
         $builder->add('object_state', 'choice', ['choices' => $this->params['object_state'], 'data' => $this->advert->getObject()->getState()->getId()]);
         $builder->add('object_wall', 'choice', ['choices' => $this->params['object_wall'], 'data' => $this->advert->getObject()->getWall()->getId()]);
         $builder->add('object_room_number', 'text', ['required' => false, 'data' => $this->advert->getObject()->getRoomNumber()]);
         $builder->add('object_common_area', 'text', ['required' => false, 'data' => $this->advert->getObject()->getCommonArea()]);
-        $builder->add('object_meter_price', 'text', ['required' => false, 'data' => $this->advert->getObject()->getMeterPrice()]);
         $builder->add('object_live_area', 'text', ['required' => false, 'data' => $this->advert->getObject()->getLiveArea()]);
         $builder->add('object_kitchen_area', 'text', ['required' => false, 'data' => $this->advert->getObject()->getKitchenArea()]);
         $builder->add('object_section_area', 'text', ['required' => false, 'data' => $this->advert->getObject()->getSectionArea()]);

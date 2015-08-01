@@ -1,6 +1,7 @@
 <?php namespace Mrsuh\RealEstateBundle\Model;
 
 use Mrsuh\RealEstateBundle\C;
+use Mrsuh\RealEstateBundle\Service\CommonFunction;
 
 class AdvertModel
 {
@@ -56,6 +57,8 @@ class AdvertModel
                 $params[$k] = $repo->findOneById($v);
             }
         }
+
+        $params['advert_expire_time'] = CommonFunction::stringToDateTime($params['advert_expire_time']);
 
         return $params;
     }

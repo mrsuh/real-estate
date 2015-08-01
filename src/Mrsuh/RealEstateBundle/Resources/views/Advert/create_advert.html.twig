@@ -28,11 +28,11 @@
     <label>Характеристики</label>
     <hr>
     <div class="row">
-        <div class="col-md-2"><label>Тип Объявления</label></div>
+        <div class="col-md-2"><label>Тип Объявления*</label></div>
         <div class="col-md-2">{{ form_widget(form.advert_type, {'attr': {'class': 'form-control' }}) }}</div>
-        <div class="col-md-2"><label>Категория</label></div>
+        <div class="col-md-2"><label>Категория*</label></div>
         <div class="col-md-2">{{ form_widget(form.advert_category, {'attr': {'class': 'form-control' }}) }}</div>
-        <div class="col-md-2"><label>Тип недвижимости</label></div>
+        <div class="col-md-2"><label>Тип недвижимости*</label></div>
         <div class="col-md-2">{{ form_widget(form.object_type, {'attr': {'class': 'form-control' }}) }}</div>
     </div>
     <br>
@@ -44,21 +44,21 @@
     </div>
     <br>
     <div class="row">
-        <div class="col-md-2"><label>Общая площадь</label></div>
+        <div class="col-md-2"><label>Общая площадь*</label></div>
         <div class="col-md-2">{{ form_widget(form.object_common_area, {'attr': {'class': 'form-control' }}) }}</div>
-        <div class="col-md-2"><label>Жилая площадь</label></div>
+        <div class="col-md-2"><label>Жилая площадь*</label></div>
         <div class="col-md-2">{{ form_widget(form.object_live_area, {'attr': {'class': 'form-control' }}) }}</div>
-        <div class="col-md-2"><label>Площадь кухни</label></div>
+        <div class="col-md-2"><label>Площадь кухни*</label></div>
         <div class="col-md-2">{{ form_widget(form.object_kitchen_area, {'attr': {'class': 'form-control' }}) }}</div>
     </div>
     <br>
     <div class="row">
-        <div class="col-md-2"><label>Этаж</label></div>
+        <div class="col-md-2"><label>Этаж*</label></div>
         <div class="col-md-2">{{ form_widget(form.object_floor, {'attr': {'class': 'form-control' }}) }}</div>
-        <div class="col-md-2"><label>Этажей в доме</label></div>
-        <div class="col-md-2">{{ form_widget(form.object_room_number, {'attr': {'class': 'form-control' }}) }}</div>
-        <div class="col-md-2"><label>Количество комнат</label></div>
+        <div class="col-md-2"><label>Этажей в доме*</label></div>
         <div class="col-md-2">{{ form_widget(form.object_floors, {'attr': {'class': 'form-control' }}) }}</div>
+        <div class="col-md-2"><label>Количество комнат</label></div>
+        <div class="col-md-2">{{ form_widget(form.object_room_number, {'attr': {'class': 'form-control' }}) }}</div>
     </div>
     <br>
     <div class="row">
@@ -67,7 +67,7 @@
         <div class="col-md-2"><label>Год постройки</label></div>
         <div class="col-md-2">{{ form_widget(form.object_build_year, {'attr': {'class': 'form-control' }}) }}</div>
         <div class="col-md-2"><label>Цена за квадратный метр</label></div>
-        <div class="col-md-2">{{ form_widget(form.object_meter_price, {'attr': {'class': 'form-control' }}) }}</div>
+        <div class="col-md-2">{{ form_widget(form.advert_meter_price, {'attr': {'class': 'form-control', 'readonly': 'readonly' }}) }}</div>
     </div>
     <br>
     <div class="row">
@@ -142,8 +142,8 @@
     <label>Остальное</label>
     <hr>
     <div class="row">
-        <div class="col-md-2"><label>Время истечения объявления</label></div>
-        <div class="col-md-4">{{ form_widget(form.advert_expire_time, {'attr': {'class': 'form-control date'}}) }}</div>
+        <div class="col-md-2"><label>Время истечения объявления*</label></div>
+        <div class="col-md-4">{{ form_widget(form.advert_expire_time, {'attr': {'class': 'form-control'}}) }}</div>
 
     </div>
     <br>
@@ -156,22 +156,27 @@
 <script>
     $(function() {
 
-        var object_meter_price =  $( "#createAdvert_object_meter_price");
+        var advert_meter_price =  $( "#createAdvert_advert_meter_price");
         var advert_price =  $( "#createAdvert_advert_price");
         var object_common_area =  $( "#createAdvert_object_common_area");
         var advert_expire_time =  $( "#createAdvert_advert_expire_time");
 
         var mathMeterPrice = function()
         {
-            console.info();
-            var meters = object_common_area.val();
-            var price = advert_price.val();
-            object_meter_price.val(price/meters);
+            var meters = parseFloat(object_common_area.val());
+            var price = parseFloat(advert_price.val());
+            var meterPrice = null;
+            if(!isNaN(meters) && !isNaN(price)) {
+                meterPrice = (price/meters).toFixed(0);
+            }
+
+            advert_meter_price.val(meterPrice);
         };
 
-        object_common_area.change(function(){console.info(111)});
-        advert_price.change(mathMeterPrice);
-        advert_expire_time.datepicker();
+        object_common_area.bind('change', mathMeterPrice);
+        advert_price.bind('change',mathMeterPrice);
+
+        advert_expire_time.datepicker({ dateFormat: 'dd.mm.yy' });
     });
 </script>
 {% endblock %}

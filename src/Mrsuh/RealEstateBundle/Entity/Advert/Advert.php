@@ -140,6 +140,13 @@ class Advert
      */
     private $category;
 
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="meterPrice", type="string", length=255, nullable=true)
+     */
+    private $meterPrice;
+
 
     /**
      * Get id
@@ -502,6 +509,27 @@ class Advert
         return $this;
     }
 
+    /**
+     * Set meterPrice
+     *
+     * @param string $meterPrice
+     * @return Object
+     */
+    public function setMeterPrice($meterPrice)
+    {
+        $this->meterPrice = $meterPrice;
 
+        return $this;
+    }
 
+    /**
+     * Get meterPrice
+     *
+     * @return string
+     */
+    public function getMeterPrice()
+    {
+        return $this->meterPrice;
+    }
 }
+

@@ -21,7 +21,6 @@ class AdvertRepository extends EntityRepository
             $time = new \DateTime();
             $advert->setCreateTime($time);
             $advert->setUpdateTime($time);
-            $advert->setExpireTime($time);
 
             foreach ([
                          'advert_user',
@@ -29,6 +28,7 @@ class AdvertRepository extends EntityRepository
                          'advert_description',
                          'advert_object',
                          'advert_exclusive',
+                         'advert_expire_time',
                          'advert_seller_name1',
                          'advert_seller_name2',
                          'advert_seller_name3',
@@ -36,6 +36,7 @@ class AdvertRepository extends EntityRepository
                          'advert_seller_phone2',
                          'advert_seller_phone3',
                          'advert_price',
+                         'advert_meter_price',
                          'advert_category'
 
                      ] as $v) {
@@ -70,6 +71,7 @@ class AdvertRepository extends EntityRepository
                          'advert_status',
                          'advert_expire_time',
                          'advert_price',
+                         'advert_meter_price',
                          'advert_category'
 
                      ] as $v) {

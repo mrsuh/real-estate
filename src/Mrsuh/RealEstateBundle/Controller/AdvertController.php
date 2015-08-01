@@ -56,6 +56,14 @@ class AdvertController extends Controller
 
         return $this->render('MrsuhRealEstateBundle:Advert:find_advert.html.twig', ['pageName' => 'Поиск объявления', 'adverts' => $adverts, 'form' => $form->createView()]);
     }
+    public function getListAction(Request $request)
+    {
+
+        $adverts = $this->get('model.advert')->findByParam();
+
+
+        return $this->render('MrsuhRealEstateBundle:Advert:list_advert.html.twig', ['pageName' => 'Список объявлений', 'adverts' => $adverts]);
+    }
 
     public function getAdvertByIdAction($id, Request $request)
     {
