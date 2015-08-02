@@ -28,29 +28,29 @@ profile:
 
 #clients
 client:
-    path: /client
-    defaults: { _controller: MrsuhRealEstateBundle:Client:client }
+    path: /client/{id}
+    defaults: { _controller: MrsuhRealEstateBundle:Client:getClientById, id: id }
 
 create_client:
     path: /create-client
     defaults: { _controller: MrsuhRealEstateBundle:Client:createClient }
 
-clients:
-    path: /clients
-    defaults: { _controller: MrsuhRealEstateBundle:Client:clients }
+list_client:
+    path: /list-clients
+    defaults: { _controller: MrsuhRealEstateBundle:Client:getListClient }
 
 find_client:
     path: /find-client
     defaults: { _controller: MrsuhRealEstateBundle:Client:findClient }
 
 #Advert
-edit_advert:
-    path: /edit-advert/{id}
+advert:
+    path: /advert/{id}
     defaults: { _controller: MrsuhRealEstateBundle:Advert:getAdvertById, id: id }
 
 list_advert:
     path: /list-advert
-    defaults: { _controller: MrsuhRealEstateBundle:Advert:getList }
+    defaults: { _controller: MrsuhRealEstateBundle:Advert:getListAdvert }
 
 find_advert:
     path: /find-advert

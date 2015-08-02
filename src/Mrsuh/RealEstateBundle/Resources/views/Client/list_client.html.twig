@@ -1,0 +1,23 @@
+{% extends "MrsuhRealEstateBundle::layout.html.twig" %}
+{% block content %}
+
+    <table class="table table-bordered">
+        <tr class="text-center">
+            <td>id</td>
+            <td>ФИО</td>
+            <td>статус</td>
+            <td>тип недвижимости</td>
+        </tr>
+
+        {% for client in clients %}
+            <tr>
+                <td class="text-center"> <a href="{{ url('client', { 'id': client.id }) }}">{{ client.id }}</a></td>
+                <td class="text-center">{{ client.name1 }}</td>
+                <td class="text-center">{{ client.status }}</td>
+                <td class="text-center">{{ client.objectType.name }}</td>
+            </tr>
+        {% endfor %}
+
+    </table>
+
+{% endblock %}

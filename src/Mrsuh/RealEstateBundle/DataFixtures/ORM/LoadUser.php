@@ -11,8 +11,8 @@ class LoadUser implements FixtureInterface
         $roleUser = $manager->getRepository(C::REPO_ROLE)->create(C::ROLE_USER);
         $roleAdmin = $manager->getRepository(C::REPO_ROLE)->create(C::ROLE_ADMIN);
 
-        $manager->getRepository(C::REPO_USER)->create(['username' => 'user', 'password' => 'pass', 'role' => $roleUser]);
-        $manager->getRepository(C::REPO_USER)->create(['username' => 'admin', 'password' => 'pass', 'role' => $roleAdmin]);
+        $manager->getRepository(C::REPO_USER)->create(['username' => 'user', 'password' => 'pass', 'role' => $roleUser, 'firstName' => 'Имя', 'lastName' => 'Фамилия', 'middleName' => 'Отчество']);
+        $manager->getRepository(C::REPO_USER)->create(['username' => 'admin', 'password' => 'pass', 'role' => $roleAdmin, 'firstName' => 'Имя', 'lastName' => 'Фамилия', 'middleName' => 'Отчество']);
     }
 
     public function getOrder()

@@ -1,5 +1,120 @@
 {% extends "MrsuhRealEstateBundle::layout.html.twig" %}
 {% block content %}
 
+    {{ form_start(form) }}
+
+    <div class="row">
+        <div class="col-md-2"><label>ФИО 1</label></div>
+        <div class="col-md-4">{{ form_widget(form.name1, {'attr': {'class': 'form-control' }}) }}</div>
+        <div class="col-md-2"><label>Номер телефона 1</label></div>
+        <div class="col-md-4">{{ form_widget(form.phone1, {'attr': {'class': 'form-control' }}) }}</div>
+    </div>
+    <br>
+    <div class="row">
+        <div class="col-md-2"><label>ФИО 2</label></div>
+        <div class="col-md-4">{{ form_widget(form.name2, {'attr': {'class': 'form-control' }}) }}</div>
+        <div class="col-md-2"><label>Номер телефона 2</label></div>
+        <div class="col-md-4">{{ form_widget(form.phone2, {'attr': {'class': 'form-control' }}) }}</div>
+    </div>
+    <br>
+    <div class="row">
+        <div class="col-md-2"><label>ФИО 3</label></div>
+        <div class="col-md-4">{{ form_widget(form.name3, {'attr': {'class': 'form-control' }}) }}</div>
+        <div class="col-md-2"><label>Номер телефона 3</label></div>
+        <div class="col-md-4">{{ form_widget(form.phone3, {'attr': {'class': 'form-control' }}) }}</div>
+    </div>
+    <br>
+    <hr>
+    <div class="row">
+        <div class="col-md-6">
+            <div class="row">
+                <div class="col-md-2"><label>Статус клиента</label></div>
+                <div class="col-md-4">{{ form_widget(form.status, {'attr': {'class': 'form-control' }}) }}</div>
+                <div class="col-md-2"><label>Тип недвижимости</label></div>
+                <div class="col-md-4">{{ form_widget(form.object_type, {'attr': {'class': 'form-control' }}) }}</div>
+            </div>
+            <br>
+            <div class="row">
+                <div class="col-md-2"><label>Ипотека</label></div>
+                <div class="col-md-4">{{ form_widget(form.mortgage, {'attr': {'class': 'form-control' }}) }}</div>
+                <div class="col-md-2"><label>Гораячий клиент</label></div>
+                <div class="col-md-4">{{ form_widget(form.hot, {'attr': {'class': 'form-control' }}) }}</div>
+            </div>
+            <br>
+            <div class="row">
+                <div class="col-md-2"><label>Город</label></div>
+                <div class="col-md-4">{{ form_widget(form.city, {'attr': {'class': 'form-control' }}) }}</div>
+                <div class="col-md-2"><label>Район города</label></div>
+                <div class="col-md-4">{{ form_widget(form.region_city, {'attr': {'class': 'form-control' }}) }}</div>
+            </div>
+            <br>
+            <div class="row">
+                <div class="col-md-2"><label>Дата рождения клиента</label></div>
+                <div class="col-md-4">{{ form_widget(form.birth_day, {'attr': {'class': 'form-control' }}) }}</div>
+            </div>
+            <br>
+            <br>
+            <br>
+            <div class="row">
+                <div class="col-md-2"><label>Комментарии</label></div>
+                <div class="col-md-12">{{ form_widget(form.comment, {'attr': {'class': 'form-control' }}) }}</div>
+
+            </div>
+            <br>
+        </div>
+        <div class="col-md-6">
+            <div class="row">
+                <div class="col-md-4"><label>Цена</label></div>
+                <div class="col-md-4">{{ form_widget(form.price_from, {'attr': {'class': 'form-control' }}) }}</div>
+                <div class="col-md-4">{{ form_widget(form.price_to, {'attr': {'class': 'form-control' }}) }}</div>
+            </div>
+            <br>
+            <div class="row">
+                <div class="col-md-4"><label>Количество комнат</label></div>
+                <div class="col-md-4">{{ form_widget(form.room_from, {'attr': {'class': 'form-control' }}) }}</div>
+                <div class="col-md-4">{{ form_widget(form.room_to, {'attr': {'class': 'form-control' }}) }}</div>
+            </div>
+            <br>
+            <div class="row">
+                <div class="col-md-4"><label>Общая площадь</label></div>
+                <div class="col-md-4">{{ form_widget(form.common_area_from, {'attr': {'class': 'form-control' }}) }}</div>
+                <div class="col-md-4">{{ form_widget(form.common_area_to, {'attr': {'class': 'form-control' }}) }}</div>
+            </div>
+            <br>
+            <div class="row">
+                <div class="col-md-4"><label>Жилая площадь</label></div>
+                <div class="col-md-4">{{ form_widget(form.live_area_from, {'attr': {'class': 'form-control' }}) }}</div>
+                <div class="col-md-4">{{ form_widget(form.live_area_to, {'attr': {'class': 'form-control' }}) }}</div>
+            </div>
+            <br>
+            <div class="row">
+                <div class="col-md-4"><label>Площадь кухни</label></div>
+                <div class="col-md-4">{{ form_widget(form.kitchen_area_from, {'attr': {'class': 'form-control' }}) }}</div>
+                <div class="col-md-4">{{ form_widget(form.kitchen_area_to, {'attr': {'class': 'form-control' }}) }}</div>
+            </div>
+            <br>
+            <div class="row">
+                <div class="col-md-4"><label>Земельный участок</label></div>
+                <div class="col-md-4">{{ form_widget(form.section_area_from, {'attr': {'class': 'form-control' }}) }}</div>
+                <div class="col-md-4">{{ form_widget(form.section_area_to, {'attr': {'class': 'form-control' }}) }}</div>
+            </div>
+            <br>
+            <div class="row">
+                <div class="col-md-4"><label>Этаж</label></div>
+                <div class="col-md-4">{{ form_widget(form.floor_from, {'attr': {'class': 'form-control' }}) }}</div>
+                <div class="col-md-4">{{ form_widget(form.floor_to, {'attr': {'class': 'form-control' }}) }}</div>
+            </div>
+            <br>
+            <div class="row">
+                <div class="col-md-4"><label>Этажность дома</label></div>
+                <div class="col-md-4">{{ form_widget(form.floors_from, {'attr': {'class': 'form-control' }}) }}</div>
+                <div class="col-md-4">{{ form_widget(form.floors_to, {'attr': {'class': 'form-control' }}) }}</div>
+            </div>
+            <br>
+        </div>
+    </div>
+
+    {{ form_widget(form.submit, {'attr': {'class': 'btn btn-success' }}) }}
+    {{ form_end(form) }}
 
 {% endblock %}

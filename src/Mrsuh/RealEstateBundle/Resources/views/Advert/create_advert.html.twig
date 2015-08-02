@@ -123,9 +123,12 @@
     <hr>
     <div class="row">
         <div class="col-md-2"><label>Фото</label></div>
-        <div class="col-md-4">пусто</div>
-
+        <div class="col-md-10">
+            {% for file in form.advert_image %}
+                {{ form_widget(file) }}
+            {% endfor %}
     </div>
+        </div>
     <br>
     <label>Описание</label>
     <hr>

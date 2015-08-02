@@ -9,6 +9,7 @@ class AdvertModel
     private $advertRepo;
     private $objectRepo;
     private $advertDescriptRepo;
+    private $advertImageRepo;
     private $em;
 
     public function __construct($em)
@@ -16,6 +17,7 @@ class AdvertModel
         $this->advertRepo = $em->getRepository(C::REPO_ADVERT);
         $this->objectRepo = $em->getRepository(C::REPO_OBJECT);
         $this->advertDescriptRepo = $em->getRepository(C::REPO_ADVERT_DESCRIPTION);
+        $this->advertImageRepo = $em->getRepository(C::REPO_ADVERT_IMAGE);
         $this->em = $em;
         $this->paramRepo = [
             'object_balcony' => $em->getRepository(C::REPO_OBJECT_BALCONY),
@@ -71,7 +73,12 @@ class AdvertModel
             $params['advert_object'] = $this->objectRepo->create($params);
             $params['advert_user'] = $user;
             $params['advert_description'] = $this->advertDescriptRepo->create(['description' => $params['description_description'], 'comment' => $params['description_comment']]);
-            $this->advertRepo->create($params);
+            $advert = $this->advertRepo->create($params);
+
+            foreach($params['advert_image'] as $i) {
+                $i->setAdvert($advert);//@todo empty check
+                $this->em->persist($i);
+            }
 
             $this->em->flush();
             $this->em->commit();

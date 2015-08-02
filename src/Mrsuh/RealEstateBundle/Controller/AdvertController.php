@@ -3,6 +3,7 @@
 use Mrsuh\RealEstateBundle\Form\Advert\CreateAdvertForm;
 use Mrsuh\RealEstateBundle\Form\Advert\FindAdvertForm;
 use Mrsuh\RealEstateBundle\Form\Advert\EditAdvertForm;
+use Mrsuh\RealEstateBundle\Service\CommonFunction;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Security\Core\Security;
@@ -56,12 +57,9 @@ class AdvertController extends Controller
 
         return $this->render('MrsuhRealEstateBundle:Advert:find_advert.html.twig', ['pageName' => 'Поиск объявления', 'adverts' => $adverts, 'form' => $form->createView()]);
     }
-    public function getListAction(Request $request)
+    public function getListAdvertAction(Request $request)
     {
-
         $adverts = $this->get('model.advert')->findByParam();
-
-
         return $this->render('MrsuhRealEstateBundle:Advert:list_advert.html.twig', ['pageName' => 'Список объявлений', 'adverts' => $adverts]);
     }
 
@@ -77,6 +75,6 @@ class AdvertController extends Controller
             $formData = $form->getData();
         }
 
-        return $this->render('MrsuhRealEstateBundle:Advert:edit_advert.html.twig', ['pageName' => 'Объявление', 'advert' => $advert, 'form' => $form->createView()]);
+        return $this->render('MrsuhRealEstateBundle:Advert:advert.html.twig', ['pageName' => 'Объявление #' . $advert->getId(), 'advert' => $advert, 'form' => $form->createView()]);
     }
 }

@@ -2,8 +2,9 @@
 {% block content %}
 
     {{ form_start(form) }}
-    <label>Данные продавца</label>
+    <label id="button_block_seller">Данные продавца</label>
     <hr>
+    <div id="block_seller">
     <div class="row">
         <div class="col-md-2"><label>Имя продавца 1</label></div>
         <div class="col-md-4">{{ form_widget(form.advert_seller_name1, {'attr': {'class': 'form-control' }}) }}</div>
@@ -24,9 +25,11 @@
         <div class="col-md-2"><label>Телефон продавца 3</label></div>
         <div class="col-md-4">{{ form_widget(form.advert_seller_phone3, {'attr': {'class': 'form-control' }}) }}</div>
     </div>
+    </div>
     <br>
-    <label>Характеристики</label>
+    <label id="button_block_characteristic">Характеристики</label>
     <hr>
+    <div id="block_characteristic">
     <div class="row">
         <div class="col-md-2"><label>Тип Объявления</label></div>
         <div class="col-md-2">{{ form_widget(form.advert_type, {'attr': {'class': 'form-control' }}) }}</div>
@@ -94,8 +97,11 @@
         <div class="col-md-2"><label>Ипотека</label></div>
         <div class="col-md-2">{{ form_widget(form.object_mortgage, {'attr': {'class': 'form-control' }}) }}</div>
     </div>
-    <label>Местоположение</label>
+    </div>
+    <br>
+    <label id="button_block_locate">Местоположение</label>
     <hr>
+    <div id="block_locate">
     <div class="row">
         <div class="col-md-2"><label>Регион</label></div>
         <div class="col-md-2">{{ form_widget(form.object_region, {'attr': {'class': 'form-control' }}) }}</div>
@@ -118,17 +124,24 @@
         <div class="col-md-2"><label>Ориентир</label></div>
         <div class="col-md-10">{{ form_widget(form.object_landmark, {'attr': {'class': 'form-control' }}) }}</div>
     </div>
-    <br>
-    <label>Фотографии</label>
-    <hr>
-    <div class="row">
-        <div class="col-md-2"><label>Фото</label></div>
-        <div class="col-md-4">пусто</div>
-
     </div>
     <br>
-    <label>Описание</label>
+    <label id="button_block_img">Фотографии</label>
     <hr>
+    <div id="block_img">
+    <div class="row">
+            {% for img in advert.getImg %}
+        <div class="col-md-2 img-responsive">
+                <img src="{{ asset( img.getMiniWebPath ) }}" style="max-width: 150px; max-height: 150px">
+        </div>
+            {% endfor %}
+
+    </div>
+    </div>
+    <br>
+    <label id="button_block_description">Описание</label>
+    <hr>
+    <div id="block_description">
     <div class="row">
         <div class="col-md-2"><label>Описание</label></div>
         <div class="col-md-10">{{ form_widget(form.description_description, {'attr': {'class': 'form-control' }}) }}</div>
@@ -138,16 +151,106 @@
         <div class="col-md-2"><label>Комментарии</label></div>
         <div class="col-md-10">{{ form_widget(form.description_comment, {'attr': {'class': 'form-control' }}) }}</div>
     </div>
+    </div>
     <br>
-    <label>Остальное</label>
+    <label id="button_block_other">Остальное</label>
     <hr>
+    <div id="block_other">
     <div class="row">
         <div class="col-md-2"><label>Время истечения объявления</label></div>
         <div class="col-md-4">{{ form_widget(form.advert_expire_time, {'attr': {'class': 'form-control date'}}) }}</div>
 
     </div>
+    </div>
     <br>
     {{ form_widget(form.submit, {'attr': {'class': 'btn btn-success' }}) }}
     {{ form_end(form) }}
 
+{% endblock %}
+
+{% block js %}
+    <script>
+        $(function() {
+
+            var block_seller =  $("#block_seller");
+            var block_characteristic =  $("#block_characteristic");
+            var block_locate =  $("#block_locate");
+            var block_description =  $("#block_description");
+            var block_other =  $("#block_other");
+            var block_img =  $("#block_img");
+
+
+            var button_block_seller =  $("#button_block_seller");
+            var button_block_characteristic =  $("#button_block_characteristic");
+            var button_block_locate =  $("#button_block_locate");
+            var button_block_description =  $("#button_block_description");
+            var button_block_other =  $("#button_block_other");
+            var button_block_img =  $("#button_block_img");
+
+            var mathMeterPrice = function()
+            {
+                var meters = parseFloat(object_common_area.val());
+                var price = parseFloat(advert_price.val());
+                var meterPrice = null;
+                if(!isNaN(meters) && !isNaN(price)) {
+                    meterPrice = (price/meters).toFixed(0);
+                }
+
+                advert_meter_price.val(meterPrice);
+            };
+
+            button_block_seller.click(function () {
+                if (block_seller.is(':hidden')) {
+                    block_seller.show('slow')
+                } else {
+                    block_seller.hide('slow')
+                }
+            });
+
+            button_block_characteristic.click(function () {
+                if (block_characteristic.is(':hidden')) {
+                    block_characteristic.show('slow')
+                } else {
+                    block_characteristic.hide('slow')
+                }
+            });
+
+            button_block_locate.click(function () {
+                if (block_locate.is(':hidden')) {
+                    block_locate.show('slow')
+                } else {
+                    block_locate.hide('slow')
+                }
+            });
+
+            button_block_description.click(function () {
+                if (block_description.is(':hidden')) {
+                    block_description.show('slow')
+                } else {
+                    block_description.hide('slow')
+                }
+            });
+
+            button_block_other.click(function () {
+                if (block_other.is(':hidden')) {
+                    block_other.show('slow')
+                } else {
+                    block_other.hide('slow')
+                }
+            });
+
+            button_block_img.click(function () {
+                if (block_img.is(':hidden')) {
+                    block_img.show('slow')
+                } else {
+                    block_img.hide('slow')
+                }
+            });
+
+            object_common_area.bind('change', mathMeterPrice);
+            advert_price.bind('change',mathMeterPrice);
+
+            advert_expire_time.datepicker({ dateFormat: 'dd.mm.yy' });
+        });
+    </script>
 {% endblock %}
