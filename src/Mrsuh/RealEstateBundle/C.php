@@ -54,7 +54,7 @@ class C
     const OBJECT_TYPE_ROOM = 'Комната';
 
 
-    const HOUSE_NUMBER = 1;
+    const OBJECT_NUMBER = 1;
     const PHONE_NUMBER = 2;
     const STREET_NAME= 3;
     const LANDMARK = 4;

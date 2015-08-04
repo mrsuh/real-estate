@@ -60,8 +60,6 @@ class AdvertModel
             }
         }
 
-        $params['advert_expire_time'] = CommonFunction::stringToDateTime($params['advert_expire_time']);
-
         return $params;
     }
 
@@ -76,7 +74,10 @@ class AdvertModel
             $advert = $this->advertRepo->create($params);
 
             foreach($params['advert_image'] as $i) {
-                $i->setAdvert($advert);//@todo empty check
+                if(is_null($i->getType())) {
+                    continue;
+                }
+                $i->setAdvert($advert);
                 $this->em->persist($i);
             }
 
@@ -96,6 +97,15 @@ class AdvertModel
     public function findByParam()
     {
         return $this->advertRepo->findAll();
+    }
+
+    public function findByString($params)
+    {
+        return $this->advertRepo->findByString($params);
+    }
+    public function findByExtensionParams($params)
+    {
+        return $this->advertRepo->findByExtensionParams($params);
     }
 
 }

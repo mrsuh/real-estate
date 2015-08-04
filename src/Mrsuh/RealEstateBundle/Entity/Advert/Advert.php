@@ -110,7 +110,7 @@ class Advert
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="expireTime", type="datetime")
+     * @ORM\Column(name="expireTime", type="datetime", nullable=true)
      */
     private $expireTime;
 

@@ -172,8 +172,6 @@ class AdvertImage
         return $this->id;
     }
 
-
-
     /**
      * @return mixed
      */
@@ -192,5 +190,11 @@ class AdvertImage
         return $this;
     }
 
-
+    /**
+     * @return mixed
+     */
+    public function getType()
+    {
+        return $this->type;
+    }
 }

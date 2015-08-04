@@ -35,8 +35,11 @@
         {% endif %}
 
                 <td class="text-center"><a href="{{ url('advert', { 'id': advert.id }) }}">{{ advert.id }}</a></td>
-                <td class="img-responsive center-block">
-                    <a href="{{ url('advert', { 'id': advert.id }) }}"><img src="{{ asset( advert.getImg[0].getMiniWebPath ) }}" style="max-width: 100px; max-height: 100px"></a>
+                <td class="img-responsive text-center">
+                    {% if (advert.getImg | first) != null %}
+                        <a href="{{ url('advert', { 'id': advert.id }) }}"><img src="{{ asset( (advert.getImg | first).getMiniWebPath ) }}" style="max-width: 100px; max-height: 100px"></a>
+                    {% endif %}
+
                 </td>
                 <td class="text-center">
                     {% if constant('Mrsuh\\RealEstateBundle\\C::OBJECT_TYPE_HOUSE') == advert.object.type.name %}

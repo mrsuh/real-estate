@@ -141,14 +141,7 @@
         <div class="col-md-2"><label>Комментарии</label></div>
         <div class="col-md-10">{{ form_widget(form.description_comment, {'attr': {'class': 'form-control' }}) }}</div>
     </div>
-    <br>
-    <label>Остальное</label>
     <hr>
-    <div class="row">
-        <div class="col-md-2"><label>Время истечения объявления*</label></div>
-        <div class="col-md-4">{{ form_widget(form.advert_expire_time, {'attr': {'class': 'form-control'}}) }}</div>
-
-    </div>
     <br>
     {{ form_widget(form.submit, {'attr': {'class': 'btn btn-success' }}) }}
     {{ form_end(form) }}

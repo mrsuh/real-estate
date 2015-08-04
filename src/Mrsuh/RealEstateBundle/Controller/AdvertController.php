@@ -46,14 +46,20 @@ class AdvertController extends Controller
     {
         $params = $this->get('model.advert')->getAdvertParams();
         $form = $this->createForm(new FindAdvertForm($params));
+        $adverts = [];
 
         if ($request->isMethod('POST')) {
+
             $form->handleRequest($request);
             $formData = $form->getData();
+            switch(true){
+                case $form->get(C::SEARCH_STRING)->isClicked():
+                    $adverts = $this->get('model.advert')->findByString($formData);
+                    break;
+                case $form->get(C::SEARCH_EXTENSION)->isClicked():
+                    $adverts = $this->get('model.advert')->findByExtensionParams($formData);
+            }
         }
-
-        $adverts = $this->get('model.advert')->findByParam();
-
 
         return $this->render('MrsuhRealEstateBundle:Advert:find_advert.html.twig', ['pageName' => 'Поиск объявления', 'adverts' => $adverts, 'form' => $form->createView()]);
     }

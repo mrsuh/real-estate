@@ -26,7 +26,6 @@ class CreateAdvertForm extends AbstractType
         $builder->add('description_description', 'textarea', ['required' => false, 'attr' =>['value' => null]]);
         $builder->add('description_comment', 'textarea', ['required' => false, 'attr' =>['value' => null]]);
 
-        $builder->add('advert_expire_time', 'text', ['required' => true, 'attr' =>['value' => null]]);
         $builder->add('advert_exclusive', 'choice', ['choices' => [1 => 'да', 0 => 'нет']]);
         $builder->add('advert_type', 'choice', ['choices' =>  $this->params['advert_type']]);
         $builder->add('advert_category', 'choice', ['choices' =>  $this->params['advert_category']]);
