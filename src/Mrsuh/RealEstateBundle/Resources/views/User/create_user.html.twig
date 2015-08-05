@@ -1,0 +1,42 @@
+{% extends "MrsuhRealEstateBundle::layout.html.twig" %}
+{% block content %}
+    {{ form_start(form) }}
+    <div class="row">
+        <div class="col-md-4"><img src="..." alt="..." class="img-thumbnail" style="height:300px; width:200px"></div>
+        <div class="col-md-8">
+            <br>
+            <div class="row">
+                <div class="col-md-4"><label>Логин</label></div>
+                <div class="col-md-8">{{ form_widget(form.username, {'attr': {'class': 'form-control'}}) }}</div>
+            </div>
+            <br>
+            <div class="row">
+                <div class="col-md-4"><label>Фамилия</label></div>
+                <div class="col-md-8">{{ form_widget(form.last_name, {'attr': {'class': 'form-control'}}) }}</div>
+            </div>
+            <br>
+            <div class="row">
+                <div class="col-md-4"><label>Имя</label></div>
+                <div class="col-md-8">{{ form_widget(form.first_name, {'attr': {'class': 'form-control'}}) }}</div>
+            </div>
+            <br>
+            <div class="row">
+                <div class="col-md-4"><label>Отчество</label></div>
+                <div class="col-md-8">{{ form_widget(form.middle_name, {'attr': {'class': 'form-control'}}) }}</div>
+            </div>
+            <br>
+            <div class="row">
+                <div class="col-md-4"><label>Телефон</label></div>
+                <div class="col-md-8">{{ form_widget(form.phone, {'attr': {'class': 'form-control'}}) }}</div>
+            </div>
+            <br>
+            <div class="row">
+                <div class="col-md-4"><label>Почтовый ящик</label></div>
+                <div class="col-md-8">{{ form_widget(form.email, {'attr': {'class': 'form-control'}}) }}</div>
+            </div>
+        </div>
+    </div>
+
+    {{ form_widget(form.submit, {'attr': {'class': 'btn btn-success'}}) }}
+    {{ form_end(form) }}
+{% endblock %}

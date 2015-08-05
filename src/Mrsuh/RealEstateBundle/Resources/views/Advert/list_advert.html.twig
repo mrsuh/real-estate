@@ -96,17 +96,17 @@
                     </div>
                     <div class="row">
                         <div class="col-md-12">
-                            <b>Истекает:</b> {{ advert.expireTime|date("d.m.Y") }}
+                            <b>Истекает:</b> {% if null != advert.expireTime %}{{ advert.expireTime|date("d.m.Y") }}{% endif %}
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-md-12">
-                            <b>Обновлено:</b> {{ advert.updateTime|date("d.m.Y") }}
+                            <b>Обновлено:</b> {% if null != advert.createTime %}{{ advert.updateTime|date("d.m.Y") }}{% endif %}
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-md-12">
-                            <b>Создано:</b> {{ advert.createTime|date("d.m.Y") }}
+                            <b>Создано:</b> {% if null != advert.createTime %}{{ advert.createTime|date("d.m.Y") }}{% endif %}
                         </div>
                     </div>
                 </td>

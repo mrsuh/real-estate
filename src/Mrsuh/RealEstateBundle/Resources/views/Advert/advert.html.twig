@@ -2,165 +2,200 @@
 {% block content %}
 
     {{ form_start(form) }}
-    <label id="button_block_seller">Данные продавца</label>
-    <hr>
+    <div class="row">
+        <div class="col-md-2"><label>Статус объявления</label></div>
+        <div class="col-md-4">{{ form_widget(form.advert_status, {'attr': {'class': 'form-control' }}) }}</div>
+    </div>
+    <label id="button_block_seller">Данные продавца</label><hr>
+
     <div id="block_seller">
-    <div class="row">
-        <div class="col-md-2"><label>Имя продавца 1</label></div>
-        <div class="col-md-4">{{ form_widget(form.advert_seller_name1, {'attr': {'class': 'form-control' }}) }}</div>
-        <div class="col-md-2"><label>Телефон продавца 1</label></div>
-        <div class="col-md-4">{{ form_widget(form.advert_seller_phone1, {'attr': {'class': 'form-control' }}) }}</div>
-    </div>
-    <br>
-    <div class="row">
-        <div class="col-md-2"><label>Имя продавца 2</label></div>
-        <div class="col-md-4">{{ form_widget(form.advert_seller_name2, {'attr': {'class': 'form-control' }}) }}</div>
-        <div class="col-md-2"><label>Телефон продавца 2</label></div>
-        <div class="col-md-4">{{ form_widget(form.advert_seller_phone2, {'attr': {'class': 'form-control' }}) }}</div>
-    </div>
-    <br>
-    <div class="row">
-        <div class="col-md-2"><label>Имя продавца 3</label></div>
-        <div class="col-md-4">{{ form_widget(form.advert_seller_name3, {'attr': {'class': 'form-control' }}) }}</div>
-        <div class="col-md-2"><label>Телефон продавца 3</label></div>
-        <div class="col-md-4">{{ form_widget(form.advert_seller_phone3, {'attr': {'class': 'form-control' }}) }}</div>
-    </div>
+        <div class="row">
+            <div class="col-md-2"><label>Имя продавца 1</label></div>
+            <div class="col-md-4">{{ form_widget(form.advert_seller_name1, {'attr': {'class': 'form-control' }}) }}
+            </div>
+            <div class="col-md-2"><label>Телефон продавца 1</label></div>
+            <div class="col-md-4">{{ form_widget(form.advert_seller_phone1, {'attr': {'class': 'form-control' }}) }}
+            </div>
+        </div>
+        <br>
+
+        <div class="row">
+            <div class="col-md-2"><label>Имя продавца 2</label></div>
+            <div class="col-md-4">{{ form_widget(form.advert_seller_name2, {'attr': {'class': 'form-control' }}) }}
+            </div>
+            <div class="col-md-2"><label>Телефон продавца 2</label></div>
+            <div class="col-md-4">{{ form_widget(form.advert_seller_phone2, {'attr': {'class': 'form-control' }}) }}
+            </div>
+        </div>
+        <br>
+
+        <div class="row">
+            <div class="col-md-2"><label>Имя продавца 3</label></div>
+            <div class="col-md-4">{{ form_widget(form.advert_seller_name3, {'attr': {'class': 'form-control' }}) }}
+            </div>
+            <div class="col-md-2"><label>Телефон продавца 3</label></div>
+            <div class="col-md-4">{{ form_widget(form.advert_seller_phone3, {'attr': {'class': 'form-control' }}) }}
+            </div>
+        </div>
     </div>
     <br>
     <label id="button_block_characteristic">Характеристики</label>
     <hr>
     <div id="block_characteristic">
-    <div class="row">
-        <div class="col-md-2"><label>Тип Объявления</label></div>
-        <div class="col-md-2">{{ form_widget(form.advert_type, {'attr': {'class': 'form-control' }}) }}</div>
-        <div class="col-md-2"><label>Категория</label></div>
-        <div class="col-md-2">{{ form_widget(form.advert_category, {'attr': {'class': 'form-control' }}) }}</div>
-        <div class="col-md-2"><label>Тип недвижимости</label></div>
-        <div class="col-md-2">{{ form_widget(form.object_type, {'attr': {'class': 'form-control' }}) }}</div>
-    </div>
-    <br>
-    <div class="row">
-        <div class="col-md-2"><label>Эксклюзив</label></div>
-        <div class="col-md-2">{{ form_widget(form.advert_exclusive, {'attr': {'class': 'form-control' }}) }}</div>
-        <div class="col-md-2"><label>Цена</label></div>
-        <div class="col-md-2">{{ form_widget(form.advert_price, {'attr': {'class': 'form-control' }}) }}</div>
-    </div>
-    <br>
-    <div class="row">
-        <div class="col-md-2"><label>Общая площадь</label></div>
-        <div class="col-md-2">{{ form_widget(form.object_common_area, {'attr': {'class': 'form-control' }}) }}</div>
-        <div class="col-md-2"><label>Жилая площадь</label></div>
-        <div class="col-md-2">{{ form_widget(form.object_live_area, {'attr': {'class': 'form-control' }}) }}</div>
-        <div class="col-md-2"><label>Площадь кухни</label></div>
-        <div class="col-md-2">{{ form_widget(form.object_kitchen_area, {'attr': {'class': 'form-control' }}) }}</div>
-    </div>
-    <br>
-    <div class="row">
-        <div class="col-md-2"><label>Этаж</label></div>
-        <div class="col-md-2">{{ form_widget(form.object_floor, {'attr': {'class': 'form-control' }}) }}</div>
-        <div class="col-md-2"><label>Этажей в доме</label></div>
-        <div class="col-md-2">{{ form_widget(form.object_room_number, {'attr': {'class': 'form-control' }}) }}</div>
-        <div class="col-md-2"><label>Количество комнат</label></div>
-        <div class="col-md-2">{{ form_widget(form.object_floors, {'attr': {'class': 'form-control' }}) }}</div>
-    </div>
-    <br>
-    <div class="row">
-        <div class="col-md-2"><label>Земельный участок</label></div>
-        <div class="col-md-2">{{ form_widget(form.object_section_area, {'attr': {'class': 'form-control' }}) }}</div>
-        <div class="col-md-2"><label>Год постройки</label></div>
-        <div class="col-md-2">{{ form_widget(form.object_build_year, {'attr': {'class': 'form-control' }}) }}</div>
-        <div class="col-md-2"><label>Цена за квадратный метр</label></div>
-        <div class="col-md-2">{{ form_widget(form.advert_meter_price, {'attr': {'class': 'form-control' }}) }}</div>
-    </div>
-    <br>
-    <div class="row">
-        <div class="col-md-2"><label>Общее состояние</label></div>
-        <div class="col-md-2">{{ form_widget(form.object_state, {'attr': {'class': 'form-control' }}) }}</div>
-        <div class="col-md-2"><label>Материал стен</label></div>
-        <div class="col-md-2">{{ form_widget(form.object_wall, {'attr': {'class': 'form-control' }}) }}</div>
-        <div class="col-md-2"><label>Тип водоснабжения</label></div>
-        <div class="col-md-2">{{ form_widget(form.object_water_supply, {'attr': {'class': 'form-control' }}) }}</div>
-    </div>
-    <br>
-    <div class="row">
-        <div class="col-md-2"><label>Тип отопления</label></div>
-        <div class="col-md-2">{{ form_widget(form.object_heating, {'attr': {'class': 'form-control' }}) }}</div>
-        <div class="col-md-2"><label>Балкон / лоджия</label></div>
-        <div class="col-md-2">{{ form_widget(form.object_balcony, {'attr': {'class': 'form-control' }}) }}</div>
-        <div class="col-md-2"><label>Новостройка</label></div>
-        <div class="col-md-2">{{ form_widget(form.object_new_house, {'attr': {'class': 'form-control' }}) }}</div>
-    </div>
-    <br>
-    <div class="row">
-        <div class="col-md-2"><label>Санузел</label></div>
-        <div class="col-md-2">{{ form_widget(form.object_wc, {'attr': {'class': 'form-control' }}) }}</div>
-        <div class="col-md-2"><label>Ипотека</label></div>
-        <div class="col-md-2">{{ form_widget(form.object_mortgage, {'attr': {'class': 'form-control' }}) }}</div>
-    </div>
+        <div class="row">
+            <div class="col-md-2"><label>Тип Объявления</label></div>
+            <div class="col-md-2">{{ form_widget(form.advert_type, {'attr': {'class': 'form-control' }}) }}</div>
+            <div class="col-md-2"><label>Категория</label></div>
+            <div class="col-md-2">{{ form_widget(form.advert_category, {'attr': {'class': 'form-control' }}) }}</div>
+            <div class="col-md-2"><label>Тип недвижимости</label></div>
+            <div class="col-md-2">{{ form_widget(form.object_type, {'attr': {'class': 'form-control' }}) }}</div>
+        </div>
+        <br>
+
+        <div class="row">
+            <div class="col-md-2"><label>Эксклюзив</label></div>
+            <div class="col-md-2">{{ form_widget(form.advert_exclusive, {'attr': {'class': 'form-control' }}) }}</div>
+            <div class="col-md-2"><label>Цена</label></div>
+            <div class="col-md-2">{{ form_widget(form.advert_price, {'attr': {'class': 'form-control' }}) }}</div>
+        </div>
+        <br>
+
+        <div class="row">
+            <div class="col-md-2"><label>Общая площадь</label></div>
+            <div class="col-md-2">{{ form_widget(form.object_common_area, {'attr': {'class': 'form-control' }}) }}</div>
+            <div class="col-md-2"><label>Жилая площадь</label></div>
+            <div class="col-md-2">{{ form_widget(form.object_live_area, {'attr': {'class': 'form-control' }}) }}</div>
+            <div class="col-md-2"><label>Площадь кухни</label></div>
+            <div class="col-md-2">{{ form_widget(form.object_kitchen_area, {'attr': {'class': 'form-control' }}) }}
+            </div>
+        </div>
+        <br>
+
+        <div class="row">
+            <div class="col-md-2"><label>Этаж</label></div>
+            <div class="col-md-2">{{ form_widget(form.object_floor, {'attr': {'class': 'form-control' }}) }}</div>
+            <div class="col-md-2"><label>Этажей в доме</label></div>
+            <div class="col-md-2">{{ form_widget(form.object_room_number, {'attr': {'class': 'form-control' }}) }}</div>
+            <div class="col-md-2"><label>Количество комнат</label></div>
+            <div class="col-md-2">{{ form_widget(form.object_floors, {'attr': {'class': 'form-control' }}) }}</div>
+        </div>
+        <br>
+
+        <div class="row">
+            <div class="col-md-2"><label>Земельный участок</label></div>
+            <div class="col-md-2">{{ form_widget(form.object_section_area, {'attr': {'class': 'form-control' }}) }}
+            </div>
+            <div class="col-md-2"><label>Год постройки</label></div>
+            <div class="col-md-2">{{ form_widget(form.object_build_year, {'attr': {'class': 'form-control' }}) }}</div>
+            <div class="col-md-2"><label>Цена за квадратный метр</label></div>
+            <div class="col-md-2">{{ form_widget(form.advert_meter_price, {'attr': {'class': 'form-control', 'readonly': 'readonly' }}) }}</div>
+        </div>
+        <br>
+
+        <div class="row">
+            <div class="col-md-2"><label>Общее состояние</label></div>
+            <div class="col-md-2">{{ form_widget(form.object_state, {'attr': {'class': 'form-control' }}) }}</div>
+            <div class="col-md-2"><label>Материал стен</label></div>
+            <div class="col-md-2">{{ form_widget(form.object_wall, {'attr': {'class': 'form-control' }}) }}</div>
+            <div class="col-md-2"><label>Тип водоснабжения</label></div>
+            <div class="col-md-2">{{ form_widget(form.object_water_supply, {'attr': {'class': 'form-control' }}) }}
+            </div>
+        </div>
+        <br>
+
+        <div class="row">
+            <div class="col-md-2"><label>Тип отопления</label></div>
+            <div class="col-md-2">{{ form_widget(form.object_heating, {'attr': {'class': 'form-control' }}) }}</div>
+            <div class="col-md-2"><label>Балкон / лоджия</label></div>
+            <div class="col-md-2">{{ form_widget(form.object_balcony, {'attr': {'class': 'form-control' }}) }}</div>
+            <div class="col-md-2"><label>Новостройка</label></div>
+            <div class="col-md-2">{{ form_widget(form.object_new_house, {'attr': {'class': 'form-control' }}) }}</div>
+        </div>
+        <br>
+
+        <div class="row">
+            <div class="col-md-2"><label>Санузел</label></div>
+            <div class="col-md-2">{{ form_widget(form.object_wc, {'attr': {'class': 'form-control' }}) }}</div>
+            <div class="col-md-2"><label>Ипотека</label></div>
+            <div class="col-md-2">{{ form_widget(form.object_mortgage, {'attr': {'class': 'form-control' }}) }}</div>
+        </div>
     </div>
     <br>
     <label id="button_block_locate">Местоположение</label>
     <hr>
     <div id="block_locate">
-    <div class="row">
-        <div class="col-md-2"><label>Регион</label></div>
-        <div class="col-md-2">{{ form_widget(form.object_region, {'attr': {'class': 'form-control' }}) }}</div>
-        <div class="col-md-2"><label>Город</label></div>
-        <div class="col-md-2">{{ form_widget(form.object_city, {'attr': {'class': 'form-control' }}) }}</div>
-        <div class="col-md-2"><label>Район города</label></div>
-        <div class="col-md-2">{{ form_widget(form.object_region_city, {'attr': {'class': 'form-control' }}) }}</div>
-    </div>
-    <br>
-    <div class="row">
-        <div class="col-md-2"><label>Улица</label></div>
-        <div class="col-md-2">{{ form_widget(form.object_street, {'attr': {'class': 'form-control' }}) }}</div>
-        <div class="col-md-2"><label>Номер дома</label></div>
-        <div class="col-md-2">{{ form_widget(form.object_house, {'attr': {'class': 'form-control' }}) }}</div>
-        <div class="col-md-2"><label>Квартира</label></div>
-        <div class="col-md-2">{{ form_widget(form.object_flat, {'attr': {'class': 'form-control' }}) }}</div>
-    </div>
-    <br>
-    <div class="row">
-        <div class="col-md-2"><label>Ориентир</label></div>
-        <div class="col-md-10">{{ form_widget(form.object_landmark, {'attr': {'class': 'form-control' }}) }}</div>
-    </div>
+        <div class="row">
+            <div class="col-md-2"><label>Регион</label></div>
+            <div class="col-md-2">{{ form_widget(form.object_region, {'attr': {'class': 'form-control' }}) }}</div>
+            <div class="col-md-2"><label>Город</label></div>
+            <div class="col-md-2">{{ form_widget(form.object_city, {'attr': {'class': 'form-control' }}) }}</div>
+            <div class="col-md-2"><label>Район города</label></div>
+            <div class="col-md-2">{{ form_widget(form.object_region_city, {'attr': {'class': 'form-control' }}) }}</div>
+        </div>
+        <br>
+
+        <div class="row">
+            <div class="col-md-2"><label>Улица</label></div>
+            <div class="col-md-2">{{ form_widget(form.object_street, {'attr': {'class': 'form-control' }}) }}</div>
+            <div class="col-md-2"><label>Номер дома</label></div>
+            <div class="col-md-2">{{ form_widget(form.object_house, {'attr': {'class': 'form-control' }}) }}</div>
+            <div class="col-md-2"><label>Квартира</label></div>
+            <div class="col-md-2">{{ form_widget(form.object_flat, {'attr': {'class': 'form-control' }}) }}</div>
+        </div>
+        <br>
+
+        <div class="row">
+            <div class="col-md-2"><label>Ориентир</label></div>
+            <div class="col-md-10">{{ form_widget(form.object_landmark, {'attr': {'class': 'form-control' }}) }}</div>
+        </div>
     </div>
     <br>
     <label id="button_block_img">Фотографии</label>
     <hr>
     <div id="block_img">
-    <div class="row">
+        <div class="row">
             {% for img in advert.getImg %}
-        <div class="col-md-2 img-responsive text-center">
-                <img src="{{ asset( img.getMiniWebPath ) }}" style="max-width: 150px; max-height: 150px">
-        </div>
+                <div class="col-md-2 img-responsive text-center">
+                    <img src="{{ asset( img.getMiniWebPath ) }}" style="max-width: 150px; max-height: 150px">
+                </div>
             {% endfor %}
 
-    </div>
+        </div>
     </div>
     <br>
     <label id="button_block_description">Описание</label>
     <hr>
     <div id="block_description">
-    <div class="row">
-        <div class="col-md-2"><label>Описание</label></div>
-        <div class="col-md-10">{{ form_widget(form.description_description, {'attr': {'class': 'form-control' }}) }}</div>
+        <div class="row">
+            <div class="col-md-2"><label>Описание</label></div>
+            <div class="col-md-10">{{ form_widget(form.description_description, {'attr': {'class': 'form-control' }})
+                }}
+            </div>
+        </div>
+        <br>
+
+        <div class="row">
+            <div class="col-md-2"><label>Комментарии</label></div>
+            <div class="col-md-10">{{ form_widget(form.description_comment, {'attr': {'class': 'form-control' }}) }}
+            </div>
+        </div>
     </div>
-    <br>
-    <div class="row">
-        <div class="col-md-2"><label>Комментарии</label></div>
-        <div class="col-md-10">{{ form_widget(form.description_comment, {'attr': {'class': 'form-control' }}) }}</div>
-    </div>
-    </div>
-    <br>
-    <label id="button_block_other">Остальное</label>
     <hr>
     <div id="block_other">
-    <div class="row">
-        <div class="col-md-2"><label>Время истечения объявления</label></div>
-        <div class="col-md-4">{{ form_widget(form.advert_expire_time, {'attr': {'class': 'form-control date'}}) }}</div>
-
+        <div class="row">
+            <div class="col-md-3"><label>Пользователь</label></div>
+            <div class="col-md-3"><label>Время создания</label></div>
+            <div class="col-md-3"><label>Время последнего обновления</label></div>
+            <div class="col-md-3"><label>Время окончания</label></div>
+        </div>
     </div>
+    <div id="block_other">
+        <div class="row">
+            <div class="col-md-3">{{ advert.user.lastName }} {{ advert.user.firstName }} {{ advert.user.middleName }}</div>
+            <div class="col-md-3"> {% if null != advert.createTime %}{{ advert.createTime|date("d.m.Y") }}{% endif %}</div>
+            <div class="col-md-3"> {% if null != advert.updateTime %}{{ advert.updateTime|date("d.m.Y") }}{% endif %}</div>
+            <div class="col-md-3"> {% if null != advert.expireTime %}{{ advert.expireTime|date("d.m.Y") }}{% endif %}</div>
+        </div>
     </div>
     <br>
     {{ form_widget(form.submit, {'attr': {'class': 'btn btn-success' }}) }}
@@ -170,30 +205,29 @@
 
 {% block js %}
     <script>
-        $(function() {
+        $(function () {
 
-            var block_seller =  $("#block_seller");
-            var block_characteristic =  $("#block_characteristic");
-            var block_locate =  $("#block_locate");
-            var block_description =  $("#block_description");
-            var block_other =  $("#block_other");
-            var block_img =  $("#block_img");
+            var block_seller = $("#block_seller");
+            var block_characteristic = $("#block_characteristic");
+            var block_locate = $("#block_locate");
+            var block_description = $("#block_description");
+            var block_other = $("#block_other");
+            var block_img = $("#block_img");
 
 
-            var button_block_seller =  $("#button_block_seller");
-            var button_block_characteristic =  $("#button_block_characteristic");
-            var button_block_locate =  $("#button_block_locate");
-            var button_block_description =  $("#button_block_description");
-            var button_block_other =  $("#button_block_other");
-            var button_block_img =  $("#button_block_img");
+            var button_block_seller = $("#button_block_seller");
+            var button_block_characteristic = $("#button_block_characteristic");
+            var button_block_locate = $("#button_block_locate");
+            var button_block_description = $("#button_block_description");
+            var button_block_other = $("#button_block_other");
+            var button_block_img = $("#button_block_img");
 
-            var mathMeterPrice = function()
-            {
+            var mathMeterPrice = function () {
                 var meters = parseFloat(object_common_area.val());
                 var price = parseFloat(advert_price.val());
                 var meterPrice = null;
-                if(!isNaN(meters) && !isNaN(price)) {
-                    meterPrice = (price/meters).toFixed(0);
+                if (!isNaN(meters) && !isNaN(price)) {
+                    meterPrice = (price / meters).toFixed(0);
                 }
 
                 advert_meter_price.val(meterPrice);
@@ -248,9 +282,9 @@
             });
 
             object_common_area.bind('change', mathMeterPrice);
-            advert_price.bind('change',mathMeterPrice);
+            advert_price.bind('change', mathMeterPrice);
 
-            advert_expire_time.datepicker({ dateFormat: 'dd.mm.yy' });
+            advert_expire_time.datepicker({dateFormat: 'dd.mm.yy'});
         });
     </script>
 {% endblock %}

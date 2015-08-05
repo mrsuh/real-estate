@@ -22,7 +22,7 @@ services:
 
     model.user:
         class: Mrsuh\RealEstateBundle\Model\UserModel
-        arguments: []
+        arguments: [@doctrine.orm.entity_manager]
 
     model.advert:
         class: Mrsuh\RealEstateBundle\Model\AdvertModel

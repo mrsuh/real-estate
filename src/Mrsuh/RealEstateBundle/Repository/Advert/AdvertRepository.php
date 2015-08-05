@@ -63,15 +63,23 @@ class AdvertRepository extends EntityRepository
         try {
 
             $advert->setUpdateTime(new \DateTime());
+
             foreach ([
                          'advert_user',
-                         'advert_description',
                          'advert_type',
-                         'advert_status',
-                         'advert_expire_time',
+                         'advert_description',
+                         'advert_object',
+                         'advert_exclusive',
+                         'advert_seller_name1',
+                         'advert_seller_name2',
+                         'advert_seller_name3',
+                         'advert_seller_phone1',
+                         'advert_seller_phone2',
+                         'advert_seller_phone3',
                          'advert_price',
                          'advert_meter_price',
-                         'advert_category'
+                         'advert_category',
+                         'advert_expire_time'
 
                      ] as $v) {
                 if (isset($params[$v]) && !is_null($p = $params[$v])) {
@@ -80,9 +88,6 @@ class AdvertRepository extends EntityRepository
                 }
             }
 
-            $this->_em->persist($advert);
-
-            $this->_em->flush();
             $this->_em->commit();
         } catch (\Exception $e) {
             $this->_em->rollback();
@@ -131,7 +136,6 @@ class AdvertRepository extends EntityRepository
     {
         $qb = $this->createQueryBuilder('a')
                 ->join('a.object', 'object');
-
 
         //price
         if(!is_null($params['price_from'])) {
@@ -189,7 +193,6 @@ class AdvertRepository extends EntityRepository
                 ->setParameter('live_area_to', $params['live_area_to']);
         }
 
-
         //kitchen area
         if(!is_null($params['kitchen_area_from'])) {
             $qb->andWhere('object.kitchenArea >= :kitchen_area_from')
@@ -245,36 +248,31 @@ class AdvertRepository extends EntityRepository
                 ->setParameter('build_year_to', $params['build_year_to']);
         }
 
-        if(!is_null($params['object_type'])) {
-            $qb->join('object.type', 'object_type');
-            $query = '';
-            foreach($params['object_type'] as $k => $v) {
-                if(!is_null($v)) {
-                    $query .= 'object_type.id = :object_type' . $k . ' OR ';
-                        $qb->setParameter('object_type' . $k, $v);
-                }
-                $qb->andWhere($query);
-            }
-        }
-
         if(!is_null($params['object_state'])) {
             $qb->join('object.state', 'object_state');
-            foreach($params['object_state'] as $k => $v) {
-                if(!is_null($v)) {
-                    $qb->orWhere('object_state.id = :object_state' . $k)
-                        ->setParameter('object_state' . $k, $v);
-                }
-            }
+            $qb->andWhere('object_state.id IN (:object_state)')
+                ->setParameter('object_state', array_values($params['object_state']));
+        }
+
+        if(!is_null($params['object_type'])) {
+            $qb->join('object.type', 'object_type');
+            $qb->andWhere('object_type.id IN (:object_type)')
+                ->setParameter('object_type', array_values($params['object_type']));
         }
 
         if(!is_null($params['object_wall'])) {
             $qb->join('object.wall', 'object_wall');
-            foreach($params['object_wall'] as $k => $v) {
-                if(!is_null($v)) {
-                    $qb->orWhere('object_wall.id = :object_wall' . $k)
-                        ->setParameter('object_wall' . $k, $v);
-                }
-            }
+            $qb->andWhere('object_wall.id IN (:object_wall)')
+                ->setParameter('object_wall', array_values($params['object_wall']));
+        }
+
+        if(!is_null($params['not_first_floor'])) {
+            $qb->andWhere('object.floor != :not_first_floor')
+                ->setParameter('not_first_floor', 1);
+        }
+
+        if(!is_null($params['not_last_floor'])) {
+            $qb->andWhere('object.floor != object.floors');
         }
 
         return $qb->getQuery()->getResult();

@@ -89,6 +89,34 @@ class AdvertModel
         }
     }
 
+    public function update($advert, $params)
+    {
+        $this->em->beginTransaction();
+        try{
+            $params['advert_description'] = $this->advertDescriptRepo->update($advert->getDescription(), ['description' => $params['description_description'], 'comment' => $params['description_comment']]);
+
+            if(C::STATUS_ADVERT_DELETED === $params['advert_status']) {
+                $params['advert_expire_time'] = new \DateTime();
+            }
+
+            $this->advertRepo->update($advert, $params);
+
+//            foreach($params['advert_image'] as $i) {
+//                if(is_null($i->getType())) {
+//                    continue;
+//                }
+//                $i->setAdvert($advert);
+//                $this->em->persist($i);
+//            }
+
+            $this->em->flush();
+            $this->em->commit();
+        } catch(\Exception $e){
+            $this->em->rollback();
+            throw $e;
+        }
+    }
+
     public function getOneById($id)
     {
         return $this->advertRepo->findOneById($id);

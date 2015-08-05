@@ -79,6 +79,23 @@ class AdvertController extends Controller
         if ($request->isMethod('POST')) {
             $form->handleRequest($request);
             $formData = $form->getData();
+
+            try{
+                $newParams = $this->get('model.advert')->setAdvertParams($formData);
+                $this->get('model.advert')->update($advert, $newParams);
+
+                $this->addFlash(
+                    'success',
+                    'Ваше объявление успешно сохранено'
+                );
+
+            } catch(\Exception $e){
+                $this->addFlash(
+                    'warning',
+                    'Произошла ошибка ' . $e->getMessage()
+                );
+            }
+
         }
 
         return $this->render('MrsuhRealEstateBundle:Advert:advert.html.twig', ['pageName' => 'Объявление #' . $advert->getId(), 'advert' => $advert, 'form' => $form->createView()]);

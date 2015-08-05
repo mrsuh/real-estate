@@ -1,0 +1,27 @@
+{% extends "MrsuhRealEstateBundle::layout.html.twig" %}
+{% block content %}
+
+    <table class="table table-bordered">
+        <tr class="text-center">
+            <td>Логин</td>
+            <td>Фамилия</td>
+            <td>Имя</td>
+            <td>Отчество</td>
+            <td>Телефон</td>
+            <td>Почтовый ящик</td>
+        </tr>
+
+        {% for user in users%}
+            <tr>
+                <td class="text-center">{{ user.username }}</td>
+                <td class="text-center">{{ user.firstName}}</td>
+                <td class="text-center">{{ user.lastName }}</td>
+                <td class="text-center">{{ user.middleName }}</td>
+                <td class="text-center">{{ user.phone }}</td>
+                <td class="text-center">{{ user.email}}</td>
+            </tr>
+        {% endfor %}
+
+    </table>
+
+{% endblock %}

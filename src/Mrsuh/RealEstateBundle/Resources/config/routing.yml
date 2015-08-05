@@ -65,9 +65,9 @@ user:
     path: /user
     defaults: { _controller: MrsuhRealEstateBundle:User:user }
 
-users:
+list_user:
     path: /users
-    defaults: { _controller: MrsuhRealEstateBundle:User:users }
+    defaults: { _controller: MrsuhRealEstateBundle:User:getListUser }
 
 find_user:
     path: /find-user
