@@ -79,7 +79,8 @@ class AdvertRepository extends EntityRepository
                          'advert_price',
                          'advert_meter_price',
                          'advert_category',
-                         'advert_expire_time'
+                         'advert_expire_time',
+                         'advert_status',
 
                      ] as $v) {
                 if (isset($params[$v]) && !is_null($p = $params[$v])) {
