@@ -21,9 +21,9 @@ class DefaultController extends Controller
         return $this->redirect($this->generateUrl('login'));
     }
 
-    public function headerAction()
+    public function sidebarAction($path)
     {
         $name = $this->get('security.token_storage')->getToken()->getUser()->getUsername();
-        return $this->render('MrsuhRealEstateBundle:Default:header.html.twig', ['username' => $name]);
+        return $this->render('MrsuhRealEstateBundle:Default:sidebar.html.twig', ['username' => $name, 'path' => $path]);
     }
 }

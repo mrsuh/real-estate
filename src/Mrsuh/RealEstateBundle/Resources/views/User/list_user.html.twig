@@ -2,7 +2,7 @@
 {% block content %}
 
     <table class="table table-bordered">
-        <tr class="text-center">
+        <tr class="text-center active">
             <td>Логин</td>
             <td>Фамилия</td>
             <td>Имя</td>
@@ -13,7 +13,7 @@
 
         {% for user in users%}
             <tr>
-                <td class="text-center">{{ user.username }}</td>
+                <td class="text-center">   <a href="{{ url('user', { 'id': user.id }) }}">{{ user.username }}</a></td>
                 <td class="text-center">{{ user.firstName}}</td>
                 <td class="text-center">{{ user.lastName }}</td>
                 <td class="text-center">{{ user.middleName }}</td>

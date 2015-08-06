@@ -5,8 +5,8 @@
     <title>Real estate agency</title>
     <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}?v=2" />
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css">
     <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+    <link href="{{ asset('css/sidebar.css') }}" rel="stylesheet">
 
     <style>
         hr {
@@ -23,29 +23,50 @@
     </style>
 </head>
 <body>
-<div class="header">
-    {{ render(controller('MrsuhRealEstateBundle:Default:header')) }}
-    <div class="row">
-        <div class="col-md-8 col-md-offset-2">
-            <b>{{ pageName }}</b>
-            <hr></div></div>
+
+<div id="wrapper">
+
+    <!-- Sidebar -->
+    {{ render(controller('MrsuhRealEstateBundle:Default:sidebar', {'path': path(app.request.attributes.get('_route')) } )) }}
+    <!-- /#sidebar-wrapper -->
+
+    <!-- Page Content -->
+    <div id="page-content-wrapper">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-lg-12">
+                    <b>{{ pageName }}</b>
+                    <hr></div></div>
+            {% include "MrsuhRealEstateBundle::alert.html.twig" %}<br>
+                    {% block content %}{% endblock %}
+                </div>
+            </div>
         </div>
-</div>
-
-<div class="content" >
-   <div class="row">
-       <div class="col-md-8 col-md-offset-2">
-           {% include "MrsuhRealEstateBundle::alert.html.twig" %}<br>
-          {% block content %}{% endblock %}
-       </div>
-   </div>
-</div>
+    </div>
+    <!-- /#page-content-wrapper -->
 
 </div>
+<!-- /#wrapper -->
 
 <script src="//code.jquery.com/jquery-2.1.4.min.js"></script>
 <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
 {% block js %}{% endblock %}
+<script>
+    $("#menu-toggle").click(function(e) {
+        e.preventDefault();
+        $("#wrapper").toggleClass("toggled");
+    });
+
+
+    $("#menu li span").click(function() {
+        $("#menu ul:visible").slideUp("normal");
+        if (($(this).next().is("ul")) && (!$(this).next().is(":visible"))) {
+            $(this).next().slideDown("normal");
+        }
+    });
+
+</script>
 </body>
+{#</body>#}
 </html>

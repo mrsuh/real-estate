@@ -41,7 +41,7 @@ class ClientController extends Controller
             } catch(\Exception $e){
                 $this->addFlash(
                     'warning',
-                    'Произошла ошибка ' . $e->getMessage()
+                    'Произошла ошибка: ' . $e->getMessage()
                 );
             }
         }

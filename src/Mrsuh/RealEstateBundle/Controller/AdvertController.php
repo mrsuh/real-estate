@@ -34,7 +34,7 @@ class AdvertController extends Controller
             } catch(\Exception $e){
                 $this->addFlash(
                     'warning',
-                    'Произошла ошибка ' . $e->getMessage()
+                    'Произошла ошибка: ' . $e->getMessage()
                 );
             }
         }
@@ -63,6 +63,7 @@ class AdvertController extends Controller
 
         return $this->render('MrsuhRealEstateBundle:Advert:find_advert.html.twig', ['pageName' => 'Поиск объявления', 'adverts' => $adverts, 'form' => $form->createView()]);
     }
+
     public function getListAdvertAction(Request $request)
     {
         $adverts = $this->get('model.advert')->findByParam();
@@ -92,12 +93,17 @@ class AdvertController extends Controller
             } catch(\Exception $e){
                 $this->addFlash(
                     'warning',
-                    'Произошла ошибка ' . $e->getMessage()
+                    'Произошла ошибка: ' . $e->getMessage()
                 );
             }
-
         }
 
         return $this->render('MrsuhRealEstateBundle:Advert:advert.html.twig', ['pageName' => 'Объявление #' . $advert->getId(), 'advert' => $advert, 'form' => $form->createView()]);
+    }
+
+    public function toArchiveAdvertAction(Request $request)
+    {
+        $adverts = $this->get('model.advert')->findToArchive();
+        return $this->render('MrsuhRealEstateBundle:Advert:list_advert.html.twig', ['pageName' => 'Список объявлений в архив', 'adverts' => $adverts]);
     }
 }

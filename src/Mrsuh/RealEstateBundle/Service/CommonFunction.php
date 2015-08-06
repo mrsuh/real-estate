@@ -9,7 +9,7 @@ class CommonFunction
     {
         if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
             if($exception) {
-                throw new \Exception('Typo in domain: ' . $email);
+                throw new \Exception('Опечатка в имени почтового ящика: ' . $email);
             }
             return false;
         }

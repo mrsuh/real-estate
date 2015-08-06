@@ -2,11 +2,10 @@
 {% block content %}
     {{ form_start(form) }}
     <div class="row">
-        <div class="col-md-4"><img src="..." alt="..." class="img-thumbnail" style="height:300px; width:200px"></div>
-        <div class="col-md-8">
+        <div class="col-md-4">
             <br>
             <div class="row">
-                <div class="col-md-4"><label>Логин</label></div>
+                <div class="col-md-4"><label>Логин*</label></div>
                 <div class="col-md-8">{{ form_widget(form.username, {'attr': {'class': 'form-control'}}) }}</div>
             </div>
             <br>
@@ -31,12 +30,14 @@
             </div>
             <br>
             <div class="row">
-                <div class="col-md-4"><label>Почтовый ящик</label></div>
+                <div class="col-md-4"><label>Почтовый ящик*</label></div>
                 <div class="col-md-8">{{ form_widget(form.email, {'attr': {'class': 'form-control'}}) }}</div>
             </div>
         </div>
     </div>
+    <br>
 
     {{ form_widget(form.submit, {'attr': {'class': 'btn btn-success'}}) }}
     {{ form_end(form) }}
+
 {% endblock %}

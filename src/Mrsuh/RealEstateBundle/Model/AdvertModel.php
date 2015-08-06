@@ -131,9 +131,17 @@ class AdvertModel
     {
         return $this->advertRepo->findByString($params);
     }
+
     public function findByExtensionParams($params)
     {
         return $this->advertRepo->findByExtensionParams($params);
     }
+
+    public function findToArchive()
+    {
+        return $this->advertRepo->findByStatus(C::STATUS_ADVERT_REQUEST_DELETE);
+    }
+
+
 
 }

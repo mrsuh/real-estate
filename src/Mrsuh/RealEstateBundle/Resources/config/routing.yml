@@ -24,7 +24,7 @@ redirect:
 # profile
 profile:
     path: /profile
-    defaults: { _controller: MrsuhRealEstateBundle:Profile:profile }
+    defaults: { _controller: MrsuhRealEstateBundle:User:profile }
 
 #clients
 client:
@@ -60,10 +60,14 @@ create_advert:
     path: /create-advert
     defaults: { _controller: MrsuhRealEstateBundle:Advert:createAdvert }
 
+to_archive_advert:
+    path: /to-archive-advert
+    defaults: { _controller: MrsuhRealEstateBundle:Advert:toArchiveAdvert }
+
 #Users
 user:
-    path: /user
-    defaults: { _controller: MrsuhRealEstateBundle:User:user }
+    path: /user/{id}
+    defaults: { _controller: MrsuhRealEstateBundle:User:user, id: id }
 
 list_user:
     path: /users
