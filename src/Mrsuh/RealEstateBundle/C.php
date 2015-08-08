@@ -64,4 +64,7 @@ class C
     const SEARCH_EXTENSION= 'search_extension';
     const SEARCH_PERIOD= 'search_period';
 
+    const ORDER_TYPE_ASC = 'ASC';
+    const ORDER_TYPE_DESC = 'DESC';
+
 }

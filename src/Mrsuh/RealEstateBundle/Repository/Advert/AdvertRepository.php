@@ -129,7 +129,7 @@ class AdvertRepository extends EntityRepository
             return [];
         }
 
-        return $qb->getQuery()->getResult();
+        return $qb->getQuery();
 
     }
 
@@ -159,7 +159,6 @@ class AdvertRepository extends EntityRepository
             $qb->andWhere('a.meterPrice <= :meter_price_to')
                 ->setParameter('meter_price_to', $params['meter_price_to']);
         }
-
 
         //room
         if(!is_null($params['room_from'])) {
@@ -249,33 +248,88 @@ class AdvertRepository extends EntityRepository
                 ->setParameter('build_year_to', $params['build_year_to']);
         }
 
-        if(!is_null($params['object_state'])) {
+        if(!is_null($params['object_region'])) {
+            $qb->join('object.region', 'object_region');
+            $qb->andWhere('object_region.id = :object_region')
+                ->setParameter('object_region', $params['object_region']);
+        }
+
+        if(!is_null($params['object_city'])) {
+            $qb->join('object.city', 'object_city');
+            $qb->andWhere('object_city.id = :object_city')
+                ->setParameter('object_city', $params['object_city']);
+        }
+
+        if(!is_null($params['object_region_city']) && !empty($params['object_region_city'])) {
+            $qb->join('object.regionCity', 'object_region_city');
+            $qb->andWhere('object_region_city.id IN (:object_region_city)')
+                ->setParameter('object_region_city', array_values($params['object_region_city']));
+        }
+
+
+        if(!is_null($params['object_state']) && !empty($params['object_state'])) {
             $qb->join('object.state', 'object_state');
             $qb->andWhere('object_state.id IN (:object_state)')
                 ->setParameter('object_state', array_values($params['object_state']));
         }
-
-        if(!is_null($params['object_type'])) {
+//
+        if(!is_null($params['object_type']) && !empty($params['object_type'])) {
             $qb->join('object.type', 'object_type');
             $qb->andWhere('object_type.id IN (:object_type)')
                 ->setParameter('object_type', array_values($params['object_type']));
         }
 
-        if(!is_null($params['object_wall'])) {
+        if(!is_null($params['object_wall']) && !empty($params['object_wall'])) {
             $qb->join('object.wall', 'object_wall');
             $qb->andWhere('object_wall.id IN (:object_wall)')
                 ->setParameter('object_wall', array_values($params['object_wall']));
         }
 
-        if(!is_null($params['not_first_floor'])) {
+        if(!is_null($params['not_first_floor']) && $params['not_first_floor']) {
             $qb->andWhere('object.floor != :not_first_floor')
                 ->setParameter('not_first_floor', 1);
         }
 
-        if(!is_null($params['not_last_floor'])) {
+        if(!is_null($params['not_last_floor']) && $params['not_last_floor']) {
             $qb->andWhere('object.floor != object.floors');
         }
 
-        return $qb->getQuery()->getResult();
+
+        if(!is_null($params['order_field'])){
+            switch($params['order_field']){
+                case 'id':
+                    $qb->orderBy('a.id', $params['order_type']);
+                    break;
+                case 'city':
+                    if(is_null($params['object_city'])) {
+                        $qb->join('object.city', 'object_city');
+                    }
+                    $qb->orderBy('object_city.id', $params['order_type']);
+                    break;
+                case 'region':
+                    if(is_null($params['object_region'])) {
+                        $qb->join('object.region', 'object_region');
+                    }
+                    $qb->orderBy('object_region.id', $params['order_type']);
+                    break;
+                case 'price':
+                    $qb->orderBy('a.price', $params['order_type']);
+                    break;
+                case 'status':
+                    $qb->orderBy('a.status', $params['order_type']);
+                    break;
+                case 'create_time':
+                    $qb->orderBy('a.createTime', $params['order_type']);
+                    break;
+                case 'update_time':
+                    $qb->orderBy('a.updateTime', $params['order_type']);
+                    break;
+                case 'expire_time':
+                    $qb->orderBy('a.expireTime', $params['order_type']);
+                    break;
+            }
+        }
+
+        return $qb->getQuery();
     }
 }

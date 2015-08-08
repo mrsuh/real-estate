@@ -57,11 +57,17 @@ class FindAdvertForm extends AbstractType
         $builder->add('object_city', 'choice', ['choices' => $this->params['object_city'], 'required' => false]);
         $builder->add('object_region_city', 'choice', ['choices' => $this->params['object_region_city'], 'multiple' => true, 'expanded' => true, 'required' => false]);
 
-        $builder->add('object_not_first_floor', 'checkbox', ['required' => false]);
-        $builder->add('object_not_last_floor', 'checkbox',['required' => false]);
+        $builder->add('not_first_floor', 'checkbox', ['required' => false]);
+        $builder->add('not_last_floor', 'checkbox',['required' => false]);
 
-        $builder->add(C::SEARCH_STRING, 'submit', array('label' => 'Искать'));
-        $builder->add(C::SEARCH_EXTENSION, 'submit', array('label' => 'Искать'));
+        $builder->add('pagination_items_on_page', 'choice', ['choices' => [2 => 2, 20 => 20, 50 => 50, 100 => 100], 'required' => true]);
+        $builder->add('pagination_page', 'hidden', ['data' => 1]);
+
+        $builder->add('search_type', 'hidden');
+        $builder->add('order_field', 'hidden');
+        $builder->add('order_type', 'hidden', ['data' => C::ORDER_TYPE_DESC]);
+
+        $builder->add('search', 'submit', array('label' => 'Искать'));
     }
 
     public function getName()

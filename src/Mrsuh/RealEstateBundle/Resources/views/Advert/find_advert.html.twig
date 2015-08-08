@@ -5,13 +5,18 @@
 
     <div class="regular_search">
         <div class="row">
-            <div class="col-md-3">{{ form_widget(form.search_string_type, {'attr': {'class': 'form-control' }}) }}</div>
-            <div class="col-md-3">{{ form_widget(form.search_string_string, {'attr': {'class': 'form-control' }}) }}</div>
-            <div class="col-md-2">{{ form_widget(form.search_string, {'attr': {'class': 'btn btn-success' }}) }}</div>
-            <div class="col-md-4 pull-right"><button type="button" class="btn btn-primary" id="extension_button">Расширенный поиск</button><br><br></div>
+            <div class="col-md-2">{{ form_widget(form.search_string_type, {'attr': {'class': 'form-control' }}) }}</div>
+            <div class="col-md-3">{{ form_widget(form.search_string_string, {'attr': {'class': 'form-control' }}) }}
+            </div>
+            <div class="col-md-2"><button type="button" class="btn btn-success" id="submit_search_string">Поиск</button></div>
+            <div class="col-md-2"><button type="button" class="btn btn-primary" id="extension_button">Расширенный поиск</button></div>
+            <div class="col-md-2"><label>Объектов на странице</label></div>
+            <div class="col-md-1">{{ form_widget(form.pagination_items_on_page, {'attr': {'class': 'form-control date' }} ) }}</div>
         </div>
     </div>
+
     <div id="extension_search" hidden="true">
+        <br>
         <div class="row">
             <div class="col-md-3">
 
@@ -57,15 +62,18 @@
             <div class="col-md-5">
                 <div class="row">
                     <div class="col-md-4"><label>Регион</label></div>
-                    <div class="col-md-8">{{ form_widget(form.object_region, {'attr': {'class': 'form-control' }}) }}</div>
+                    <div class="col-md-8">{{ form_widget(form.object_region, {'attr': {'class': 'form-control' }}) }}
+                    </div>
                 </div>
                 <br>
 
                 <div class="row">
                     <div class="col-md-4"><label>Город</label></div>
-                    <div class="col-md-8">{{ form_widget(form.object_city, {'attr': {'class': 'form-control' }}) }}</div>
+                    <div class="col-md-8">{{ form_widget(form.object_city, {'attr': {'class': 'form-control' }}) }}
+                    </div>
                 </div>
                 <br>
+
                 <div class="row">
                     <div class="col-md-4"><label>Регион города</label></div>
                     <div class="col-md-8">
@@ -86,37 +94,47 @@
                     <div class="col-md-4">{{ form_widget(form.price_to, {'attr': {'class': 'form-control' }}) }}</div>
                 </div>
                 <br>
+
                 <div class="row">
                     <div class="col-md-4"><label>Стоимость квадратного метра</label></div>
-                    <div class="col-md-4">{{ form_widget(form.meter_price_from, {'attr': {'class': 'form-control date' }}) }}</div>
-                    <div class="col-md-4">{{ form_widget(form.meter_price_to, {'attr': {'class': 'form-control date' }})}}</div>
+                    <div class="col-md-4">{{ form_widget(form.meter_price_from, {'attr': {'class': 'form-control date' }}) }}
+                    </div>
+                    <div class="col-md-4">{{ form_widget(form.meter_price_to, {'attr': {'class': 'form-control date' }})}}
+                    </div>
                 </div>
                 <br>
 
                 <div class="row">
                     <div class="col-md-4"><label>Число комнат</label></div>
-                    <div class="col-md-4">{{ form_widget(form.room_from, {'attr': {'class': 'form-control date' }}) }}</div>
-                    <div class="col-md-4">{{ form_widget(form.room_to, {'attr': {'class': 'form-control date' }}) }}</div>
+                    <div class="col-md-4">{{ form_widget(form.room_from, {'attr': {'class': 'form-control date' }}) }}
+                    </div>
+                    <div class="col-md-4">{{ form_widget(form.room_to, {'attr': {'class': 'form-control date' }}) }}
+                    </div>
                 </div>
                 <br>
 
                 <div class="row">
                     <div class="col-md-4"><label>Общая площадь</label></div>
-                    <div class="col-md-4">{{ form_widget(form.common_area_from, {'attr': {'class': 'form-control date' }}) }}</div>
-                    <div class="col-md-4">{{ form_widget(form.common_area_to, {'attr': {'class': 'form-control date' }})}}</div>
+                    <div class="col-md-4">{{ form_widget(form.common_area_from, {'attr': {'class': 'form-control date' }}) }}
+                    </div>
+                    <div class="col-md-4">{{ form_widget(form.common_area_to, {'attr': {'class': 'form-control date' }})}}
+                    </div>
                 </div>
                 <br>
 
                 <div class="row">
                     <div class="col-md-4"><label>Жилая площадь</label></div>
-                    <div class="col-md-4">{{ form_widget(form.live_area_from, {'attr': {'class': 'form-control date' }})}}</div>
-                    <div class="col-md-4">{{ form_widget(form.live_area_to, {'attr': {'class': 'form-control date' }}) }}</div>
+                    <div class="col-md-4">{{ form_widget(form.live_area_from, {'attr': {'class': 'form-control date' }})}}
+                    </div>
+                    <div class="col-md-4">{{ form_widget(form.live_area_to, {'attr': {'class': 'form-control date' }})}}
+                    </div>
                 </div>
                 <br>
 
                 <div class="row">
                     <div class="col-md-4"><label>Площадть кухни</label></div>
-                    <div class="col-md-4">{{ form_widget(form.kitchen_area_from, {'attr': {'class': 'form-control date' }}) }}</div>
+                    <div class="col-md-4">{{ form_widget(form.kitchen_area_from, {'attr': {'class': 'form-control date' }}) }}
+                    </div>
                     <div class="col-md-4">{{ form_widget(form.kitchen_area_to, {'attr': {'class': 'form-control date' }})}}
                     </div>
                 </div>
@@ -124,7 +142,8 @@
 
                 <div class="row">
                     <div class="col-md-4"><label>Земельный участок</label></div>
-                    <div class="col-md-4">{{ form_widget(form.section_area_from, {'attr': {'class': 'form-control date' }}) }}</div>
+                    <div class="col-md-4">{{ form_widget(form.section_area_from, {'attr': {'class': 'form-control date' }}) }}
+                    </div>
                     <div class="col-md-4">{{ form_widget(form.section_area_to, {'attr': {'class': 'form-control date' }})}}
                     </div>
                 </div>
@@ -132,158 +151,201 @@
 
                 <div class="row">
                     <div class="col-md-4"><label>Этаж</label></div>
-                    <div class="col-md-4">{{ form_widget(form.floor_from, {'attr': {'class': 'form-control date' }}) }}</div>
-                    <div class="col-md-4">{{ form_widget(form.floor_to, {'attr': {'class': 'form-control date' }}) }}</div>
+                    <div class="col-md-4">{{ form_widget(form.floor_from, {'attr': {'class': 'form-control date' }})}}
+                    </div>
+                    <div class="col-md-4">{{ form_widget(form.floor_to, {'attr': {'class': 'form-control date' }}) }}
+                    </div>
                 </div>
                 <br>
 
                 <div class="row">
                     <div class="col-md-4"><label>Количество этажей</label></div>
-                    <div class="col-md-4">{{ form_widget(form.floors_from, {'attr': {'class': 'form-control date' }}) }}</div>
-                    <div class="col-md-4">{{ form_widget(form.floors_to, {'attr': {'class': 'form-control date' }}) }}</div>
+                    <div class="col-md-4">{{ form_widget(form.floors_from, {'attr': {'class': 'form-control date' }})}}
+                    </div>
+                    <div class="col-md-4">{{ form_widget(form.floors_to, {'attr': {'class': 'form-control date' }}) }}
+                    </div>
                 </div>
                 <br>
 
                 <div class="row">
                     <div class="col-md-4"><label>Год постройки</label></div>
-                    <div class="col-md-4">{{ form_widget(form.build_year_from, {'attr': {'class': 'form-control date' }})}}</div>
+                    <div class="col-md-4">{{ form_widget(form.build_year_from, {'attr': {'class': 'form-control date' }})}}
+                    </div>
                     <div class="col-md-4">{{ form_widget(form.build_year_to, {'attr': {'class': 'form-control date' }})}}
                     </div>
                 </div>
                 <br>
+
                 <div class="row">
-                    <div class="col-md-1">{{ form_widget(form.object_not_first_floor) }}</div>
+                    <div class="col-md-1">{{ form_widget(form.not_first_floor) }}</div>
                     <div class="col-md-5"><label>Не первый этаж</label></div>
-                    <div class="col-md-1">{{ form_widget(form.object_not_last_floor) }}</div>
+                    <div class="col-md-1">{{ form_widget(form.not_last_floor) }}</div>
                     <div class="col-md-5"><label>Не последний этаж</label></div>
                 </div>
                 <br>
             </div>
         </div>
         <br>
-        {{ form_widget(form.search_extension, {'attr': {'class': 'btn btn-success' }}) }}
+        <button type="button" class="btn btn-success" id="submit_search_extension">Поиск</button>
     </div>
     <hr>
+    {{ form_widget(form.search, {'attr': {'hidden': 'true' }} ) }}
 
     {{ form_end(form) }}
-    <br>
+    {% if pagination and pagination.items is not empty %}
 
-    {% if adverts %}
-    <table class="table table-bordered">
-        <tr class="text-center">
-            <td>id</td>
-            <td>Фото</td>
-            <td>Тип объекта</td>
-            <td>
-                Город
-                Район
-                Адрес
-                Описание
-            </td>
-            <td>Площадь</td>
-            <td>Цена</td>
-            <td>Состояние</td>
-            <td>
-                Создано
-                Обновлено
-                Истекает
-            </td>
-        </tr>
-        {% for advert in adverts %}
-            {% if constant('Mrsuh\\RealEstateBundle\\C::STATUS_ADVERT_ACTIVE') == advert.status %}
-                <tr class="success">
-            {% elseif constant('Mrsuh\\RealEstateBundle\\C::STATUS_ADVERT_REQUEST_DELETE') == advert.status %}
-                <tr class="danger">
-            {% elseif constant('Mrsuh\\RealEstateBundle\\C::STATUS_ADVERT_DELETED') == advert.status %}
-                <tr class="danger">
-            {% elseif constant('Mrsuh\\RealEstateBundle\\C::STATUS_ADVERT_AGENT') == advert.status %}
-                <tr class="warning">
-            {% else %}
-                <tr>
-            {% endif %}
+        <div class="row">
+            <div class="col-md-12"><b>Всего результатов:</b> {{ pagination.getTotalItemCount }}</div>
+        </div>
+        <br>
 
-            <td class="text-center"><a href="{{ url('advert', { 'id': advert.id }) }}">{{ advert.id }}</a></td>
-            <td class="img-responsive text-center">
-                {% if (advert.getImg | first) != null %}
-                    <a href="{{ url('advert', { 'id': advert.id }) }}"><img src="{{ asset( (advert.getImg | first).getMiniWebPath ) }}" style="max-width: 100px; max-height: 100px"></a>
-                {% endif %}
-
-            </td>
-            <td class="text-center">
-                {% if constant('Mrsuh\\RealEstateBundle\\C::OBJECT_TYPE_HOUSE') == advert.object.type.name %}
-                    {% if advert.object.roomNumber %} {{ advert.object.roomNumber }} -к {% endif %}
-                    {{ advert.object.type.name }}<br>
-                    {{ advert.object.floor }} / {{ advert.object.floors }} -эт.  {{ advert.object.wall.name }} Дом
-                {% elseif constant('Mrsuh\\RealEstateBundle\\C::OBJECT_TYPE_EARTH_AREA') == advert.object.type.name %}
-                    {{ advert.object.type.name }}
-                {% elseif constant('Mrsuh\\RealEstateBundle\\C::OBJECT_TYPE_FLAT') == advert.object.type.name %}
-                    {{ advert.object.type.name }}
-                {% elseif constant('Mrsuh\\RealEstateBundle\\C::OBJECT_TYPE_COMMERCE') == advert.object.type.name %}
-                    {{ advert.object.type.name }}
-                {% elseif constant('Mrsuh\\RealEstateBundle\\C::OBJECT_TYPE_ROOM') == advert.object.type.name %}
-                    {{ advert.object.type.name }}
-                {% endif %}
-            </td>
-            <td class="text-center">
-                {{ advert.object.city.name }},{{ advert.object.regionCity.name }},<br>
-                {{ advert.object.street.name }} ул {% if advert.object.house %},{{ advert.object.house }}{% endif %}
-
-            </td>
-            <td class="text-center">
-                {{ advert.object.commonArea }} / {{ advert.object.liveArea }} / {{ advert.object.kitchenArea }} м<sup>2</sup>
-            </td>
-            <td class="text-center">
-                <div class="row">
-                    <div class="col-md-12">
-                        {{ advert.price }} р
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-12">
-                        ({{ advert.meterPrice }} р/м<sup>2</sup>)
-                    </div>
-                </div>
-            </td>
-            <td class="text-center">
-                {% if constant('Mrsuh\\RealEstateBundle\\C::STATUS_ADVERT_ACTIVE') == advert.status %}
-                    активное
-                {% elseif constant('Mrsuh\\RealEstateBundle\\C::STATUS_ADVERT_REQUEST_DELETE') == advert.status %}
-                    запрос<br>
-                    на удаление
-                {% elseif constant('Mrsuh\\RealEstateBundle\\C::STATUS_ADVERT_DELETED') == advert.status %}
-                    удалено
-                {% elseif constant('Mrsuh\\RealEstateBundle\\C::STATUS_ADVERT_AGENT') == advert.status %}
-                    агент
-                {% endif %}
-            </td>
-            <td class="text-center">
-                <div class="row">
-                    <div class="col-md-12">
-                        {{ advert.user.lastName}} {{ advert.user.firstName}} {{ advert.user.middleName}}
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-12">
-                        <b>Истекает:</b> {{ advert.expireTime|date("d.m.Y") }}
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-12">
-                        <b>Обновлено:</b> {{ advert.updateTime|date("d.m.Y") }}
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-12">
-                        <b>Создано:</b> {{ advert.createTime|date("d.m.Y") }}
-                    </div>
-                </div>
-            </td>
+        <table class="table table-bordered">
+            <tr class="text-center">
+                <td><a href="#" id="order_field_id">#</a></td>
+                <td>Фото</td>
+                <td>Тип объекта</td>
+                <td>
+                    <a href="#" id="order_field_city">Город</a> |
+                    <a href="#" id="order_field_region">Район</a> |
+                    Адрес |
+                    Описание
+                </td>
+                <td>Площадь</td>
+                <td><a href="#" id="order_field_price">Цена</a></td>
+                <td><a href="#" id="order_field_status">Статус</a></td>
+                <td>
+                    <a href="#" id="order_field_create_time">Создано</a> |
+                    <a href="#" id="order_field_update_time">Обновлено</a> |
+                    <a href="#" id="order_field_expire_time">Истекает</a>
+                </td>
             </tr>
-        {% endfor %}
-    </table>
-        {% else %}
-        Запрос не дал результатов...
-        {% endif %}
+            {% for advert in pagination.items %}
+                {% if constant('Mrsuh\\RealEstateBundle\\C::STATUS_ADVERT_ACTIVE') == advert.status %}
+                    <tr class="success">
+                {% elseif constant('Mrsuh\\RealEstateBundle\\C::STATUS_ADVERT_REQUEST_DELETE') == advert.status %}
+                    <tr class="danger">
+                {% elseif constant('Mrsuh\\RealEstateBundle\\C::STATUS_ADVERT_DELETED') == advert.status %}
+                    <tr class="danger">
+                {% elseif constant('Mrsuh\\RealEstateBundle\\C::STATUS_ADVERT_AGENT') == advert.status %}
+                    <tr class="warning">
+                {% else %}
+                    <tr>
+                {% endif %}
+
+                <td class="text-center"><a href="{{ url('advert', { 'id': advert.id }) }}">{{ advert.id }}</a></td>
+                <td class="img-responsive text-center">
+                    {% if (advert.getImg | first) != null %}
+                        <a href="{{ url('advert', { 'id': advert.id }) }}"><img
+                                    src="{{ asset( (advert.getImg | first).getMiniWebPath ) }}"
+                                    style="max-width: 100px; max-height: 100px"></a>
+                    {% else %}
+                        <a href="{{ url('advert', { 'id': advert.id }) }}"><img src="{{ asset('img/real-estate.jpg') }}"
+                                                                                style="max-width: 100px; max-height: 100px"></a>
+                    {% endif %}
+
+                </td>
+                <td class="text-center">
+                    {% if constant('Mrsuh\\RealEstateBundle\\C::OBJECT_TYPE_HOUSE') == advert.object.type.name %}
+                        {% if advert.object.roomNumber %} {{ advert.object.roomNumber }}-к {% endif %}
+                        {{ advert.object.type.name }}<br>
+                        {{ advert.object.floor }} / {{ advert.object.floors }} -эт.  {{ advert.object.wall.name }} Дом
+                    {% elseif constant('Mrsuh\\RealEstateBundle\\C::OBJECT_TYPE_EARTH_AREA') == advert.object.type.name %}
+                        {{ advert.object.type.name }}
+                    {% elseif constant('Mrsuh\\RealEstateBundle\\C::OBJECT_TYPE_FLAT') == advert.object.type.name %}
+                        {{ advert.object.type.name }}
+                    {% elseif constant('Mrsuh\\RealEstateBundle\\C::OBJECT_TYPE_COMMERCE') == advert.object.type.name %}
+                        {{ advert.object.type.name }}
+                    {% elseif constant('Mrsuh\\RealEstateBundle\\C::OBJECT_TYPE_ROOM') == advert.object.type.name %}
+                        {{ advert.object.type.name }}
+                    {% endif %}
+                </td>
+                <td class="text-center">
+                    {{ advert.object.city.name }},{{ advert.object.regionCity.name }},<br>
+                    {{ advert.object.street.name }} ул {% if advert.object.house %},{{ advert.object.house }}{% endif %}
+
+                </td>
+                <td class="text-center">
+                    {{ advert.object.commonArea }} / {{ advert.object.liveArea }} / {{ advert.object.kitchenArea }}
+                    м<sup>2</sup>
+                </td>
+                <td class="text-center">
+                    <div class="row">
+                        <div class="col-md-12">
+                            {{ advert.price }} р
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            ({{ advert.meterPrice }} р/м<sup>2</sup>)
+                        </div>
+                    </div>
+                </td>
+                <td class="text-center">
+                    {% if constant('Mrsuh\\RealEstateBundle\\C::STATUS_ADVERT_ACTIVE') == advert.status %}
+                        активное
+                    {% elseif constant('Mrsuh\\RealEstateBundle\\C::STATUS_ADVERT_REQUEST_DELETE') == advert.status %}
+                        запрос<br>
+                        на удаление
+                    {% elseif constant('Mrsuh\\RealEstateBundle\\C::STATUS_ADVERT_DELETED') == advert.status %}
+                        удалено
+                    {% elseif constant('Mrsuh\\RealEstateBundle\\C::STATUS_ADVERT_AGENT') == advert.status %}
+                        агент
+                    {% endif %}
+                </td>
+                <td class="text-center">
+                    <div class="row">
+                        <div class="col-md-12">
+                            {{ advert.user.lastName }} {{ advert.user.firstName }} {{ advert.user.middleName }}
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <b>Истекает:</b> {{ advert.expireTime|date("d.m.Y") }}
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <b>Обновлено:</b> {{ advert.updateTime|date("d.m.Y") }}
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <b>Создано:</b> {{ advert.createTime|date("d.m.Y") }}
+                        </div>
+                    </div>
+                </td>
+                </tr>
+            {% endfor %}
+        </table>
+
+        <div class="row">
+            <div class="col-md-12">
+                <nav>
+                    <ul class="pagination">
+                        <li><a href="#" id="pagination_start">start</a></li>
+                        <li>
+                            <a href="#" aria-label="Previous" id="pagination_previous">
+                                <span aria-hidden="true">&laquo;</span>
+                            </a>
+                        </li>
+                        <li><a href="#">{{ pagination.getPaginationData.current }}</a></li>
+                        <li>
+                            <a href="#" aria-label="Next" id="pagination_next">
+                                <span aria-hidden="true">&raquo;</span>
+                            </a>
+                        </li>
+                        <li><a href="#" id="pagination_fin">&nbsp;fin&nbsp;&nbsp;</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+
+        {% elseif pagination and pagination.items is empty%}
+
+    <b>Запрос не дал результатов...</b>
+
+    {% endif %}
+
 {% endblock %}
 
 {% block js %}
@@ -291,6 +353,176 @@
         $(function () {
             var extension_button = $('#extension_button');
             var extension_search = $('#extension_search');
+
+            var submit_search_extension = $('#submit_search_extension');
+            var submit_search_string = $('#submit_search_string');
+
+
+            var search_type = $('#findAdvert_search_type');
+
+            var current_page = 1;
+            var max_page = 1;
+
+            var order_type = $('#findAdvert_order_type');
+            var order_field = $('#findAdvert_order_field');
+
+            var order_field_id = $('#order_field_id');
+            var order_field_city = $('#order_field_city');
+            var order_field_region = $('#order_field_region');
+            var order_field_price = $('#order_field_price');
+            var order_field_status = $('#order_field_status');
+            var order_field_create_time = $('#order_field_create_time');
+            var order_field_update_time = $('#order_field_update_time');
+            var order_field_expire_time= $('#order_field_expire_time');
+
+            var order_type_asc = '{{ constant('Mrsuh\\RealEstateBundle\\C::ORDER_TYPE_ASC') }}';
+            var order_type_desc = '{{ constant('Mrsuh\\RealEstateBundle\\C::ORDER_TYPE_DESC') }}';
+
+            var setOrderType = function(field){
+                if(field === order_field.val()) {
+                    if(order_type_asc === order_type.val()){
+                        order_type.val(order_type_desc);
+                    } else {
+                        order_type.val(order_type_asc);
+                    }
+                } else {
+                    order_type.val(order_type_asc);
+                }
+            };
+
+            var orderFields = function()
+            {
+                order_field_id.click(function(){
+                    setOrderType('id');
+                    order_field.val('id');
+                    search_submit.click();
+
+                });
+
+                order_field_city.click(function(){
+                    setOrderType('city');
+                    order_field.val('city');
+                    search_submit.click();
+
+                });
+
+                order_field_region.click(function(){
+                    setOrderType('region');
+                    order_field.val('region');
+                    search_submit.click();
+
+                });
+
+                order_field_price.click(function(){
+                    setOrderType('price');
+                    order_field.val('price');
+                    search_submit.click();
+
+                });
+
+                order_field_status.click(function(){
+                    setOrderType('status');
+                    order_field.val('status');
+                    search_submit.click();
+
+                });
+
+                order_field_create_time.click(function(){
+                    setOrderType('create_time');
+                    order_field.val('create_time');
+                    search_submit.click();
+
+                });
+
+                order_field_update_time.click(function(){
+                    setOrderType('update_time');
+                    order_field.val('update_time');
+                    search_submit.click();
+
+                });
+
+                order_field_expire_time.click(function(){
+                    setOrderType('expire_time');
+                    order_field.val('expire_time');
+                    search_submit.click();
+
+                });
+            };
+
+            orderFields();
+
+
+            {% if pagination %}
+            current_page = {{ pagination.getPaginationData.current }};
+            max_page = {{ pagination.getPaginationData.pageCount }};
+            {% endif %}
+
+
+            var pagination_start = $('#pagination_start');
+            var pagination_previous = $('#pagination_previous');
+            var pagination_next = $('#pagination_next');
+            var pagination_fin = $('#pagination_fin');
+
+            var search_submit = $('#findAdvert_search');
+
+            var pagination_page = $('#findAdvert_pagination_page');
+
+            submit_search_extension.click(function()
+            {
+                search_type.val('{{ constant('Mrsuh\\RealEstateBundle\\C::SEARCH_EXTENSION') }}');
+                search_submit.click();
+            });
+
+            submit_search_string.click(function()
+            {
+                search_type.val('{{ constant('Mrsuh\\RealEstateBundle\\C::SEARCH_STRING') }}');
+                search_submit.click();
+            });
+
+
+            var pagination = function ()
+            {
+                pagination_next.click(function(){
+                    var page = max_page;
+                    if(++current_page <= max_page) {
+                        page = current_page;
+                    }
+
+                    pagination_page.val(page);
+
+                    search_submit.click();
+
+                });
+
+                pagination_previous.click(function(){
+                    var page = 1;
+                    if(--current_page >= 1) {
+                        page = current_page;
+                    }
+
+                    pagination_page.val(page);
+
+                    search_submit.click();
+
+                });
+
+                pagination_start.click(function(){
+                    pagination_page.val(1);
+
+                    search_submit.click();
+
+                });
+
+                pagination_fin.click(function(){
+                    pagination_page.val(max_page);
+
+                    search_submit.click();
+
+                });
+
+            };
+
+            pagination();
 
             extension_button.click(function () {
                 if (extension_search.is(':hidden')) {

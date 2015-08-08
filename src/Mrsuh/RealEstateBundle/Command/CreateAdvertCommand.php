@@ -74,12 +74,14 @@ class CreateAdvertCommand extends ContainerAwareCommand
         ];
 
 
-        for ($i = 0; $i < 20000; $i++) {
+        for ($i = 0; $i < 500; $i++) {
+            $output->writeln($i);
             $advert['advert_description'] = $em->getRepository(C::REPO_ADVERT_DESCRIPTION)->create($description);
             $advert['advert_object'] = $em->getRepository(C::REPO_OBJECT)->create($object);
             $em->getRepository(C::REPO_ADVERT)->create($advert);
 
-            if($i%200) {
+            if($i%200 === 0) {
+                $output->writeln('flush');
                 $em->flush();
             }
         }

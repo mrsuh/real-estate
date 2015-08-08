@@ -26,7 +26,7 @@ services:
 
     model.advert:
         class: Mrsuh\RealEstateBundle\Model\AdvertModel
-        arguments: [@doctrine.orm.entity_manager]
+        arguments: [@doctrine.orm.entity_manager, @knp_paginator]
 
     model.mail:
         class: Mrsuh\RealEstateBundle\Model\MailModel

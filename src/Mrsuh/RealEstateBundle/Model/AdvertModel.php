@@ -11,14 +11,17 @@ class AdvertModel
     private $advertDescriptRepo;
     private $advertImageRepo;
     private $em;
+    private $paginator;
 
-    public function __construct($em)
+    public function __construct($em, $paginator)
     {
+        $this->em = $em;
+        $this->paginator = $paginator;
+
         $this->advertRepo = $em->getRepository(C::REPO_ADVERT);
         $this->objectRepo = $em->getRepository(C::REPO_OBJECT);
         $this->advertDescriptRepo = $em->getRepository(C::REPO_ADVERT_DESCRIPTION);
         $this->advertImageRepo = $em->getRepository(C::REPO_ADVERT_IMAGE);
-        $this->em = $em;
         $this->paramRepo = [
             'object_balcony' => $em->getRepository(C::REPO_OBJECT_BALCONY),
             'object_heating' => $em->getRepository(C::REPO_OBJECT_HEATING),
@@ -99,6 +102,7 @@ class AdvertModel
                 $params['advert_expire_time'] = new \DateTime();
             }
 
+            $this->objectRepo->update($advert->getObject(), $params);
             $this->advertRepo->update($advert, $params);
 
 //            foreach($params['advert_image'] as $i) {
@@ -129,12 +133,12 @@ class AdvertModel
 
     public function findByString($params)
     {
-        return $this->advertRepo->findByString($params);
+        return $this->paginator->paginate($this->advertRepo->findByString($params), $params['pagination_page'], $params['pagination_items_on_page']);
     }
 
     public function findByExtensionParams($params)
     {
-        return $this->advertRepo->findByExtensionParams($params);
+        return $this->paginator->paginate($this->advertRepo->findByExtensionParams($params), $params['pagination_page'], $params['pagination_items_on_page']);
     }
 
     public function findToArchive()
