@@ -35,12 +35,17 @@
         {% endif %}
 
                 <td class="text-center"><a href="{{ url('advert', { 'id': advert.id }) }}">{{ advert.id }}</a></td>
-                <td class="img-responsive text-center">
-                    {% if (advert.getImg | first) != null %}
-                        <a href="{{ url('advert', { 'id': advert.id }) }}"><img src="{{ asset( (advert.getImg | first).getMiniWebPath ) }}" style="max-width: 100px; max-height: 100px"></a>
-                    {% endif %}
+            <td class="img-responsive text-center">
+                {% if (advert.getImg | first) != null %}
+                    <a href="{{ url('advert', { 'id': advert.id }) }}"><img
+                                src="{{ asset( (advert.getImg | first).getMiniWebPath ) }}"
+                                style="max-width: 100px; max-height: 100px"></a>
+                {% else %}
+                    <a href="{{ url('advert', { 'id': advert.id }) }}"><img src="{{ asset('img/real-estate.jpg') }}"
+                                                                            style="max-width: 100px; max-height: 100px"></a>
+                {% endif %}
 
-                </td>
+            </td>
                 <td class="text-center">
                     {% if constant('Mrsuh\\RealEstateBundle\\C::OBJECT_TYPE_HOUSE') == advert.object.type.name %}
                         {% if advert.object.roomNumber %} {{ advert.object.roomNumber }} -к {% endif %}

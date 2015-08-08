@@ -60,7 +60,7 @@ class AdvertController extends Controller
                     $pagination = $this->get('model.advert')->findByExtensionParams($formData);
             }
         }
-//        var_dump($pagination);exit;
+
         return $this->render('MrsuhRealEstateBundle:Advert:find_advert.html.twig', ['pageName' => 'Поиск объявления', 'pagination' => $pagination, 'form' => $form->createView()]);
     }
 

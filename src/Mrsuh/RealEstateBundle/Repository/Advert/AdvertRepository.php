@@ -102,7 +102,23 @@ class AdvertRepository extends EntityRepository
     {
         $qb = $this->createQueryBuilder('a');
 
-        if(!is_null($params['search_string_type']) && !is_null($params['search_string_string'])) {
+        if(!is_null($params['advert_type'])) {
+            $qb->andWhere('a.type = :advert_type')
+               ->setParameter('advert_type', $params['advert_type']);
+        }
+
+        if(!is_null($params['advert_user'])) {
+            $qb->join('a.user', 'user')
+                ->andWhere('user.id = :advert_user')
+                ->setParameter('advert_user', $params['advert_user']);
+        }
+
+        if(!is_null($params['advert_status'])) {
+            $qb->andWhere('a.status = :advert_status');
+            $qb->setParameter('advert_status', $params['advert_status']);
+        }
+
+        if(!is_null($params['search_string_string'])) {
             $qb->join('a.object', 'object');
             switch($params['search_string_type']) {
                 case C::OBJECT_NUMBER:
@@ -125,8 +141,40 @@ class AdvertRepository extends EntityRepository
             }
 
             $qb->setParameter('string', '%'.$params['search_string_string'].'%');
-        } else {
-            return [];
+        }
+
+        if(!is_null($params['order_field'])){
+            if(is_null($params['search_string_string'])){
+                $qb->join('a.object', 'object');
+            }
+            switch($params['order_field']){
+                case 'id':
+                    $qb->orderBy('a.id', $params['order_type']);
+                    break;
+                case 'city':
+                    $qb->join('object.city', 'object_city');
+                    $qb->orderBy('object_city.id', $params['order_type']);
+                    break;
+                case 'region':
+                    $qb->join('object.region', 'object_region');
+                    $qb->orderBy('object_region.id', $params['order_type']);
+                    break;
+                case 'price':
+                    $qb->orderBy('a.price', $params['order_type']);
+                    break;
+                case 'status':
+                    $qb->orderBy('a.status', $params['order_type']);
+                    break;
+                case 'create_time':
+                    $qb->orderBy('a.createTime', $params['order_type']);
+                    break;
+                case 'update_time':
+                    $qb->orderBy('a.updateTime', $params['order_type']);
+                    break;
+                case 'expire_time':
+                    $qb->orderBy('a.expireTime', $params['order_type']);
+                    break;
+            }
         }
 
         return $qb->getQuery();
@@ -137,6 +185,23 @@ class AdvertRepository extends EntityRepository
     {
         $qb = $this->createQueryBuilder('a')
                 ->join('a.object', 'object');
+
+        if(!is_null($params['advert_type'])) {
+            $qb->andWhere('a.type = :advert_type')
+                ->setParameter('advert_type', $params['advert_type']);
+        }
+
+        if(!is_null($params['advert_user'])) {
+            $qb->join('a.user', 'user')
+                ->andWhere('user.id = :advert_user')
+                ->setParameter('advert_user', $params['advert_user']);
+        }
+
+        if(!is_null($params['advert_status'])) {
+            $qb->andWhere('a.status = :advert_status');
+            $qb->setParameter('advert_status', $params['advert_status']);
+        }
+
 
         //price
         if(!is_null($params['price_from'])) {

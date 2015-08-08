@@ -37,6 +37,7 @@ class AdvertModel
 
             'advert_type' => $em->getRepository(C::REPO_ADVERT_TYPE),
             'advert_category' => $em->getRepository(C::REPO_ADVERT_CATEGORY),
+            'advert_user' => $em->getRepository(C::REPO_USER),
         ];
     }
 
@@ -48,7 +49,11 @@ class AdvertModel
                 if(!array_key_exists($k, $params)) {
                     $params[$k] = [];
                 }
-                $params[$k][$obj->getId()] = $obj->getName();
+                if('advert_user' === $k){
+                    $params[$k][$obj->getId()] = $obj->getLastName() . ' ' . $obj->getFirstName() . ' ' . $obj->getMiddleName();
+                } else {
+                    $params[$k][$obj->getId()] = $obj->getName();
+                }
             }
         }
 

@@ -6,19 +6,26 @@
     <div class="regular_search">
         <div class="row">
             <div class="col-md-2">{{ form_widget(form.search_string_type, {'attr': {'class': 'form-control' }}) }}</div>
-            <div class="col-md-3">{{ form_widget(form.search_string_string, {'attr': {'class': 'form-control' }}) }}
-            </div>
-            <div class="col-md-2"><button type="button" class="btn btn-success" id="submit_search_string">Поиск</button></div>
-            <div class="col-md-2"><button type="button" class="btn btn-primary" id="extension_button">Расширенный поиск</button></div>
-            <div class="col-md-2"><label>Объектов на странице</label></div>
-            <div class="col-md-1">{{ form_widget(form.pagination_items_on_page, {'attr': {'class': 'form-control date' }} ) }}</div>
+            <div class="col-md-4">{{ form_widget(form.search_string_string, {'attr': {'class': 'form-control' }}) }}</div>
+            <div class="col-md-2"><button type="button" class="btn btn-success btn-width" id="submit_search_string">Поиск</button></div>
         </div>
+        <br>
+        <div class="row">
+            <div class="col-md-2">{{ form_widget(form.advert_type, {'attr': {'class': 'form-control' }}) }}</div>
+            <div class="col-md-2">{{ form_widget(form.advert_user, {'attr': {'class': 'form-control' }}) }}</div>
+            <div class="col-md-2">{{ form_widget(form.advert_status, {'attr': {'class': 'form-control' }}) }}</div>
+        </div>
+    </div>
+    <br>
+    <div class="row">
+        <div class="col-md-6"><a href="##" id="extension_button">Расширенный поиск</a></div>
+        <div class="col-md-2 col-md-offset-4">{{ form_widget(form.pagination_items_on_page, {'attr': {'class': 'form-control' }} ) }}</div>
     </div>
 
     <div id="extension_search" hidden="true">
         <br>
         <div class="row">
-            <div class="col-md-3">
+            <div class="col-md-2">
 
                 <div class="row">
                     <div class="col-md-12"><label>Тип объекта</label></div>
@@ -57,34 +64,6 @@
                         {% endfor %}
                     </div>
                 </div>
-            </div>
-
-            <div class="col-md-5">
-                <div class="row">
-                    <div class="col-md-4"><label>Регион</label></div>
-                    <div class="col-md-8">{{ form_widget(form.object_region, {'attr': {'class': 'form-control' }}) }}
-                    </div>
-                </div>
-                <br>
-
-                <div class="row">
-                    <div class="col-md-4"><label>Город</label></div>
-                    <div class="col-md-8">{{ form_widget(form.object_city, {'attr': {'class': 'form-control' }}) }}
-                    </div>
-                </div>
-                <br>
-
-                <div class="row">
-                    <div class="col-md-4"><label>Регион города</label></div>
-                    <div class="col-md-8">
-                        {% for form in form.object_region_city %}
-                            {{ form_widget(form) }}
-                            {{ form_label(form) }}<br>
-                        {% endfor %}
-
-                    </div>
-                </div>
-                <br>
             </div>
 
             <div class="col-md-4">
@@ -142,9 +121,9 @@
 
                 <div class="row">
                     <div class="col-md-4"><label>Земельный участок</label></div>
-                    <div class="col-md-4">{{ form_widget(form.section_area_from, {'attr': {'class': 'form-control date' }}) }}
+                    <div class="col-md-4">{{ form_widget(form.section_area_from, {'attr': {'class': 'form-control' }}) }}
                     </div>
-                    <div class="col-md-4">{{ form_widget(form.section_area_to, {'attr': {'class': 'form-control date' }})}}
+                    <div class="col-md-4">{{ form_widget(form.section_area_to, {'attr': {'class': 'form-control' }})}}
                     </div>
                 </div>
                 <br>
@@ -184,9 +163,37 @@
                 </div>
                 <br>
             </div>
+
+            <div class="col-md-4">
+                <div class="row">
+                    <div class="col-md-8">{{ form_widget(form.object_region, {'attr': {'class': 'form-control' }}) }}
+                    </div>
+                </div>
+                <br>
+
+                <div class="row">
+                    <div class="col-md-8">{{ form_widget(form.object_city, {'attr': {'class': 'form-control' }}) }}
+                    </div>
+                </div>
+                <br>
+
+                <div class="row">
+                    <div class="col-md-12"><label>Регион города</label></div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        {% for form in form.object_region_city %}
+                            {{ form_widget(form) }}
+                            {{ form_label(form) }}<br>
+                        {% endfor %}
+                    </div>
+                </div>
+                <br>
+            </div>
+
         </div>
         <br>
-        <button type="button" class="btn btn-success" id="submit_search_extension">Поиск</button>
+        <button type="button" class="btn btn-success btn-width" id="submit_search_extension">Поиск</button>
     </div>
     <hr>
     {{ form_widget(form.search, {'attr': {'hidden': 'true' }} ) }}
@@ -201,22 +208,22 @@
 
         <table class="table table-bordered">
             <tr class="text-center">
-                <td><a href="#" id="order_field_id">#</a></td>
+                <td><a href="##" id="order_field_id">#</a></td>
                 <td>Фото</td>
                 <td>Тип объекта</td>
                 <td>
-                    <a href="#" id="order_field_city">Город</a> |
-                    <a href="#" id="order_field_region">Район</a> |
+                    <a href="##" id="order_field_city">Город</a> |
+                    <a href="##" id="order_field_region">Район</a> |
                     Адрес |
                     Описание
                 </td>
                 <td>Площадь</td>
-                <td><a href="#" id="order_field_price">Цена</a></td>
-                <td><a href="#" id="order_field_status">Статус</a></td>
+                <td><a href="##" id="order_field_price">Цена</a></td>
+                <td><a href="##" id="order_field_status">Статус</a></td>
                 <td>
-                    <a href="#" id="order_field_create_time">Создано</a> |
-                    <a href="#" id="order_field_update_time">Обновлено</a> |
-                    <a href="#" id="order_field_expire_time">Истекает</a>
+                    <a href="##" id="order_field_create_time">Создано</a> |
+                    <a href="##" id="order_field_update_time">Обновлено</a> |
+                    <a href="##" id="order_field_expire_time">Истекает</a>
                 </td>
             </tr>
             {% for advert in pagination.items %}
@@ -261,7 +268,7 @@
                 </td>
                 <td class="text-center">
                     {{ advert.object.city.name }},{{ advert.object.regionCity.name }},<br>
-                    {{ advert.object.street.name }} ул {% if advert.object.house %},{{ advert.object.house }}{% endif %}
+                    {{ advert.object.street.name }} ул{% if advert.object.house %}, {{ advert.object.house }}{% endif %}
 
                 </td>
                 <td class="text-center">
@@ -285,9 +292,9 @@
                         активное
                     {% elseif constant('Mrsuh\\RealEstateBundle\\C::STATUS_ADVERT_REQUEST_DELETE') == advert.status %}
                         запрос<br>
-                        на удаление
+                        в архив
                     {% elseif constant('Mrsuh\\RealEstateBundle\\C::STATUS_ADVERT_DELETED') == advert.status %}
-                        удалено
+                        архив
                     {% elseif constant('Mrsuh\\RealEstateBundle\\C::STATUS_ADVERT_AGENT') == advert.status %}
                         агент
                     {% endif %}
@@ -322,19 +329,19 @@
             <div class="col-md-12">
                 <nav>
                     <ul class="pagination">
-                        <li><a href="#" id="pagination_start">start</a></li>
+                        <li><a href="##" id="pagination_start">start</a></li>
                         <li>
-                            <a href="#" aria-label="Previous" id="pagination_previous">
+                            <a href="##" aria-label="Previous" id="pagination_previous">
                                 <span aria-hidden="true">&laquo;</span>
                             </a>
                         </li>
-                        <li><a href="#">{{ pagination.getPaginationData.current }}</a></li>
+                        <li><a href="##">{{ pagination.getPaginationData.current }}</a></li>
                         <li>
-                            <a href="#" aria-label="Next" id="pagination_next">
+                            <a href="##" aria-label="Next" id="pagination_next">
                                 <span aria-hidden="true">&raquo;</span>
                             </a>
                         </li>
-                        <li><a href="#" id="pagination_fin">&nbsp;fin&nbsp;&nbsp;</a></li>
+                        <li><a href="##" id="pagination_fin">&nbsp;fin&nbsp;&nbsp;</a></li>
                     </ul>
                 </nav>
             </div>
