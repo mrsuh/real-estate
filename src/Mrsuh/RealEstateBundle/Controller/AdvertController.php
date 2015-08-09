@@ -23,13 +23,13 @@ class AdvertController extends Controller
             try{
                 $newParams = $this->get('model.advert')->setAdvertParams($formData);
                 $user = $this->getUser();
-                $this->get('model.advert')->create($newParams, $user);
+                $advert = $this->get('model.advert')->create($newParams, $user);
 
                 $this->addFlash(
                     'success',
                     'Ваше объявление успешно создано'
                 );
-                $this->redirect($this->generateUrl('find_advert'));
+                return $this->redirect($this->generateUrl('advert', ['id' => $advert->getId()]));
 
             } catch(\Exception $e){
                 $this->addFlash(

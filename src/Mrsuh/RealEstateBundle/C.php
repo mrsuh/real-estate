@@ -74,4 +74,6 @@ class C
     const ORDER_TYPE_ASC = 'ASC';
     const ORDER_TYPE_DESC = 'DESC';
 
+    const PASSWORD_LENGTH = 6;
+
 }

@@ -474,6 +474,13 @@
 
             var pagination_page = $('#findAdvert_pagination_page');
 
+            var pagination_items_on_page = $('#findAdvert_pagination_items_on_page');
+
+            pagination_items_on_page.change(function(){
+                pagination_page.val(1);
+                search_submit.click();
+            });
+
             submit_search_extension.click(function()
             {
                 search_type.val('{{ constant('Mrsuh\\RealEstateBundle\\C::SEARCH_EXTENSION') }}');

@@ -56,13 +56,14 @@ class UserController extends Controller
             $form->handleRequest($request);
             $formData = $form->getData();
             try{
-                $this->get('model.user')->create($formData);
+                $user = $this->get('model.user')->create($formData);
 
                 $this->addFlash(
                     'success',
                     'Новый пользователь успешно создан. Логин и пароль высланы по адресу ' . $formData['email']
                 );
 
+                return $this->redirect($this->generateUrl('user', ['id' => $user->getId()]));
 
             } catch(\Exception $e){
                 $this->addFlash(

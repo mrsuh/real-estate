@@ -95,6 +95,8 @@ class AdvertModel
             $this->em->rollback();
             throw $e;
         }
+
+        return $advert;
     }
 
     public function update($advert, $params)

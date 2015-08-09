@@ -18,7 +18,7 @@ services:
 
     model.client:
         class: Mrsuh\RealEstateBundle\Model\ClientModel
-        arguments: [@doctrine.orm.entity_manager]
+        arguments: [@doctrine.orm.entity_manager, @knp_paginator]
 
     model.user:
         class: Mrsuh\RealEstateBundle\Model\UserModel

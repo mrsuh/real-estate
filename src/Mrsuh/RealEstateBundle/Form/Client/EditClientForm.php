@@ -19,10 +19,10 @@ class EditClientForm extends AbstractType
 
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('name1', 'text', ['required' => false, 'data' => $this->client->getName1()]);
+        $builder->add('name1', 'text', ['required' => true, 'data' => $this->client->getName1()]);
         $builder->add('name2', 'text', ['required' => false, 'data' => $this->client->getName2()]);
         $builder->add('name3', 'text', ['required' => false, 'data' => $this->client->getName3()]);
-        $builder->add('phone1', 'text', ['required' => false, 'data' => $this->client->getPhone1()]);
+        $builder->add('phone1', 'text', ['required' => true, 'data' => $this->client->getPhone1()]);
         $builder->add('phone2', 'text', ['required' => false, 'data' => $this->client->getPhone2()]);
         $builder->add('phone3', 'text', ['required' => false, 'data' => $this->client->getPhone3()]);
 

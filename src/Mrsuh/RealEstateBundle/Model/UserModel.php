@@ -54,6 +54,10 @@ class UserModel
         CommonFunction::checkEmail($params['email']);
 
         if(!empty($params['password'])) {
+            if(C::PASSWORD_LENGTH  > strlen($params['password'])) {
+                throw new \Exception('Пароль должен содержать не менее ' . C::PASSWORD_LENGTH . ' символов ');
+            }
+
             $mail = [
                 'to' => $params['email'],
                 'body' => 'login: ' . $params['username'] .'<br>' . 'pass: ' . $params['password'],
@@ -62,5 +66,15 @@ class UserModel
         }
 
        return $this->userRepo->update($user, $params);
+    }
+
+    public function getUsersArray()
+    {
+        $users = [];
+        foreach ($this->userRepo->findAll() as $obj) {
+            $users[$obj->getId()] = $obj->getLastName() . ' ' . $obj->getFirstName() . ' ' . $obj->getMiddleName();
+        }
+
+        return $users;
     }
 }

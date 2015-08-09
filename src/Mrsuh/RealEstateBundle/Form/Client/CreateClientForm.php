@@ -20,7 +20,7 @@ class CreateClientForm extends AbstractType
         $builder->add('name1', 'text', ['required' => true, 'attr' => ['value' => null]]);
         $builder->add('name2', 'text', ['required' => false, 'attr' => ['value' => null]]);
         $builder->add('name3', 'text', ['required' => false, 'attr' => ['value' => null]]);
-        $builder->add('phone1', 'text', ['required' => false, 'attr' => ['value' => null]]);
+        $builder->add('phone1', 'text', ['required' => true, 'attr' => ['value' => null]]);
         $builder->add('phone2', 'text', ['required' => false, 'attr' => ['value' => null]]);
         $builder->add('phone3', 'text', ['required' => false, 'attr' => ['value' => null]]);
 

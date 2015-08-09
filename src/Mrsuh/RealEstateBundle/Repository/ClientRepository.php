@@ -128,4 +128,70 @@ class ClientRepository extends EntityRepository
 
         return $obj;
     }
+
+    public function findByParams($params)
+    {
+        $qb = $this->createQueryBuilder('c');
+
+
+        if(!is_null($params['status'])) {
+            $qb->andWhere('c.status= :status')
+                ->setParameter('status', $params['status']);
+        }
+
+        if(!is_null($params['phone'])) {
+            $qb->andWhere('c.phone1 LIKE :phone OR c.phone2 LIKE :phone OR c.phone3 LIKE :phone')
+                ->setParameter('phone', '%'.$params['phone'].'%');
+        }
+
+        if(!is_null($params['user'])) {
+            $qb->join('c.user', 'user');
+            $qb->andWhere('user.id = :user')
+                ->setParameter('user', $params['user']);
+        }
+
+        if(!is_null($params['order_field'])){
+            switch($params['order_field']){
+                case 'id':
+                    $qb->orderBy('c.id', $params['order_type']);
+                    break;
+                case 'phone':
+                    $qb->orderBy('c.phone1', $params['order_type']);
+                    break;
+                case 'name':
+                    $qb->orderBy('c.name1', $params['order_type']);
+                    break;
+                case 'create_time':
+                    $qb->orderBy('c.createTime', $params['order_type']);
+                    break;
+                case 'update_tim':
+                    $qb->orderBy('c.updateTime', $params['order_type']);
+                    break;
+                case 'hot':
+                    $qb->orderBy('c.hot', $params['order_type']);
+                    break;
+                case 'mortgage':
+                    $qb->orderBy('c.mortgage', $params['order_type']);
+                    break;
+                case 'status':
+                    $qb->orderBy('c.status', $params['order_type']);
+                    break;
+                case 'user':
+                    $qb->join('c.user', 'user');
+                    $qb->orderBy('user.lastName', $params['order_type']);
+                    break;
+            }
+        }
+
+        return $qb->getQuery();
+    }
+
+    public function existClientByPhone($phone)
+    {
+        $qb = $this->createQueryBuilder('c');
+            $qb->andWhere('c.phone1 = :phone OR c.phone2 = :phone OR c.phone3 = :phone')
+                ->setParameter('phone', $phone);
+
+        return $qb->getQuery()->getResult();
+    }
 }

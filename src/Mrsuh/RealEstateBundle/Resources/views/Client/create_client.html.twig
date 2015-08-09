@@ -53,11 +53,9 @@
                 <div class="col-md-4">{{ form_widget(form.birth_day, {'attr': {'class': 'form-control' }}) }}</div>
             </div>
             <br>
-            <br>
-            <br>
             <div class="row">
                 <div class="col-md-2"><label>Комментарии</label></div>
-                <div class="col-md-12">{{ form_widget(form.comment, {'attr': {'class': 'form-control' }}) }}</div>
+                <div class="col-md-12">{{ form_widget(form.comment, {'attr': {'class': 'form-control', 'style' : 'height:130px;'}}) }}</div>
 
             </div>
             <br>
@@ -114,7 +112,7 @@
         </div>
     </div>
 
-    {{ form_widget(form.submit, {'attr': {'class': 'btn btn-success' }}) }}
+    {{ form_widget(form.submit, {'attr': {'class': 'btn btn-success btn-width' }}) }}
     {{ form_end(form) }}
 
 {% endblock %}

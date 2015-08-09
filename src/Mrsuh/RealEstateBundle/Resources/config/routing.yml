@@ -35,10 +35,6 @@ create_client:
     path: /create-client
     defaults: { _controller: MrsuhRealEstateBundle:Client:createClient }
 
-list_client:
-    path: /list-clients
-    defaults: { _controller: MrsuhRealEstateBundle:Client:getListClient }
-
 find_client:
     path: /find-client
     defaults: { _controller: MrsuhRealEstateBundle:Client:findClient }

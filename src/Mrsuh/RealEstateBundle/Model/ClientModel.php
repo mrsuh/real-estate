@@ -8,10 +8,12 @@ class ClientModel
     private $paramRepo;
     private $clientRepo;
     private $em;
+    private $paginator;
 
-    public function __construct($em)
+    public function __construct($em, $paginator)
     {
         $this->clientRepo = $em->getRepository(C::REPO_CLIENT);
+        $this->paginator = $paginator;
         $this->em = $em;
         $this->paramRepo = [
             'object_type' => $em->getRepository(C::REPO_OBJECT_TYPE),
@@ -50,11 +52,15 @@ class ClientModel
 
     public function create($params, $user)
     {
+        if($this->clientRepo->existClientByPhone($params['phone1'])) {
+            throw new \Exception('Клиент с телефоном ' . $params['phone1'] . ' уже существует');
+        };
+
         $this->em->beginTransaction();
         try{
 
             $params['user'] = $user;
-            $this->clientRepo->create($params);
+            $client = $this->clientRepo->create($params);
 
             $this->em->flush();
             $this->em->commit();
@@ -62,6 +68,8 @@ class ClientModel
             $this->em->rollback();
             throw $e;
         }
+
+        return $client;
     }
 
     public function update($client, $params)
@@ -87,9 +95,9 @@ class ClientModel
         return $this->clientRepo->findOneById($id);
     }
 
-    public function findByParam()
+    public function findByParams($params)
     {
-        return $this->clientRepo->findAll();
+        return $this->paginator->paginate($this->clientRepo->findByParams($params), $params['pagination_page'], $params['pagination_items_on_page']);
     }
 
 }

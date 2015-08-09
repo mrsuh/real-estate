@@ -2,21 +2,27 @@
 
 use Mrsuh\RealEstateBundle\Form\Client\CreateClientForm;
 use Mrsuh\RealEstateBundle\Form\Client\EditClientForm;
+use Mrsuh\RealEstateBundle\Form\Client\FindClientForm;
+use Mrsuh\RealEstateBundle\Form\Client\ListClientForm;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 
 class ClientController extends Controller
 {
-    public function getListClientAction(Request $request)
-    {
-        $clients = $this->get('model.client')->findByParam();
-
-        return $this->render('MrsuhRealEstateBundle:Client:list_client.html.twig', ['pageName' => 'Клиенты', 'clients' => $clients]);
-    }
-
     public function findClientAction(Request $request)
     {
-        return $this->render('MrsuhRealEstateBundle:Client:find_client.html.twig', ['pageName' => 'Поиск клиента']);
+        $pagination = [];
+
+        $form = $this->createForm(new FindClientForm(['user' => $this->get('model.user')->getUsersArray()]));
+
+        if ($request->isMethod('POST')) {
+            $form->handleRequest($request);
+            $formData = $form->getData();
+
+            $pagination = $this->get('model.client')->findByParams($formData);
+        }
+
+        return $this->render('MrsuhRealEstateBundle:Client:find_client.html.twig', ['pageName' => 'Поиск клиента', 'pagination' => $pagination, 'form' => $form->createView()]);
     }
 
     public function createClientAction(Request $request)
@@ -31,12 +37,13 @@ class ClientController extends Controller
             try{
                 $newParams = $this->get('model.client')->setClientParams($formData);
                 $user = $this->getUser();
-                $this->get('model.client')->create($newParams, $user);
+                $client = $this->get('model.client')->create($newParams, $user);
 
                 $this->addFlash(
                     'success',
                     'Клиент успешно создан'
                 );
+                return $this->redirect($this->generateUrl('client', ['id' => $client->getId()]));
 
             } catch(\Exception $e){
                 $this->addFlash(
