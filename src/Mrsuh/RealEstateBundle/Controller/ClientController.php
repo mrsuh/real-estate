@@ -59,6 +59,22 @@ class ClientController extends Controller
         if ($request->isMethod('POST')) {
             $form->handleRequest($request);
             $formData = $form->getData();
+
+            try{
+                $newParams = $this->get('model.client')->setClientParams($formData);
+                $this->get('model.client')->update($client, $newParams);
+
+                $this->addFlash(
+                    'success',
+                    'Данные успешно сохранены'
+                );
+
+            } catch(\Exception $e){
+                $this->addFlash(
+                    'warning',
+                    'Произошла ошибка: ' . $e->getMessage()
+                );
+            }
         }
 
         return $this->render('MrsuhRealEstateBundle:Client:client.html.twig', ['pageName' => 'Клиент #' . $client->getId(), 'form' => $form->createView()]);

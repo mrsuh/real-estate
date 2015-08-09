@@ -87,7 +87,7 @@ class AdvertController extends Controller
 
                 $this->addFlash(
                     'success',
-                    'Ваше объявление успешно сохранено'
+                    'Данные успешно сохранены'
                 );
 
             } catch(\Exception $e){

@@ -64,6 +64,24 @@ class ClientModel
         }
     }
 
+    public function update($client, $params)
+    {
+        $this->em->beginTransaction();
+        try{
+
+            $this->clientRepo->update($client, $params);
+
+            $this->em->flush();
+            $this->em->commit();
+        } catch(\Exception $e){
+            $this->em->rollback();
+            throw $e;
+        }
+
+        return $client;
+    }
+
+
     public function getOneById($id)
     {
         return $this->clientRepo->findOneById($id);

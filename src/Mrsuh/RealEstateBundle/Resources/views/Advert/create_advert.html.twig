@@ -155,7 +155,6 @@
         var advert_meter_price =  $( "#createAdvert_advert_meter_price");
         var advert_price =  $( "#createAdvert_advert_price");
         var object_common_area =  $( "#createAdvert_object_common_area");
-        var advert_expire_time =  $( "#createAdvert_advert_expire_time");
 
         var mathMeterPrice = function()
         {
@@ -171,8 +170,6 @@
 
         object_common_area.bind('change', mathMeterPrice);
         advert_price.bind('change',mathMeterPrice);
-
-        advert_expire_time.datepicker({ dateFormat: 'dd.mm.yy' });
     });
 </script>
 {% endblock %}

@@ -223,6 +223,13 @@ class Client
     /**
      * @var \DateTime
      *
+     * @ORM\Column(name="updateTime", type="datetime", nullable=true)
+     */
+    private $updateTime;
+
+    /**
+     * @var \DateTime
+     *
      * @ORM\Column(name="processingTime", type="datetime", nullable=true)
      */
     private $processingTime;
@@ -1046,5 +1053,21 @@ class Client
     public function getHot()
     {
         return $this->hot;
+    }
+
+    /**
+     * @return \DateTime
+     */
+    public function getUpdateTime()
+    {
+        return $this->updateTime;
+    }
+
+    /**
+     * @param \DateTime $updateTime
+     */
+    public function setUpdateTime($updateTime)
+    {
+        $this->updateTime = $updateTime;
     }
 }

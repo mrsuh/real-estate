@@ -47,6 +47,13 @@ class C
     const STATUS_ADVERT_DELETED = 3;
     const STATUS_ADVERT_AGENT = 4;
 
+    const STATUS_CLIENT_IN_WORK = 1;
+    const STATUS_CLIENT_TEMPORARY_SUSPENDED = 2;
+    const STATUS_CLIENT_BOUGHT_WITH_US = 3;
+    const STATUS_CLIENT_BOUGHT_HIMSELF = 4;
+    const STATUS_CLIENT_BLACK_LIST = 5;
+
+
     const OBJECT_TYPE_HOUSE = 'Дом(коттедж)';
     const OBJECT_TYPE_EARTH_AREA = 'Земельный участок';
     const OBJECT_TYPE_FLAT = 'Квартира';

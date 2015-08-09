@@ -18,6 +18,7 @@ class ClientRepository extends EntityRepository
 
             $time = new \DateTime();
             $obj->setCreateTime($time);
+            $obj->setUpdateTime($time);
 
             foreach ([
                          'name1',
@@ -77,7 +78,7 @@ class ClientRepository extends EntityRepository
     {
         $this->_em->beginTransaction();
         try {
-
+            $obj->setUpdateTime(new \DateTime());
             foreach ([
                          'name1',
                          'name2',
@@ -111,9 +112,9 @@ class ClientRepository extends EntityRepository
                          'hot',
 
                      ] as $v) {
-                if (isset($params[$v]) && !is_null($p = $params[$v])) {
+                if (array_key_exists($v, $params)) {
                     $s = 'set' . CommonFunction::dashesToCamelCase($v);
-                    $obj->$s($p);
+                    $obj->$s($params[$v]);
                 }
             }
 

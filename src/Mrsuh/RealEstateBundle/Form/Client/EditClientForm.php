@@ -1,5 +1,6 @@
 <?php namespace Mrsuh\RealEstateBundle\Form\Client;
 
+use Mrsuh\RealEstateBundle\C;
 use Mrsuh\RealEstateBundle\Entity\Advert\AdvertImage;
 use Symfony\Component\Form\AbstractType;
 use Mrsuh\RealEstateBundle\Entity\FileType;
@@ -45,9 +46,18 @@ class EditClientForm extends AbstractType
         $builder->add('floors_from', 'text', ['required' => false, 'data' => $this->client->getFloorsFrom()]);
         $builder->add('floors_to', 'text', ['required' => false, 'data' => $this->client->getFloorsTo()]);
 
-
-        $builder->add('birth_day', 'text', ['required' => false, 'data' => $this->client->getBirthDay()->format('d.m.Y')]);
-        $builder->add('status', 'choice', ['choices' => [1 => 'да', 0 => 'нет'], 'data' => $this->client->getStatus()]);
+        $date = null;
+        if(!is_null($this->client->getBirthDay())) {
+            $date = $this->client->getBirthDay()->format('d.m.Y');
+        }
+        $builder->add('birth_day', 'text', ['required' => false, 'data' => $date]);
+        $builder->add('status', 'choice', ['choices' => [
+            C::STATUS_CLIENT_IN_WORK => 'В работе',
+            C::STATUS_CLIENT_TEMPORARY_SUSPENDED => 'Временно приостановил поиск',
+            C::STATUS_CLIENT_BOUGHT_WITH_US => 'Купил в нашем агенстве',
+            C::STATUS_CLIENT_BOUGHT_HIMSELF => 'Купил самостоятельно',
+            C::STATUS_CLIENT_BLACK_LIST => 'Черный список'
+        ], 'data' => $this->client->getStatus()]);
 
         $builder->add('mortgage', 'choice', ['choices' => [1 => 'да', 0 => 'нет'], 'data' => $this->client->getMortgage()]);
         $builder->add('hot', 'choice', ['choices' => [1 => 'да', 0 => 'нет'], 'data' => $this->client->getHot()]);
@@ -55,11 +65,11 @@ class EditClientForm extends AbstractType
         $builder->add('city', 'choice', ['choices' => $this->params['city'], 'data' => $this->client->getCity()->getId()]);
         $builder->add('region_city', 'choice', ['choices' => $this->params['region_city'], 'data' => $this->client->getRegionCity()->getId()]);
 
-        $builder->add('submit', 'submit', array('label' => 'Создать'));
+        $builder->add('submit', 'submit', array('label' => 'Сохранить'));
     }
 
     public function getName()
     {
-        return 'createClient';
+        return 'editClient';
     }
 }

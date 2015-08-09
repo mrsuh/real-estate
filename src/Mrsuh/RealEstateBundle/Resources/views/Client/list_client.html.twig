@@ -3,18 +3,57 @@
 
     <table class="table table-bordered">
         <tr class="text-center active">
-            <td>id</td>
+            <td>#</td>
+            <td>Номер телефона</td>
             <td>ФИО</td>
-            <td>статус</td>
-            <td>тип недвижимости</td>
+            <td>Создан</td>
+            <td>Обновлен</td>
+            <td>Горячий клиент</td>
+            <td>Ипотека</td>
+            <td>Статус</td>
+            <td>Специалист</td>
         </tr>
 
         {% for client in clients %}
-            <tr>
+            {% if constant('Mrsuh\\RealEstateBundle\\C::STATUS_CLIENT_IN_WORK') == client.status %}
+                {% set clientStatus = 'В работе' %}
+                <tr class="success">
+            {% elseif constant('Mrsuh\\RealEstateBundle\\C::STATUS_CLIENT_TEMPORARY_SUSPENDED') == client.status %}
+                {% set clientStatus = 'Временно присотановил поиск' %}
+                <tr>
+            {% elseif constant('Mrsuh\\RealEstateBundle\\C::STATUS_CLIENT_BOUGHT_WITH_US') == client.status %}0
+                {% set clientStatus = 'Купил а нашем агенстве' %}
+                <tr>
+            {% elseif constant('Mrsuh\\RealEstateBundle\\C::STATUS_CLIENT_BOUGHT_HIMSELF') == client.status %}
+                {% set clientStatus = 'Купил самостоятельно' %}
+                <tr>
+            {% elseif constant('Mrsuh\\RealEstateBundle\\C::STATUS_CLIENT_BLACK_LIST') == client.status %}
+                {% set clientStatus = 'Черный список' %}
+                <tr class="danger">
+            {% else %}
+                {% set clientStatus = '' %}
+                <tr>
+                {% endif %}
+
                 <td class="text-center"> <a href="{{ url('client', { 'id': client.id }) }}">{{ client.id }}</a></td>
-                <td class="text-center">{{ client.name1 }}</td>
-                <td class="text-center">{{ client.status }}</td>
-                <td class="text-center">{{ client.objectType.name }}</td>
+                {% if null != client.name1 %}
+                    {% set name = client.name1 %}
+                    {% set phone = client.phone1 %}
+                {% elseif null != client.name2 %}
+                    {% set name = client.name2 %}
+                    {% set phone = client.phone2 %}
+                {% else %}
+                    {% set name = client.name3 %}
+                    {% set phone = client.phone3 %}
+                {% endif %}
+                <td class="text-center">{{ phone }}</td>
+                <td class="text-center">{{ name }}</td>
+                <td class="text-center">{% if null != client.createTime  %}{{ client.createTime | date('d.m.Y') }}{% endif %}</td>
+                <td class="text-center">{% if null != client.updateTime  %}{{ client.updateTime | date('d.m.Y') }}{% endif %}</td>
+                <td class="text-center">{% if client.hot  %}Да{% else %}Нет{% endif %}</td>
+                <td class="text-center">{% if client.mortgage  %}Да{% else %}Нет{% endif %}</td>
+                <td class="text-center">{{ clientStatus }}</td>
+                <td class="text-center">{{ client.user.lastName }} {{ client.user.firstName }} {{ client.user.middleName }}</td>
             </tr>
         {% endfor %}
 
