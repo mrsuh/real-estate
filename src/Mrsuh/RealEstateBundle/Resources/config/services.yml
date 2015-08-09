@@ -18,13 +18,17 @@ services:
 
     model.client:
         class: Mrsuh\RealEstateBundle\Model\ClientModel
-        arguments: []
+        arguments: [@doctrine.orm.entity_manager, @knp_paginator]
 
     model.user:
         class: Mrsuh\RealEstateBundle\Model\UserModel
-        arguments: []
+        arguments: [@doctrine.orm.entity_manager, @model.mail]
 
     model.advert:
         class: Mrsuh\RealEstateBundle\Model\AdvertModel
-        arguments: [@doctrine.orm.entity_manager]
+        arguments: [@doctrine.orm.entity_manager, @knp_paginator]
+
+    model.mail:
+        class: Mrsuh\RealEstateBundle\Model\MailModel
+        arguments: [@mailer, %mailer_user%]
 

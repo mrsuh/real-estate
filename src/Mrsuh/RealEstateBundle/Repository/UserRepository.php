@@ -15,7 +15,7 @@ class UserRepository extends EntityRepository
             $user = new User();
             $user->setUsername($params['username']);
             $user->setRoles($params['role']);
-            $user->setEmail(isset($params['email']) ? $params['email'] : null);
+            $user->setEmail($params['email']);
             $user->setFirstName(isset($params['first_name']) ? $params['first_name'] : null);
             $user->setLastName(isset($params['last_name']) ? $params['last_name'] : null);
             $user->setMiddleName(isset($params['middle_name']) ? $params['middle_name'] : null);

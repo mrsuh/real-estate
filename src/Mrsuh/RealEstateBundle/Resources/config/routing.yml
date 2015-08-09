@@ -24,33 +24,29 @@ redirect:
 # profile
 profile:
     path: /profile
-    defaults: { _controller: MrsuhRealEstateBundle:Profile:profile }
+    defaults: { _controller: MrsuhRealEstateBundle:User:profile }
 
 #clients
 client:
-    path: /client
-    defaults: { _controller: MrsuhRealEstateBundle:Client:client }
+    path: /client/{id}
+    defaults: { _controller: MrsuhRealEstateBundle:Client:getClientById, id: id }
 
 create_client:
     path: /create-client
     defaults: { _controller: MrsuhRealEstateBundle:Client:createClient }
-
-clients:
-    path: /clients
-    defaults: { _controller: MrsuhRealEstateBundle:Client:clients }
 
 find_client:
     path: /find-client
     defaults: { _controller: MrsuhRealEstateBundle:Client:findClient }
 
 #Advert
-edit_advert:
-    path: /edit-advert/{id}
+advert:
+    path: /advert/{id}
     defaults: { _controller: MrsuhRealEstateBundle:Advert:getAdvertById, id: id }
 
 list_advert:
     path: /list-advert
-    defaults: { _controller: MrsuhRealEstateBundle:Advert:getList }
+    defaults: { _controller: MrsuhRealEstateBundle:Advert:getListAdvert }
 
 find_advert:
     path: /find-advert
@@ -60,14 +56,18 @@ create_advert:
     path: /create-advert
     defaults: { _controller: MrsuhRealEstateBundle:Advert:createAdvert }
 
+to_archive_advert:
+    path: /to-archive-advert
+    defaults: { _controller: MrsuhRealEstateBundle:Advert:toArchiveAdvert }
+
 #Users
 user:
-    path: /user
-    defaults: { _controller: MrsuhRealEstateBundle:User:user }
+    path: /user/{id}
+    defaults: { _controller: MrsuhRealEstateBundle:User:user, id: id }
 
-users:
+list_user:
     path: /users
-    defaults: { _controller: MrsuhRealEstateBundle:User:users }
+    defaults: { _controller: MrsuhRealEstateBundle:User:getListUser }
 
 find_user:
     path: /find-user

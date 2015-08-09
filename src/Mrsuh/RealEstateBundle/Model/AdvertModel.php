@@ -9,14 +9,19 @@ class AdvertModel
     private $advertRepo;
     private $objectRepo;
     private $advertDescriptRepo;
+    private $advertImageRepo;
     private $em;
+    private $paginator;
 
-    public function __construct($em)
+    public function __construct($em, $paginator)
     {
+        $this->em = $em;
+        $this->paginator = $paginator;
+
         $this->advertRepo = $em->getRepository(C::REPO_ADVERT);
         $this->objectRepo = $em->getRepository(C::REPO_OBJECT);
         $this->advertDescriptRepo = $em->getRepository(C::REPO_ADVERT_DESCRIPTION);
-        $this->em = $em;
+        $this->advertImageRepo = $em->getRepository(C::REPO_ADVERT_IMAGE);
         $this->paramRepo = [
             'object_balcony' => $em->getRepository(C::REPO_OBJECT_BALCONY),
             'object_heating' => $em->getRepository(C::REPO_OBJECT_HEATING),
@@ -32,6 +37,7 @@ class AdvertModel
 
             'advert_type' => $em->getRepository(C::REPO_ADVERT_TYPE),
             'advert_category' => $em->getRepository(C::REPO_ADVERT_CATEGORY),
+            'advert_user' => $em->getRepository(C::REPO_USER),
         ];
     }
 
@@ -43,7 +49,11 @@ class AdvertModel
                 if(!array_key_exists($k, $params)) {
                     $params[$k] = [];
                 }
-                $params[$k][$obj->getId()] = $obj->getName();
+                if('advert_user' === $k){
+                    $params[$k][$obj->getId()] = $obj->getLastName() . ' ' . $obj->getFirstName() . ' ' . $obj->getMiddleName();
+                } else {
+                    $params[$k][$obj->getId()] = $obj->getName();
+                }
             }
         }
 
@@ -58,8 +68,6 @@ class AdvertModel
             }
         }
 
-        $params['advert_expire_time'] = CommonFunction::stringToDateTime($params['advert_expire_time']);
-
         return $params;
     }
 
@@ -71,7 +79,46 @@ class AdvertModel
             $params['advert_object'] = $this->objectRepo->create($params);
             $params['advert_user'] = $user;
             $params['advert_description'] = $this->advertDescriptRepo->create(['description' => $params['description_description'], 'comment' => $params['description_comment']]);
-            $this->advertRepo->create($params);
+            $advert = $this->advertRepo->create($params);
+
+            foreach($params['advert_image'] as $i) {
+                if(is_null($i->getType())) {
+                    continue;
+                }
+                $i->setAdvert($advert);
+                $this->em->persist($i);
+            }
+
+            $this->em->flush();
+            $this->em->commit();
+        } catch(\Exception $e){
+            $this->em->rollback();
+            throw $e;
+        }
+
+        return $advert;
+    }
+
+    public function update($advert, $params)
+    {
+        $this->em->beginTransaction();
+        try{
+            $params['advert_description'] = $this->advertDescriptRepo->update($advert->getDescription(), ['description' => $params['description_description'], 'comment' => $params['description_comment']]);
+
+            if(C::STATUS_ADVERT_DELETED === $params['advert_status']) {
+                $params['advert_expire_time'] = new \DateTime();
+            }
+
+            $this->objectRepo->update($advert->getObject(), $params);
+            $this->advertRepo->update($advert, $params);
+
+//            foreach($params['advert_image'] as $i) {
+//                if(is_null($i->getType())) {
+//                    continue;
+//                }
+//                $i->setAdvert($advert);
+//                $this->em->persist($i);
+//            }
 
             $this->em->flush();
             $this->em->commit();
@@ -90,5 +137,22 @@ class AdvertModel
     {
         return $this->advertRepo->findAll();
     }
+
+    public function findByString($params)
+    {
+        return $this->paginator->paginate($this->advertRepo->findByString($params), $params['pagination_page'], $params['pagination_items_on_page']);
+    }
+
+    public function findByExtensionParams($params)
+    {
+        return $this->paginator->paginate($this->advertRepo->findByExtensionParams($params), $params['pagination_page'], $params['pagination_items_on_page']);
+    }
+
+    public function findToArchive()
+    {
+        return $this->advertRepo->findByStatus(C::STATUS_ADVERT_REQUEST_DELETE);
+    }
+
+
 
 }

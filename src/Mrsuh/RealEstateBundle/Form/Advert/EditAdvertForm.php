@@ -1,5 +1,6 @@
 <?php namespace Mrsuh\RealEstateBundle\Form\Advert;
 
+use Mrsuh\RealEstateBundle\C;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 
@@ -27,12 +28,12 @@ class EditAdvertForm extends AbstractType
         $builder->add('description_description', 'textarea', ['required' => false, 'data' => $this->advert->getDescription()->getDescription()]);
         $builder->add('description_comment', 'textarea', ['required' => false, 'data' => $this->advert->getDescription()->getComment()]);
 
-        $builder->add('advert_expire_time', 'text', ['required' => false, 'attr' =>['value' => null]]);
         $builder->add('advert_exclusive', 'choice', ['choices' => [1 => 'да', 0 => 'нет'], 'data' => $this->advert->getExclusive()]);
         $builder->add('advert_type', 'choice', ['choices' =>  $this->params['advert_type'], 'data' => $this->advert->getType()->getId()]);
         $builder->add('advert_category', 'choice', ['choices' =>  $this->params['advert_category'], 'data' => $this->advert->getCategory()->getId()]);
         $builder->add('advert_price', 'text', ['required' => false, 'data' => $this->advert->getPrice()]);
         $builder->add('advert_meter_price', 'text', ['required' => false, 'data' => $this->advert->getMeterPrice()]);
+        $builder->add('advert_status', 'choice', ['choices' => [C::STATUS_ADVERT_ACTIVE => 'активно', C::STATUS_ADVERT_AGENT => 'агент', C::STATUS_ADVERT_DELETED => 'архив', C::STATUS_ADVERT_REQUEST_DELETE => 'запрос на перенос в архив'], 'data' => $this->advert->getStatus()]);
 
         $builder->add('object_type', 'choice', ['choices' => $this->params['object_type'], 'data' => $this->advert->getObject()->getType()->getId()]);
         $builder->add('object_state', 'choice', ['choices' => $this->params['object_state'], 'data' => $this->advert->getObject()->getState()->getId()]);

@@ -1,0 +1,27 @@
+{% extends "MrsuhRealEstateBundle::layout.html.twig" %}
+{% block content %}
+
+    <table class="table table-bordered">
+        <tr class="text-center active">
+            <td>Логин</td>
+            <td>Фамилия</td>
+            <td>Имя</td>
+            <td>Отчество</td>
+            <td>Телефон</td>
+            <td>Почтовый ящик</td>
+        </tr>
+
+        {% for user in users%}
+            <tr>
+                <td class="text-center">   <a href="{{ url('user', { 'id': user.id }) }}">{{ user.username }}</a></td>
+                <td class="text-center">{{ user.firstName}}</td>
+                <td class="text-center">{{ user.lastName }}</td>
+                <td class="text-center">{{ user.middleName }}</td>
+                <td class="text-center">{{ user.phone }}</td>
+                <td class="text-center">{{ user.email}}</td>
+            </tr>
+        {% endfor %}
+
+    </table>
+
+{% endblock %}

@@ -3,6 +3,7 @@
 use Mrsuh\RealEstateBundle\Form\Advert\CreateAdvertForm;
 use Mrsuh\RealEstateBundle\Form\Advert\FindAdvertForm;
 use Mrsuh\RealEstateBundle\Form\Advert\EditAdvertForm;
+use Mrsuh\RealEstateBundle\Service\CommonFunction;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Security\Core\Security;
@@ -22,18 +23,18 @@ class AdvertController extends Controller
             try{
                 $newParams = $this->get('model.advert')->setAdvertParams($formData);
                 $user = $this->getUser();
-                $this->get('model.advert')->create($newParams, $user);
+                $advert = $this->get('model.advert')->create($newParams, $user);
 
                 $this->addFlash(
                     'success',
                     'Ваше объявление успешно создано'
                 );
-                $this->redirect($this->generateUrl('find_advert'));
+                return $this->redirect($this->generateUrl('advert', ['id' => $advert->getId()]));
 
             } catch(\Exception $e){
                 $this->addFlash(
                     'warning',
-                    'Произошла ошибка ' . $e->getMessage()
+                    'Произошла ошибка: ' . $e->getMessage()
                 );
             }
         }
@@ -45,23 +46,27 @@ class AdvertController extends Controller
     {
         $params = $this->get('model.advert')->getAdvertParams();
         $form = $this->createForm(new FindAdvertForm($params));
+        $pagination = [];
 
         if ($request->isMethod('POST')) {
+
             $form->handleRequest($request);
             $formData = $form->getData();
+            switch($formData['search_type']){
+                case C::SEARCH_STRING:
+                    $pagination = $this->get('model.advert')->findByString($formData);
+                    break;
+                case C::SEARCH_EXTENSION:
+                    $pagination = $this->get('model.advert')->findByExtensionParams($formData);
+            }
         }
 
-        $adverts = $this->get('model.advert')->findByParam();
-
-
-        return $this->render('MrsuhRealEstateBundle:Advert:find_advert.html.twig', ['pageName' => 'Поиск объявления', 'adverts' => $adverts, 'form' => $form->createView()]);
+        return $this->render('MrsuhRealEstateBundle:Advert:find_advert.html.twig', ['pageName' => 'Поиск объявления', 'pagination' => $pagination, 'form' => $form->createView()]);
     }
-    public function getListAction(Request $request)
+
+    public function getListAdvertAction(Request $request)
     {
-
         $adverts = $this->get('model.advert')->findByParam();
-
-
         return $this->render('MrsuhRealEstateBundle:Advert:list_advert.html.twig', ['pageName' => 'Список объявлений', 'adverts' => $adverts]);
     }
 
@@ -75,8 +80,30 @@ class AdvertController extends Controller
         if ($request->isMethod('POST')) {
             $form->handleRequest($request);
             $formData = $form->getData();
+
+            try{
+                $newParams = $this->get('model.advert')->setAdvertParams($formData);
+                $this->get('model.advert')->update($advert, $newParams);
+
+                $this->addFlash(
+                    'success',
+                    'Данные успешно сохранены'
+                );
+
+            } catch(\Exception $e){
+                $this->addFlash(
+                    'warning',
+                    'Произошла ошибка: ' . $e->getMessage()
+                );
+            }
         }
 
-        return $this->render('MrsuhRealEstateBundle:Advert:edit_advert.html.twig', ['pageName' => 'Объявление', 'advert' => $advert, 'form' => $form->createView()]);
+        return $this->render('MrsuhRealEstateBundle:Advert:advert.html.twig', ['pageName' => 'Объявление #' . $advert->getId(), 'advert' => $advert, 'form' => $form->createView()]);
+    }
+
+    public function toArchiveAdvertAction(Request $request)
+    {
+        $adverts = $this->get('model.advert')->findToArchive();
+        return $this->render('MrsuhRealEstateBundle:Advert:list_advert.html.twig', ['pageName' => 'Список объявлений в архив', 'adverts' => $adverts]);
     }
 }

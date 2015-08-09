@@ -1,6 +1,8 @@
 <?php namespace Mrsuh\RealEstateBundle\Form\Advert;
 
+use Mrsuh\RealEstateBundle\Entity\Advert\AdvertImage;
 use Symfony\Component\Form\AbstractType;
+use Mrsuh\RealEstateBundle\Entity\FileType;
 use Symfony\Component\Form\FormBuilderInterface;
 
 class CreateAdvertForm extends AbstractType
@@ -11,7 +13,6 @@ class CreateAdvertForm extends AbstractType
     {
         $this->params = $params;
     }
-
 
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
@@ -25,7 +26,6 @@ class CreateAdvertForm extends AbstractType
         $builder->add('description_description', 'textarea', ['required' => false, 'attr' =>['value' => null]]);
         $builder->add('description_comment', 'textarea', ['required' => false, 'attr' =>['value' => null]]);
 
-        $builder->add('advert_expire_time', 'text', ['required' => true, 'attr' =>['value' => null]]);
         $builder->add('advert_exclusive', 'choice', ['choices' => [1 => 'да', 0 => 'нет']]);
         $builder->add('advert_type', 'choice', ['choices' =>  $this->params['advert_type']]);
         $builder->add('advert_category', 'choice', ['choices' =>  $this->params['advert_category']]);
@@ -57,6 +57,14 @@ class CreateAdvertForm extends AbstractType
         $builder->add('object_house', 'text', ['required' => false, 'attr' =>['value' => null]]);
         $builder->add('object_flat', 'text', ['required' => false, 'attr' =>['value' => null]]);
         $builder->add('object_landmark', 'textarea', ['required' => false, 'attr' =>['value' => null]]);
+
+        $builder->add('advert_image', 'collection', array(
+            'type'   =>  new FileType(),
+            'allow_add'    => true,
+            'allow_delete' => true,
+            'data' => [new AdvertImage(), new AdvertImage(), new AdvertImage()],
+            'required' => false
+        ));
 
         $builder->add('submit', 'submit', array('label' => 'Создать'));
     }

@@ -3,6 +3,7 @@
 namespace Mrsuh\RealEstateBundle\Entity\Advert;
 
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * Advert
@@ -109,7 +110,7 @@ class Advert
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="expireTime", type="datetime")
+     * @ORM\Column(name="expireTime", type="datetime", nullable=true)
      */
     private $expireTime;
 
@@ -146,6 +147,15 @@ class Advert
      * @ORM\Column(name="meterPrice", type="string", length=255, nullable=true)
      */
     private $meterPrice;
+
+    /**
+     * @ORM\OneToMany(targetEntity="Mrsuh\RealEstateBundle\Entity\Advert\AdvertImage", mappedBy="advert")
+     **/
+    private $img;
+
+    public function __construct() {
+        $this->img = new ArrayCollection();
+    }
 
 
     /**
@@ -530,6 +540,24 @@ class Advert
     public function getMeterPrice()
     {
         return $this->meterPrice;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getImg()
+    {
+        return $this->img;
+    }
+
+    /**
+     * @param mixed $img
+     */
+    public function setImg($img)
+    {
+        $this->img = $img;
+
+        return $this;
     }
 }
 

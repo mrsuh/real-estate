@@ -123,9 +123,12 @@
     <hr>
     <div class="row">
         <div class="col-md-2"><label>Фото</label></div>
-        <div class="col-md-4">пусто</div>
-
+        <div class="col-md-10">
+            {% for file in form.advert_image %}
+                {{ form_widget(file) }}
+            {% endfor %}
     </div>
+        </div>
     <br>
     <label>Описание</label>
     <hr>
@@ -138,16 +141,9 @@
         <div class="col-md-2"><label>Комментарии</label></div>
         <div class="col-md-10">{{ form_widget(form.description_comment, {'attr': {'class': 'form-control' }}) }}</div>
     </div>
-    <br>
-    <label>Остальное</label>
     <hr>
-    <div class="row">
-        <div class="col-md-2"><label>Время истечения объявления*</label></div>
-        <div class="col-md-4">{{ form_widget(form.advert_expire_time, {'attr': {'class': 'form-control'}}) }}</div>
-
-    </div>
     <br>
-    {{ form_widget(form.submit, {'attr': {'class': 'btn btn-success' }}) }}
+    {{ form_widget(form.submit, {'attr': {'class': 'btn btn-success btn-width' }}) }}
     {{ form_end(form) }}
 
 {% endblock %}
@@ -159,7 +155,6 @@
         var advert_meter_price =  $( "#createAdvert_advert_meter_price");
         var advert_price =  $( "#createAdvert_advert_price");
         var object_common_area =  $( "#createAdvert_object_common_area");
-        var advert_expire_time =  $( "#createAdvert_advert_expire_time");
 
         var mathMeterPrice = function()
         {
@@ -175,8 +170,6 @@
 
         object_common_area.bind('change', mathMeterPrice);
         advert_price.bind('change',mathMeterPrice);
-
-        advert_expire_time.datepicker({ dateFormat: 'dd.mm.yy' });
     });
 </script>
 {% endblock %}
