@@ -9,17 +9,10 @@ login:
     path: /login
     defaults: { _controller: MrsuhRealEstateBundle:Security:login }
 
-
-#default
-default:
-    path: /default
-    defaults: { _controller: MrsuhRealEstateBundle:Default:default }
-
 #redirect
 redirect:
     path: /
     defaults: { _controller: MrsuhRealEstateBundle:Default:redirect }
-
 
 # profile
 profile:
@@ -68,10 +61,6 @@ user:
 list_user:
     path: /users
     defaults: { _controller: MrsuhRealEstateBundle:User:getListUser }
-
-find_user:
-    path: /find-user
-    defaults: { _controller: MrsuhRealEstateBundle:User:findUser }
 
 create_user:
     path: /create-user

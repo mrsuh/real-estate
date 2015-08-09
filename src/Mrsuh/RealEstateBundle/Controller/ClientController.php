@@ -34,7 +34,7 @@ class ClientController extends Controller
             $form->handleRequest($request);
             $formData = $form->getData();
 
-            try{
+            try {
                 $newParams = $this->get('model.client')->setClientParams($formData);
                 $user = $this->getUser();
                 $client = $this->get('model.client')->create($newParams, $user);
@@ -45,7 +45,7 @@ class ClientController extends Controller
                 );
                 return $this->redirect($this->generateUrl('client', ['id' => $client->getId()]));
 
-            } catch(\Exception $e){
+            } catch (\Exception $e) {
                 $this->addFlash(
                     'warning',
                     'Произошла ошибка: ' . $e->getMessage()
@@ -53,7 +53,7 @@ class ClientController extends Controller
             }
         }
 
-        return $this->render('MrsuhRealEstateBundle:Client:create_client.html.twig', ['pageName' => 'Занести клиента', 'form' => $form->createView()]);
+        return $this->render('MrsuhRealEstateBundle:Client:create_client.html.twig', ['pageName' => 'Добавить клиента', 'form' => $form->createView()]);
     }
 
     public function getClientByIdAction($id, Request $request)
@@ -67,7 +67,7 @@ class ClientController extends Controller
             $form->handleRequest($request);
             $formData = $form->getData();
 
-            try{
+            try {
                 $newParams = $this->get('model.client')->setClientParams($formData);
                 $this->get('model.client')->update($client, $newParams);
 
@@ -76,7 +76,7 @@ class ClientController extends Controller
                     'Данные успешно сохранены'
                 );
 
-            } catch(\Exception $e){
+            } catch (\Exception $e) {
                 $this->addFlash(
                     'warning',
                     'Произошла ошибка: ' . $e->getMessage()

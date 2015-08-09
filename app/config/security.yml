@@ -34,7 +34,7 @@ security:
                 check_path: login_check
                 login_path: login
                 always_use_default_target_path: true
-                default_target_path: default
+                default_target_path: find_advert
             logout:
                 path: logout
                 target: login
@@ -43,4 +43,12 @@ security:
 
     access_control:
         - { path: ^/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
-        - { path: ^/default, roles: [ROLE_USER, ROLE_ADMIN] }
+        - { path: ^/profile, roles: [ROLE_USER, ROLE_ADMIN] }
+        - { path: ^/find-advert, roles: [ROLE_USER, ROLE_ADMIN] }
+        - { path: ^/create-advert, roles: [ROLE_USER, ROLE_ADMIN] }
+        - { path: ^/find-client, roles: [ROLE_USER, ROLE_ADMIN] }
+        - { path: ^/create-client, roles: [ROLE_USER, ROLE_ADMIN] }
+
+        - { path: ^/users, roles: [ROLE_ADMIN] }
+        - { path: ^/create-user, roles: [ROLE_ADMIN] }
+

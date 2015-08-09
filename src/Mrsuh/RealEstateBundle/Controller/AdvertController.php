@@ -20,7 +20,7 @@ class AdvertController extends Controller
             $form->handleRequest($request);
             $formData = $form->getData();
 
-            try{
+            try {
                 $newParams = $this->get('model.advert')->setAdvertParams($formData);
                 $user = $this->getUser();
                 $advert = $this->get('model.advert')->create($newParams, $user);
@@ -31,7 +31,7 @@ class AdvertController extends Controller
                 );
                 return $this->redirect($this->generateUrl('advert', ['id' => $advert->getId()]));
 
-            } catch(\Exception $e){
+            } catch (\Exception $e) {
                 $this->addFlash(
                     'warning',
                     'Произошла ошибка: ' . $e->getMessage()
@@ -39,7 +39,7 @@ class AdvertController extends Controller
             }
         }
 
-        return $this->render('MrsuhRealEstateBundle:Advert:create_advert.html.twig', ['pageName' => 'Подать объявление', 'form' => $form->createView()]);
+        return $this->render('MrsuhRealEstateBundle:Advert:create_advert.html.twig', ['pageName' => 'Добавить объявление', 'form' => $form->createView()]);
     }
 
     public function findAdvertAction(Request $request)
@@ -52,7 +52,7 @@ class AdvertController extends Controller
 
             $form->handleRequest($request);
             $formData = $form->getData();
-            switch($formData['search_type']){
+            switch ($formData['search_type']) {
                 case C::SEARCH_STRING:
                     $pagination = $this->get('model.advert')->findByString($formData);
                     break;
@@ -81,7 +81,7 @@ class AdvertController extends Controller
             $form->handleRequest($request);
             $formData = $form->getData();
 
-            try{
+            try {
                 $newParams = $this->get('model.advert')->setAdvertParams($formData);
                 $this->get('model.advert')->update($advert, $newParams);
 
@@ -90,7 +90,7 @@ class AdvertController extends Controller
                     'Данные успешно сохранены'
                 );
 
-            } catch(\Exception $e){
+            } catch (\Exception $e) {
                 $this->addFlash(
                     'warning',
                     'Произошла ошибка: ' . $e->getMessage()
