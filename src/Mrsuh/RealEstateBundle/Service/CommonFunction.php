@@ -1,6 +1,6 @@
 <?php
 
-namespace Artvisio\CdnApiBundle\Service;
+namespace Mrsuh\RealEstateBundle\Service;
 
 class CommonFunction
 {
@@ -9,7 +9,7 @@ class CommonFunction
     {
         if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
             if($exception) {
-                throw new \Exception('Typo in domain: ' . $email);
+                throw new \Exception('Опечатка в имени почтового ящика: ' . $email);
             }
             return false;
         }
@@ -39,5 +39,44 @@ class CommonFunction
     public static function checkRoles($currentRole, $roles = [])
     {
         return in_array($currentRole, $roles);
+    }
+
+    public static function stringToDateTime($date)
+    {
+        if(null === $date) {
+            return null;
+        }
+
+        list($day, $month, $year) = explode('.', $date);
+        $date = date('Y-m-d H:i:s', mktime(0, 0, 0, $month, $day, $year));
+        return new \DateTime($date);
+    }
+
+    public static function imageCrop($file_input, $file_output, $width, $quality) {
+        list($w_i, $h_i, $type) = getimagesize($file_input);
+        if (!$w_i || !$h_i) {
+            throw new \Exception('Can not get height or width of file');
+        }
+        $types = array('','gif','jpeg','png');
+        $ext = $types[$type];
+        if ($ext) {
+            $func = 'imagecreatefrom'.$ext;
+            $img = $func($file_input);
+        } else {
+            throw new \Exception('Invalid format');
+        }
+
+        $w_o = $width;
+        $koe = $w_i/$width;
+        $h_0=ceil($h_i/$koe);
+
+        $img_o = imagecreatetruecolor($w_o, $h_0);
+        ImageCopyResampled($img_o, $img, 0, 0, 0, 0, $w_o, $h_0, $w_i, $h_i);
+        if ($type == 2) {
+            return imagejpeg($img_o,$file_output,$quality);
+        } else {
+            $func = 'image'.$ext;
+            return $func($img_o,$file_output);
+        }
     }
 } 

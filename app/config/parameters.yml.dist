@@ -17,3 +17,19 @@ parameters:
 
     # A secret key that's used to generate certain security-related tokens
     secret:            ThisTokenIsNotSoSecretChangeIt
+
+    fixtures_object_balcony: '%kernel.root_dir%/config/fixtures/object/balcony.yml'
+    fixtures_object_heating: '%kernel.root_dir%/config/fixtures/object/heating.yml'
+    fixtures_object_state: '%kernel.root_dir%/config/fixtures/object/state.yml'
+    fixtures_object_type: '%kernel.root_dir%/config/fixtures/object/type.yml'
+    fixtures_object_wall: '%kernel.root_dir%/config/fixtures/object/wall.yml'
+    fixtures_object_water_supply: '%kernel.root_dir%/config/fixtures/object/water_supply.yml'
+    fixtures_object_wc: '%kernel.root_dir%/config/fixtures/object/wc.yml'
+
+    fixtures_address_region: '%kernel.root_dir%/config/fixtures/address/region.yml'
+    fixtures_address_city: '%kernel.root_dir%/config/fixtures/address/city.yml'
+    fixtures_address_region_city: '%kernel.root_dir%/config/fixtures/address/region_city.yml'
+    fixtures_address_street: '%kernel.root_dir%/config/fixtures/address/street.yml'
+
+    fixtures_advert_type: '%kernel.root_dir%/config/fixtures/advert/type.yml'
+    fixtures_advert_category: '%kernel.root_dir%/config/fixtures/advert/category.yml'

@@ -1,0 +1,33 @@
+<div id="sidebar-wrapper">
+    <ul class="sidebar-nav" id="menu">
+        <li class="sidebar-brand">
+            <a href="#">{{ username }}</a>
+        </li>
+        <li>
+            <a href="{{ url('profile') }}">Профиль</a>
+        </li>
+        <li><span><a href="#" >Объявления</a></span>
+            <ul {% if  path == path('find_advert') or path == path('create_advert') or path == path('list_advert') or path == path('to_archive_advert') or path == path('advert') %} style="display: block;" {% else %} style="display: none;" {% endif %}>
+                <li><a href="{{ url('find_advert') }}">Поиск объявления</a></li>
+                <li><a href="{{ url('create_advert') }}">Добавить объявление</a></li>
+                <li><a href="{{ url('list_advert') }}">Список объявлений</a></li>
+                <li><a href="{{ url('to_archive_advert') }}">В архив</a></li>
+            </ul>
+        </li>
+        <li><span><a href="#">Клиенты</a></span>
+            <ul  {% if  path == path('find_client') or path == path('create_client') or path == path('client')%} style="display: block;" {% else %} style="display: none;" {% endif %}>
+                <li><a href="{{ url('find_client') }}">Поиск клиента</a></li>
+                <li><a href="{{ url('create_client') }}">Добавить клиента</a></li>
+            </ul>
+        </li>
+        <li><span><a href="#">Пользователи</a></span>
+            <ul  {% if  path == path('list_user') or path == path('create_user')  or path == path('user')%} style="display: block;" {% else %} style="display: none;" {% endif %}>
+                <li><a href="{{ url('list_user') }}">Список пользователей</a></li>
+                <li><a href="{{ url('create_user') }}">Создать пользователя</a></li>
+            </ul>
+        </li>
+        <li>
+            <a href="{{ url('logout') }}">Выйти</a>
+        </li>
+    </ul>
+</div>

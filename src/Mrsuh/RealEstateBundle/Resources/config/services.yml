@@ -10,3 +10,25 @@ services:
         class: Mrsuh\RealEstateBundle\Security\Firewall\WsseListener
         arguments: ["@security.context", "@security.authentication.manager"]
         public: false
+
+
+    model.profile:
+        class: Mrsuh\RealEstateBundle\Model\ProfileModel
+        arguments: [@doctrine.orm.entity_manager]
+
+    model.client:
+        class: Mrsuh\RealEstateBundle\Model\ClientModel
+        arguments: [@doctrine.orm.entity_manager, @knp_paginator]
+
+    model.user:
+        class: Mrsuh\RealEstateBundle\Model\UserModel
+        arguments: [@doctrine.orm.entity_manager, @model.mail]
+
+    model.advert:
+        class: Mrsuh\RealEstateBundle\Model\AdvertModel
+        arguments: [@doctrine.orm.entity_manager, @knp_paginator]
+
+    model.mail:
+        class: Mrsuh\RealEstateBundle\Model\MailModel
+        arguments: [@mailer, %mailer_user%]
+

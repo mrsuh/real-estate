@@ -24,6 +24,10 @@ security:
             pattern: ^/(_(profiler|wdt)|css|images|js)/
             security: false
 
+        login:
+            pattern:  ^/login$
+            anonymous: ~
+
         secured_area:
             pattern:  ^/
             form_login:
@@ -35,7 +39,6 @@ security:
                 path: logout
                 target: login
 
-            anonymous: true
             security: true
 
     access_control:

@@ -1,0 +1,12 @@
+{% for flashMessage in app.session.flashbag.get('success') %}
+    <div class="bg-success" style="height: 50px; padding-top: 15px; padding-left: 20px"><b>{{ flashMessage|raw }}</b></div>
+{% endfor %}
+{% for flashMessage in app.session.flashbag.get('info') %}
+    <div class="bg-info" style="height: 50px; padding-top: 15px; padding-left: 20px"><b>{{ flashMessage|raw }}</b></div>
+{% endfor %}
+{% for flashMessage in app.session.flashbag.get('warning') %}
+    <div class="bg-warning" style="height: 50px; padding-top: 15px; padding-left: 20px"><b>{{ flashMessage|raw }}</b></div>
+{% endfor %}
+{% for flashMessage in app.session.flashbag.get('danger') %}
+    <div class="bg-danger" style="height: 50px; padding-top: 15px; padding-left: 20px"><b>{{ flashMessage|raw }}</b></div>
+{% endfor %}

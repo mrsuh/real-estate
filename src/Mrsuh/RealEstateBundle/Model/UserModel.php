@@ -1,54 +1,80 @@
 <?php namespace Mrsuh\RealEstateBundle\Model;
 
 use Mrsuh\RealEstateBundle\C;
+use Mrsuh\RealEstateBundle\Service\CommonFunction;
 
 class UserModel
 {
 
-    private $em;
-    private $securityContext;
-    private $session;
+    private $userRepo;
+    private $roleRepo;
+    private $mail;
 
 
-    public function __construct($em, $securityContext, $session)
+    public function __construct($em, $mail)
     {
-        $this->em = $em;
-        $this->securityContext;
-        $this->session = $session;
+        $this->userRepo = $em->getRepository(C::REPO_USER);
+        $this->roleRepo = $em->getRepository(C::REPO_ROLE);
+        $this->mail = $mail;
     }
 
-    public function createUser($data)
+    public function getAll()
     {
-        if ($this->isUserExist($data['username'])) {
-            throw new \Exception(__FUNCTION__ . ' USER_EXIST');
+        return $this->userRepo->findAll();
+    }
+
+    public function getUserById($id)
+    {
+        return $this->userRepo->findOneById($id);
+    }
+
+    public function create($params)
+    {
+        if($this->userRepo->findOneByUsername($params['username'])) {
+            throw new \Exception('Пользователь с логином ' . $params['username'] . ' уже существует');
+        };
+
+        CommonFunction::checkEmail($params['email']);
+
+        $password = CommonFunction::generatePassword();
+        $params['password'] = $password;
+        $params['role'] =  $this->roleRepo->findOneByName(C::ROLE_USER);
+
+        $mail = [
+            'to' => $params['email'],
+            'body' => 'login: ' . $params['username'] .'<br>' . 'pass: ' . $password,
+            'subject' => 'Новый пользователь Real-Estate'];
+        $this->mail->sendMail($mail);
+
+        return $this->userRepo->create($params);
+    }
+
+    public function update($user, $params)
+    {
+        CommonFunction::checkEmail($params['email']);
+
+        if(!empty($params['password'])) {
+            if(C::PASSWORD_LENGTH  > strlen($params['password'])) {
+                throw new \Exception('Пароль должен содержать не менее ' . C::PASSWORD_LENGTH . ' символов ');
+            }
+
+            $mail = [
+                'to' => $params['email'],
+                'body' => 'login: ' . $params['username'] .'<br>' . 'pass: ' . $params['password'],
+                'subject' => 'Новый пароль Real-Estate'];
+            $this->mail->sendMail($mail);
         }
 
-        $this->em->getRepository('AdventureTimeBundle:User')->createUser($data);
-
-        return C::OK;
+       return $this->userRepo->update($user, $params);
     }
 
-    public function isUserExist($username)
+    public function getUsersArray()
     {
-        return (bool)$this->em->getRepository('AdventureTimeBundle:User')->findOneByUsername($username);
-    }
-
-    public function getUser()
-    {
-        $username =  $this->session->get('username');
-        return $this->em->getRepository('AdventureTimeBundle:User')->findOneByUsername($username);
-
-    }
-
-    public function setPersonageToUser($personage){
-        $user = $this->getUser();
-
-        if(!$user || !is_null($user->getPersonage())) {
-            return;
+        $users = [];
+        foreach ($this->userRepo->findAll() as $obj) {
+            $users[$obj->getId()] = $obj->getLastName() . ' ' . $obj->getFirstName() . ' ' . $obj->getMiddleName();
         }
 
-        $personage->setActive(true);
-        $user->setPersonage($personage);
-        $this->em->flush();
+        return $users;
     }
 }
