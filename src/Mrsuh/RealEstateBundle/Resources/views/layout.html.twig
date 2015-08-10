@@ -73,8 +73,6 @@
     logout.click(function () {
         if (confirm('Вы уверены, что хотите выйти?')) {
             window.location.href = '{{ url('logout') }}';
-        } else {
-            console.log('NO');
         }
     });
 

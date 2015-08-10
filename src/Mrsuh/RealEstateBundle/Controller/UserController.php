@@ -24,12 +24,23 @@ class UserController extends Controller
             $form->handleRequest($request);
             $formData = $form->getData();
             try {
-                $user = $this->get('model.user')->update($user, $formData);
-
-                $this->addFlash(
-                    'success',
-                    'Данные успешно сохранены'
-                );
+                switch (true) {
+                    case $form->get('user_save')->isClicked():
+                        $user = $this->get('model.user')->update($user, $formData);
+                        $this->addFlash(
+                            'success',
+                            'Данные успешно сохранены'
+                        );
+                        break;
+                    case $form->get('user_delete')->isClicked():
+                        $user = $this->get('model.user')->delete($user);
+                        $this->addFlash(
+                            'success',
+                            'Пользователь успешно удален'
+                        );
+                        return $this->redirect($this->generateUrl('list_user'));
+                    break;
+                }
 
                 $form = $this->createForm(new EditUserForm($user));
             } catch (\Exception $e) {

@@ -229,14 +229,22 @@
             {% for advert in pagination.items %}
                 {% if constant('Mrsuh\\RealEstateBundle\\C::STATUS_ADVERT_ACTIVE') == advert.status %}
                     <tr class="success">
-                {% elseif constant('Mrsuh\\RealEstateBundle\\C::STATUS_ADVERT_REQUEST_DELETE') == advert.status %}
-                    <tr class="danger">
+                    {% set advertStatus = 'активый' %}
+                {% elseif constant('Mrsuh\\RealEstateBundle\\C::STATUS_ADVERT_NOT_ACTIVE') == advert.status %}
+                    <tr>
+                    {% set advertStatus = 'не активый' %}
                 {% elseif constant('Mrsuh\\RealEstateBundle\\C::STATUS_ADVERT_DELETED') == advert.status %}
                     <tr class="danger">
-                {% elseif constant('Mrsuh\\RealEstateBundle\\C::STATUS_ADVERT_AGENT') == advert.status %}
+                    {% set advertStatus = 'архив' %}
+                {% elseif constant('Mrsuh\\RealEstateBundle\\C::STATUS_ADVERT_NO_RESPONSE') == advert.status %}
                     <tr class="warning">
+                    {% set advertStatus = 'нет связи' %}
+                {% elseif constant('Mrsuh\\RealEstateBundle\\C::STATUS_ADVERT_RECALL') == advert.status %}
+                    <tr class="warning">
+                    {% set advertStatus = 'перезвонить' %}
                 {% else %}
                     <tr>
+                    {% set advertStatus = '' %}
                 {% endif %}
 
                 <td class="text-center"><a href="{{ url('advert', { 'id': advert.id }) }}">{{ advert.id }}</a></td>
@@ -244,10 +252,10 @@
                     {% if (advert.getImg | first) != null %}
                         <a href="{{ url('advert', { 'id': advert.id }) }}"><img
                                     src="{{ asset( (advert.getImg | first).getMiniWebPath ) }}"
-                                    style="max-width: 100px; max-height: 100px"></a>
+                                    style="max-width: 100px; height: 100px"></a>
                     {% else %}
                         <a href="{{ url('advert', { 'id': advert.id }) }}"><img src="{{ asset('img/real-estate.jpg') }}"
-                                                                                style="max-width: 100px; max-height: 100px"></a>
+                                                                                style="max-width: 100px; height: 100px"></a>
                     {% endif %}
 
                 </td>
@@ -255,7 +263,7 @@
                     {% if constant('Mrsuh\\RealEstateBundle\\C::OBJECT_TYPE_HOUSE') == advert.object.type.name %}
                         {% if advert.object.roomNumber %} {{ advert.object.roomNumber }}-к {% endif %}
                         {{ advert.object.type.name }}<br>
-                        {{ advert.object.floor }} / {{ advert.object.floors }} -эт.  {{ advert.object.wall.name }} Дом
+                        {{ advert.object.floor }} / {{ advert.object.floors }}-эт.  {{ advert.object.wall.name }} Дом
                     {% elseif constant('Mrsuh\\RealEstateBundle\\C::OBJECT_TYPE_EARTH_AREA') == advert.object.type.name %}
                         {{ advert.object.type.name }}
                     {% elseif constant('Mrsuh\\RealEstateBundle\\C::OBJECT_TYPE_FLAT') == advert.object.type.name %}
@@ -287,18 +295,7 @@
                         </div>
                     </div>
                 </td>
-                <td class="text-center">
-                    {% if constant('Mrsuh\\RealEstateBundle\\C::STATUS_ADVERT_ACTIVE') == advert.status %}
-                        активное
-                    {% elseif constant('Mrsuh\\RealEstateBundle\\C::STATUS_ADVERT_REQUEST_DELETE') == advert.status %}
-                        запрос<br>
-                        в архив
-                    {% elseif constant('Mrsuh\\RealEstateBundle\\C::STATUS_ADVERT_DELETED') == advert.status %}
-                        архив
-                    {% elseif constant('Mrsuh\\RealEstateBundle\\C::STATUS_ADVERT_AGENT') == advert.status %}
-                        агент
-                    {% endif %}
-                </td>
+                <td class="text-center">{{ advertStatus }}</td>
                 <td class="text-center">
                     <div class="row">
                         <div class="col-md-12">

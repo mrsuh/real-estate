@@ -43,9 +43,10 @@ class C
 
     //advert status
     const STATUS_ADVERT_ACTIVE = 1;
-    const STATUS_ADVERT_REQUEST_DELETE = 2;
+    const STATUS_ADVERT_NOT_ACTIVE = 2;
     const STATUS_ADVERT_DELETED = 3;
-    const STATUS_ADVERT_AGENT = 4;
+    const STATUS_ADVERT_NO_RESPONSE = 4;
+    const STATUS_ADVERT_RECALL = 5;
 
     const STATUS_CLIENT_IN_WORK = 1;
     const STATUS_CLIENT_TEMPORARY_SUSPENDED = 2;
@@ -69,11 +70,16 @@ class C
 
     const SEARCH_STRING = 'search_string';
     const SEARCH_EXTENSION= 'search_extension';
-    const SEARCH_PERIOD= 'search_period';
+
 
     const ORDER_TYPE_ASC = 'ASC';
     const ORDER_TYPE_DESC = 'DESC';
 
     const PASSWORD_LENGTH = 6;
+
+    const USER_STATUS_ACTIVE = 1;
+    const USER_STATUS_DELETED = 2;
+
+    const SYSTEM_USER = 'root';
 
 }

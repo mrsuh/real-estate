@@ -99,15 +99,27 @@ class AdvertModel
         return $advert;
     }
 
-    public function update($advert, $params)
+    public function update($currentUser, $advert, $params)
     {
         $this->em->beginTransaction();
         try{
             $params['advert_description'] = $this->advertDescriptRepo->update($advert->getDescription(), ['description' => $params['description_description'], 'comment' => $params['description_comment']]);
 
-            if(C::STATUS_ADVERT_DELETED === $params['advert_status']) {
-                $params['advert_expire_time'] = new \DateTime();
+            if(isset($params['advert_change_user'])) {
+                if($currentUser->getId() !== $advert->getUser()->getId() && CommonFunction::checkRoles($currentUser->getRole(), [C::ROLE_USER])) {
+                    throw new \Exception('У вас недостаточно прав');
+                }
+
+                $user = $this->paramRepo['advert_user']->findOneById($params['advert_change_user']);
+
+                if(CommonFunction::checkRoles($currentUser->getRole(), [C::ROLE_ADMIN])) {
+                    $params['advert_user'] = $user;
+                    unset($params['advert_change_user']);
+                }
+
+                $params['advert_change_user'] = $user;
             }
+
 
             $this->objectRepo->update($advert->getObject(), $params);
             $this->advertRepo->update($advert, $params);

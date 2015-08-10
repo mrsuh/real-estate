@@ -37,10 +37,6 @@ advert:
     path: /advert/{id}
     defaults: { _controller: MrsuhRealEstateBundle:Advert:getAdvertById, id: id }
 
-list_advert:
-    path: /list-advert
-    defaults: { _controller: MrsuhRealEstateBundle:Advert:getListAdvert }
-
 find_advert:
     path: /find-advert
     defaults: { _controller: MrsuhRealEstateBundle:Advert:findAdvert }
@@ -49,9 +45,9 @@ create_advert:
     path: /create-advert
     defaults: { _controller: MrsuhRealEstateBundle:Advert:createAdvert }
 
-to_archive_advert:
-    path: /to-archive-advert
-    defaults: { _controller: MrsuhRealEstateBundle:Advert:toArchiveAdvert }
+change_user_advert:
+    path: /change-user-advert
+    defaults: { _controller: MrsuhRealEstateBundle:Advert:changeUserAdvert }
 
 #Users
 user:

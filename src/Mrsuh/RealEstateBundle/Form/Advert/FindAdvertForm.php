@@ -65,7 +65,7 @@ class FindAdvertForm extends AbstractType
 
         $builder->add('advert_type', 'choice', ['choices' => $this->params['advert_type'], 'required' => false, 'placeholder' => 'Тип объявления']);
         $builder->add('advert_user', 'choice', ['choices' => $this->params['advert_user'], 'required' => false, 'placeholder' => 'Автор']);
-        $builder->add('advert_status', 'choice', ['choices' => [C::STATUS_ADVERT_ACTIVE => 'активно', C::STATUS_ADVERT_AGENT => 'агент', C::STATUS_ADVERT_DELETED => 'архив'], 'placeholder' => 'Cтатус', 'required' => false]);
+        $builder->add('advert_status', 'choice', ['choices' => [C::STATUS_ADVERT_ACTIVE => 'активно', C::STATUS_ADVERT_NOT_ACTIVE => 'не активно', C::STATUS_ADVERT_DELETED => 'архив', C::STATUS_ADVERT_NO_RESPONSE => 'нет связи', C::STATUS_ADVERT_RECALL => 'перезвонить'], 'placeholder' => 'Cтатус', 'required' => false]);
 
         $builder->add('search_type', 'hidden');
         $builder->add('order_field', 'hidden');

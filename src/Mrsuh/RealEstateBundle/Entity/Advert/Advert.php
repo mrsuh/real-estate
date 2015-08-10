@@ -153,6 +153,14 @@ class Advert
      **/
     private $img;
 
+    /**
+     * @var integer
+     *
+     * @ORM\ManyToOne(targetEntity="\Mrsuh\RealEstateBundle\Entity\User")
+     * @ORM\JoinColumn(name="change_user", referencedColumnName="id")
+     */
+    private $changeUser;
+
     public function __construct() {
         $this->img = new ArrayCollection();
     }
@@ -556,6 +564,24 @@ class Advert
     public function setImg($img)
     {
         $this->img = $img;
+
+        return $this;
+    }
+
+    /**
+     * @return int
+     */
+    public function getChangeUser()
+    {
+        return $this->changeUser;
+    }
+
+    /**
+     * @param int $changeUser
+     */
+    public function setChangeUser($changeUser)
+    {
+        $this->changeUser = $changeUser;
 
         return $this;
     }

@@ -83,7 +83,7 @@ class AdvertController extends Controller
 
             try {
                 $newParams = $this->get('model.advert')->setAdvertParams($formData);
-                $this->get('model.advert')->update($advert, $newParams);
+                $this->get('model.advert')->update($this->getUser(), $advert, $newParams);
 
                 $this->addFlash(
                     'success',
@@ -98,7 +98,13 @@ class AdvertController extends Controller
             }
         }
 
-        return $this->render('MrsuhRealEstateBundle:Advert:advert.html.twig', ['pageName' => 'Объявление #' . $advert->getId(), 'advert' => $advert, 'form' => $form->createView()]);
+        if($this->getUser()->getId() === $advert->getUser()->getId() || CommonFunction::checkRoles($this->getUser()->getRole(), [C::ROLE_ADMIN])) {
+            $myAdvert = true;
+        } else {
+            $myAdvert = false;
+        }
+
+        return $this->render('MrsuhRealEstateBundle:Advert:advert.html.twig', ['pageName' => 'Объявление #' . $advert->getId(), 'advert' => $advert, 'form' => $form->createView(), 'myAdvert' => $myAdvert]);
     }
 
     public function toArchiveAdvertAction(Request $request)
