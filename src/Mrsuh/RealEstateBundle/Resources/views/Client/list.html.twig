@@ -1,0 +1,81 @@
+{% if pagination and pagination.items is not empty %}
+
+    <div class="row">
+        <div class="col-md-12"><b>Всего результатов:</b> {{ pagination.getTotalItemCount }}</div>
+    </div>
+    <br>
+
+    <table class="table table-bordered">
+        <tr class="text-center active">
+            <td><a href="##" id="order_field_id">#</a></td>
+            <td><a href="##" id="order_field_phone">Номер телефона</a></td>
+            <td><a href="##" id="order_field_name">ФИО</a></td>
+            <td><a href="##" id="order_field_create_time">Создан</a></td>
+            <td><a href="##" id="order_field_update_time">Обновлен</a></td>
+            <td><a href="##" id="order_field_hot">Горячий клиент</a></td>
+            <td><a href="##" id="order_field_mortgage">Ипотека</a></td>
+            <td><a href="##" id="order_field_status">Статус</a></td>
+            <td><a href="##" id="order_field_user">Специалист</a></td>
+        </tr>
+
+
+        {% for client in pagination.items %}
+            {% if constant('Mrsuh\\RealEstateBundle\\C::STATUS_CLIENT_IN_WORK') == client.status %}
+                {% set clientStatus = 'В работе' %}
+                <tr class="success">
+            {% elseif constant('Mrsuh\\RealEstateBundle\\C::STATUS_CLIENT_TEMPORARY_SUSPENDED') == client.status %}
+                {% set clientStatus = 'Временно присотановил поиск' %}
+                <tr>
+            {% elseif constant('Mrsuh\\RealEstateBundle\\C::STATUS_CLIENT_BOUGHT_WITH_US') == client.status %}0
+                {% set clientStatus = 'Купил а нашем агенстве' %}
+                <tr>
+            {% elseif constant('Mrsuh\\RealEstateBundle\\C::STATUS_CLIENT_BOUGHT_HIMSELF') == client.status %}
+                {% set clientStatus = 'Купил самостоятельно' %}
+                <tr>
+            {% elseif constant('Mrsuh\\RealEstateBundle\\C::STATUS_CLIENT_BLACK_LIST') == client.status %}
+                {% set clientStatus = 'Черный список' %}
+                <tr class="danger">
+            {% else %}
+                {% set clientStatus = '' %}
+                <tr>
+            {% endif %}
+            <td class="text-center"><a href="{{ url('client', { 'id': client.id }) }}">{{ client.id }}</a></td>
+            <td class="text-center"><a href="{{ url('client', { 'id': client.id }) }}">{{ client.phone1 }}</a></td>
+            <td class="text-center"><a href="{{ url('client', { 'id': client.id }) }}">{{ client.name1 }}</a></td>
+            <td class="text-center">{% if null != client.createTime  %}{{ client.createTime | date('d.m.Y') }}{% endif %}</td>
+            <td class="text-center">{% if null != client.updateTime  %}{{ client.updateTime | date('d.m.Y') }}{% endif %}</td>
+            <td class="text-center">{% if client.hot  %}Да{% else %}Нет{% endif %}</td>
+            <td class="text-center">{% if client.mortgage  %}Да{% else %}Нет{% endif %}</td>
+            <td class="text-center">{{ clientStatus }}</td>
+            <td class="text-center">{{ client.user.lastName }} {{ client.user.firstName }} {{ client.user.middleName }}</td>
+            </tr>
+        {% endfor %}
+    </table>
+
+    <div class="row">
+        <div class="col-md-12">
+            <nav>
+                <ul class="pagination">
+                    <li><a href="##" id="pagination_start">start</a></li>
+                    <li>
+                        <a href="##" aria-label="Previous" id="pagination_previous">
+                            <span aria-hidden="true">&laquo;</span>
+                        </a>
+                    </li>
+                    <li><a href="##">{{ pagination.getPaginationData.current }}</a></li>
+                    <li>
+                        <a href="##" aria-label="Next" id="pagination_next">
+                            <span aria-hidden="true">&raquo;</span>
+                        </a>
+                    </li>
+                    <li><a href="##" id="pagination_fin">&nbsp;fin&nbsp;&nbsp;</a></li>
+                </ul>
+            </nav>
+        </div>
+    </div>
+
+{% elseif pagination and pagination.items is empty%}
+
+    <b>Запрос не дал результатов...</b>
+
+{% endif %}

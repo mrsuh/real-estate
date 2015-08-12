@@ -55,7 +55,15 @@ class FindAdvertForm extends AbstractType
 
         $builder->add('object_region', 'choice', ['choices' => $this->params['object_region'], 'required' => false, 'placeholder' => 'Регион']);
         $builder->add('object_city', 'choice', ['choices' => $this->params['object_city'], 'required' => false, 'placeholder' => 'Город']);
-        $builder->add('object_region_city', 'choice', ['choices' => $this->params['object_region_city'], 'multiple' => true, 'expanded' => true, 'required' => false]);
+
+        $builder->add('object_region_city', 'collection', [
+            'type'   =>  'checkbox',
+            'label' => false,
+            'allow_add'    => true,
+            'allow_delete' => true,
+            'data' => [],
+            'required' => false
+        ]);
 
         $builder->add('not_first_floor', 'checkbox', ['required' => false]);
         $builder->add('not_last_floor', 'checkbox',['required' => false]);

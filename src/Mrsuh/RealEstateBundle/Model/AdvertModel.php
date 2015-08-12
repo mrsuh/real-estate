@@ -22,6 +22,7 @@ class AdvertModel
         $this->objectRepo = $em->getRepository(C::REPO_OBJECT);
         $this->advertDescriptRepo = $em->getRepository(C::REPO_ADVERT_DESCRIPTION);
         $this->advertImageRepo = $em->getRepository(C::REPO_ADVERT_IMAGE);
+        $this->regionCityRepo = $em->getRepository(C::REPO_ADDRESS_REGION_CITY);
         $this->paramRepo = [
             'object_balcony' => $em->getRepository(C::REPO_OBJECT_BALCONY),
             'object_heating' => $em->getRepository(C::REPO_OBJECT_HEATING),
@@ -32,7 +33,6 @@ class AdvertModel
             'object_wc' => $em->getRepository(C::REPO_OBJECT_WC),
             'object_city' => $em->getRepository(C::REPO_ADDRESS_CITY),
             'object_region' => $em->getRepository(C::REPO_ADDRESS_REGION),
-            'object_region_city' => $em->getRepository(C::REPO_ADDRESS_REGION_CITY),
             'object_street' => $em->getRepository(C::REPO_ADDRESS_STREET),
 
             'advert_type' => $em->getRepository(C::REPO_ADVERT_TYPE),
@@ -75,7 +75,7 @@ class AdvertModel
     {
         $this->em->beginTransaction();
         try{
-
+            $params['object_region_city'] = $this->regionCityRepo->findOneById($params['object_region_city']);
             $params['advert_object'] = $this->objectRepo->create($params);
             $params['advert_user'] = $user;
             $params['advert_description'] = $this->advertDescriptRepo->create(['description' => $params['description_description'], 'comment' => $params['description_comment']]);
@@ -103,6 +103,7 @@ class AdvertModel
     {
         $this->em->beginTransaction();
         try{
+            $params['object_region_city'] = $this->regionCityRepo->findOneById($params['object_region_city']);
             $params['advert_description'] = $this->advertDescriptRepo->update($advert->getDescription(), ['description' => $params['description_description'], 'comment' => $params['description_comment']]);
 
             if(isset($params['advert_change_user'])) {
@@ -160,11 +161,18 @@ class AdvertModel
         return $this->paginator->paginate($this->advertRepo->findByExtensionParams($params), $params['pagination_page'], $params['pagination_items_on_page']);
     }
 
-    public function findToArchive()
+    public function getAllRegionCity()
     {
-        return $this->advertRepo->findByStatus(C::STATUS_ADVERT_REQUEST_DELETE);
+        $array = [];
+        foreach($this->regionCityRepo->findAll() as $c) {
+            $index = $c->getCity()->getId();
+            if(!array_key_exists($index, $array)) {
+                $array[$index] = [];
+            }
+
+            $array[$index][$c->getId()] = $c->getName();
+        }
+
+        return $array;
     }
-
-
-
 }

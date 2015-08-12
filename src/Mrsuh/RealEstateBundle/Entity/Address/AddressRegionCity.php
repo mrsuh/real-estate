@@ -28,6 +28,12 @@ class AddressRegionCity
      */
     private $name;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="Mrsuh\RealEstateBundle\Entity\Address\AddressCity")
+     * @ORM\JoinColumn(name="city", referencedColumnName="id")
+     */
+    private $city;
+
 
     /**
      * Get id
@@ -60,5 +66,23 @@ class AddressRegionCity
     public function getName()
     {
         return $this->name;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getCity()
+    {
+        return $this->city;
+    }
+
+    /**
+     * @param mixed $city
+     */
+    public function setCity($city)
+    {
+        $this->city = $city;
+
+        return $this;
     }
 }

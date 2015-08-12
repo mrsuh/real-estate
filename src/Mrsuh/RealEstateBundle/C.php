@@ -23,6 +23,7 @@ class C
     const REPO_USER = 'MrsuhRealEstateBundle:User';
 
     const REPO_CLIENT = 'MrsuhRealEstateBundle:Client';
+    const REPO_CLIENT_REGION_CITY = 'MrsuhRealEstateBundle:ClientRegionCity';
 
     const REPO_ADVERT = 'MrsuhRealEstateBundle:Advert\Advert';
     const REPO_ADVERT_CATEGORY = 'MrsuhRealEstateBundle:Advert\AdvertCategory';

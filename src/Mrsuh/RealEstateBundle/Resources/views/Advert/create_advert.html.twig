@@ -102,7 +102,15 @@
         <div class="col-md-2"><label>Город</label></div>
         <div class="col-md-2">{{ form_widget(form.object_city, {'attr': {'class': 'form-control' }}) }}</div>
         <div class="col-md-2"><label>Район города</label></div>
-        <div class="col-md-2">{{ form_widget(form.object_region_city, {'attr': {'class': 'form-control' }}) }}</div>
+        <div class="col-md-2">
+        {% for id,city in regionsCity %}
+            <select class="form-control region_city" id="region_city_{{ id }}" {% if city != regionsCity | first %}style="display: none;"{% endif %}>
+                {% for key,name in city %}
+                    <option value="{{ key }}">{{ name }}</option>
+                {% endfor %}
+            </select>
+        {% endfor %}
+        </div>
     </div>
     <br>
     <div class="row">
@@ -143,7 +151,11 @@
     </div>
     <hr>
     <br>
-    {{ form_widget(form.submit, {'attr': {'class': 'btn btn-success btn-width' }}) }}
+    <div class="row">
+        <div class="col-md-2"><button type="button" class="btn btn-success btn-width" id="submit_button">Создать</button></div>
+    </div>
+
+    {{ form_widget(form.submit, {'attr': {'class': 'btn btn-success btn-width', 'style': 'display: none;'}}) }}
     {{ form_end(form) }}
 
 {% endblock %}
@@ -151,6 +163,22 @@
 {% block js %}
 <script>
     $(function() {
+
+        var submit = $('#createAdvert_submit');
+        var submit_button = $('#submit_button');
+        var region_city = $('#createAdvert_object_region_city');
+
+        var select_city = $('#createAdvert_object_city');
+        select_city.change(function(){
+            $('.region_city').hide();
+           $('#region_city_' + select_city.val()).show();
+        });
+
+        submit_button.click(function(){
+            var val = $('.region_city:visible').val();
+            region_city.val(val);
+            submit.click();
+        });
 
         var advert_meter_price =  $( "#createAdvert_advert_meter_price");
         var advert_price =  $( "#createAdvert_advert_price");

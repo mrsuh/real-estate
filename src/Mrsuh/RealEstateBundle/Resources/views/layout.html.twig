@@ -4,8 +4,8 @@
     <meta charset="utf-8">
     <title>Real estate agency</title>
     <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}?v=2"/>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
-    <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+    <link rel="stylesheet" href="{{ asset('css/bootstrap.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/jquery-ui.css') }}">
     <link href="{{ asset('css/sidebar.css') }}" rel="stylesheet">
 
     <style>
@@ -50,16 +50,15 @@
 
 </div>
 
-<script src="//code.jquery.com/jquery-2.1.4.min.js"></script>
-<script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+<script src="{{ asset('js/jquery-2.1.4.min.js') }}"></script>
+<script src="{{ asset('js/jquery-ui.js') }}"></script>
+<script src="{{ asset('js/bootstrap.min.js') }}"></script>
 {% block js %}{% endblock %}
 <script>
     $("#menu-toggle").click(function (e) {
         e.preventDefault();
         $("#wrapper").toggleClass("toggled");
     });
-
 
     $("#menu li span").click(function () {
         $("#menu ul:visible").slideUp("normal");

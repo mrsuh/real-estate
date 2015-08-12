@@ -56,7 +56,7 @@ class EditAdvertForm extends AbstractType
 
         $builder->add('object_region', 'choice', ['choices' => $this->params['object_region'], 'data' => $this->advert->getObject()->getRegion()->getId()]);
         $builder->add('object_city', 'choice', ['choices' => $this->params['object_city'], 'data' => $this->advert->getObject()->getCity()->getId()]);
-        $builder->add('object_region_city', 'choice', ['choices' => $this->params['object_region_city'], 'data' => $this->advert->getObject()->getRegionCity()->getId()]);
+        $builder->add('object_region_city', 'hidden', ['data' => $this->advert->getObject()->getRegionCity()->getId()]);
         $builder->add('object_street', 'choice', ['choices' => $this->params['object_street'], 'data' => $this->advert->getObject()->getStreet()->getId()]);
         $builder->add('object_house', 'text', ['required' => false, 'data' => $this->advert->getObject()->getHouse()]);
         $builder->add('object_flat', 'text', ['required' => false, 'data' => $this->advert->getObject()->getFlat()]);

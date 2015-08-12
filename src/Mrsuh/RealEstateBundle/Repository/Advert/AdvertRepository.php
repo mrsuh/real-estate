@@ -329,7 +329,7 @@ class AdvertRepository extends EntityRepository
         if(!is_null($params['object_region_city']) && !empty($params['object_region_city'])) {
             $qb->join('object.regionCity', 'object_region_city');
             $qb->andWhere('object_region_city.id IN (:object_region_city)')
-                ->setParameter('object_region_city', array_values($params['object_region_city']));
+                ->setParameter('object_region_city', array_keys($params['object_region_city']));
         }
 
 

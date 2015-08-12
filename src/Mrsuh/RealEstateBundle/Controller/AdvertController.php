@@ -15,11 +15,11 @@ class AdvertController extends Controller
     {
         $params = $this->get('model.advert')->getAdvertParams();
         $form = $this->createForm(new CreateAdvertForm($params));
+        $regionsCity = $this->get('model.advert')->getAllRegionCity();
 
         if ($request->isMethod('POST')) {
             $form->handleRequest($request);
             $formData = $form->getData();
-
             try {
                 $newParams = $this->get('model.advert')->setAdvertParams($formData);
                 $user = $this->getUser();
@@ -39,19 +39,21 @@ class AdvertController extends Controller
             }
         }
 
-        return $this->render('MrsuhRealEstateBundle:Advert:create_advert.html.twig', ['pageName' => 'Добавить объявление', 'form' => $form->createView()]);
+        return $this->render('MrsuhRealEstateBundle:Advert:create_advert.html.twig', ['pageName' => 'Добавить объявление', 'form' => $form->createView(), 'regionsCity' => $regionsCity]);
     }
 
     public function findAdvertAction(Request $request)
     {
         $params = $this->get('model.advert')->getAdvertParams();
         $form = $this->createForm(new FindAdvertForm($params));
+        $regionsCity = $this->get('model.advert')->getAllRegionCity();
         $pagination = [];
 
         if ($request->isMethod('POST')) {
 
             $form->handleRequest($request);
             $formData = $form->getData();
+
             switch ($formData['search_type']) {
                 case C::SEARCH_STRING:
                     $pagination = $this->get('model.advert')->findByString($formData);
@@ -61,7 +63,7 @@ class AdvertController extends Controller
             }
         }
 
-        return $this->render('MrsuhRealEstateBundle:Advert:find_advert.html.twig', ['pageName' => 'Поиск объявления', 'pagination' => $pagination, 'form' => $form->createView()]);
+        return $this->render('MrsuhRealEstateBundle:Advert:find_advert.html.twig', ['pageName' => 'Поиск объявления', 'pagination' => $pagination, 'form' => $form->createView(), 'regionsCity' => $regionsCity]);
     }
 
     public function getListAdvertAction(Request $request)
@@ -76,6 +78,7 @@ class AdvertController extends Controller
 
         $params = $this->get('model.advert')->getAdvertParams();
         $form = $this->createForm(new EditAdvertForm($params, $advert));
+        $regionsCity = $this->get('model.advert')->getAllRegionCity();
 
         if ($request->isMethod('POST')) {
             $form->handleRequest($request);
@@ -99,12 +102,12 @@ class AdvertController extends Controller
         }
 
         if($this->getUser()->getId() === $advert->getUser()->getId() || CommonFunction::checkRoles($this->getUser()->getRole(), [C::ROLE_ADMIN])) {
-            $myAdvert = true;
+            $self = true;
         } else {
-            $myAdvert = false;
+            $self = false;
         }
 
-        return $this->render('MrsuhRealEstateBundle:Advert:advert.html.twig', ['pageName' => 'Объявление #' . $advert->getId(), 'advert' => $advert, 'form' => $form->createView(), 'myAdvert' => $myAdvert]);
+        return $this->render('MrsuhRealEstateBundle:Advert:advert.html.twig', ['pageName' => 'Объявление #' . $advert->getId(), 'advert' => $advert, 'form' => $form->createView(), 'self' => $self, 'regionsCity' => $regionsCity]);
     }
 
     public function toArchiveAdvertAction(Request $request)

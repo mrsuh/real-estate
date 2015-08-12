@@ -29,11 +29,12 @@ class ClientController extends Controller
     {
         $params = $this->get('model.client')->getClientParams();
         $form = $this->createForm(new CreateClientForm($params));
+        $regionsCity = $this->get('model.advert')->getAllRegionCity();
 
         if ($request->isMethod('POST')) {
             $form->handleRequest($request);
             $formData = $form->getData();
-
+//            print_r($formData);exit;
             try {
                 $newParams = $this->get('model.client')->setClientParams($formData);
                 $user = $this->getUser();
@@ -53,7 +54,7 @@ class ClientController extends Controller
             }
         }
 
-        return $this->render('MrsuhRealEstateBundle:Client:create_client.html.twig', ['pageName' => 'Добавить клиента', 'form' => $form->createView()]);
+        return $this->render('MrsuhRealEstateBundle:Client:create_client.html.twig', ['pageName' => 'Добавить клиента', 'form' => $form->createView(), 'regionsCity' => $regionsCity]);
     }
 
     public function getClientByIdAction($id, Request $request)
