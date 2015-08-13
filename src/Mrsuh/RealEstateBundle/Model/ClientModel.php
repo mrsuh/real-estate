@@ -63,7 +63,6 @@ class ClientModel
         try{
             $params['user'] = $user;
             $client = $this->clientRepo->create($params);
-//            throw new \Exception(serialize($params['region_city']));
             if(isset($params['region_city'])) {
                 foreach($params['region_city'] as $k => $v) {
                     $regionCity = $this->regionCityRepo->findOneById($k);
@@ -94,9 +93,11 @@ class ClientModel
                     $this->clientRegionCityRepo->delete($r);
                 }
 
-                foreach($params as $k => $v) {
+                foreach($params['region_city'] as $k => $v) {
                     $regionCity = $this->regionCityRepo->findOneById($k);
-                    $this->clientRegionCityRepo->create($client, $regionCity);
+                    if($regionCity) {
+                        $this->clientRegionCityRepo->create($client, $regionCity);
+                    }
                 }
             }
 
@@ -119,6 +120,17 @@ class ClientModel
     public function findByParams($params)
     {
         return $this->paginator->paginate($this->clientRepo->findByParams($params), $params['pagination_page'], $params['pagination_items_on_page']);
+    }
+
+    public function getRegionCityByClientId($id)
+    {
+        $array = [];
+        foreach($this->clientRegionCityRepo->findByClient($id) as $r)
+        {
+            $array[] = $r->getRegionCity()->getId();
+        }
+
+        return $array;
     }
 
 }

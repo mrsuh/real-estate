@@ -34,7 +34,6 @@ class ClientController extends Controller
         if ($request->isMethod('POST')) {
             $form->handleRequest($request);
             $formData = $form->getData();
-//            print_r($formData);exit;
             try {
                 $newParams = $this->get('model.client')->setClientParams($formData);
                 $user = $this->getUser();
@@ -67,7 +66,6 @@ class ClientController extends Controller
         if ($request->isMethod('POST')) {
             $form->handleRequest($request);
             $formData = $form->getData();
-
             try {
                 $newParams = $this->get('model.client')->setClientParams($formData);
                 $this->get('model.client')->update($client, $newParams);
@@ -85,6 +83,10 @@ class ClientController extends Controller
             }
         }
 
-        return $this->render('MrsuhRealEstateBundle:Client:client.html.twig', ['pageName' => 'Клиент #' . $client->getId(), 'form' => $form->createView()]);
+        $form = $this->createForm(new EditClientForm($client, $params));
+        $regionsCity = $this->get('model.advert')->getAllRegionCity();
+        $clientRegionsCity = $this->get('model.client')->getRegionCityByClientId($client->getId());
+
+        return $this->render('MrsuhRealEstateBundle:Client:client.html.twig', ['pageName' => 'Клиент #' . $client->getId(), 'form' => $form->createView(), 'regionsCity' => $regionsCity, 'clientRegionsCity' => $clientRegionsCity]);
     }
 }

@@ -50,7 +50,7 @@
                     {% for id,city in regionsCity %}
                         <div class="region_city" id="region_city_{{ id }}" style="display: none;">
                             {% for key,name in city %}
-                                <input type="checkbox" id="createClient_region_city_{{ key }}" name="createClient[region_city][{{ key }}]"  value={{ key }}> <label for="createCLient_region_city_{{ key }}" >{{ name }}</label><br>
+                                <input type="checkbox" id="createClient_region_city_{{ key }}" name="createClient[region_city][{{ key }}]"  value={{ key }}> <label for="createClient_region_city_{{ key }}" >{{ name }}</label><br>
                             {% endfor %}
                         </div>
                     {% endfor %}
