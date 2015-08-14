@@ -25,4 +25,9 @@ class AdvertImageRepository extends EntityRepository
 
         return $obj;
     }
+
+    public function delete($obj)
+    {
+        $this->_em->remove($obj);
+    }
 }

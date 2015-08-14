@@ -3,6 +3,8 @@
 use Mrsuh\RealEstateBundle\C;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Mrsuh\RealEstateBundle\Entity\FileType;
+use Mrsuh\RealEstateBundle\Entity\Advert\AdvertImage;
 
 class EditAdvertForm extends AbstractType
 {
@@ -61,6 +63,33 @@ class EditAdvertForm extends AbstractType
         $builder->add('object_house', 'text', ['required' => false, 'data' => $this->advert->getObject()->getHouse()]);
         $builder->add('object_flat', 'text', ['required' => false, 'data' => $this->advert->getObject()->getFlat()]);
         $builder->add('object_landmark', 'textarea', ['required' => false, 'data' => $this->advert->getObject()->getLandmark()]);
+
+        $builder->add('advert_image', 'collection', [
+            'type'   =>  new FileType(),
+            'allow_add'    => true,
+            'allow_delete' => true,
+            'data' => [
+                new AdvertImage(),
+                new AdvertImage(),
+                new AdvertImage(),
+                new AdvertImage(),
+                new AdvertImage(),
+                new AdvertImage(),
+                new AdvertImage(),
+                new AdvertImage(),
+                new AdvertImage(),
+                new AdvertImage()],
+            'required' => false,
+        ]);
+
+        $builder->add('advert_image_delete', 'collection', [
+            'type'   =>  'checkbox',
+            'label' => false,
+            'allow_add'    => true,
+            'allow_delete' => true,
+            'data' => [],
+            'required' => false
+        ]);
 
         $builder->add('submit', 'submit', array('label' => 'Сохранить'));
     }

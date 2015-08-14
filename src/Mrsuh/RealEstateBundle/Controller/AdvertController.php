@@ -21,6 +21,9 @@ class AdvertController extends Controller
             $form->handleRequest($request);
             $formData = $form->getData();
             try {
+                if(!$form->isValid()){
+                    throw new \Exception('Максимальный размер загружаемых изображений 2 МБ');
+                }
                 $newParams = $this->get('model.advert')->setAdvertParams($formData);
                 $user = $this->getUser();
                 $advert = $this->get('model.advert')->create($newParams, $user);
@@ -83,8 +86,10 @@ class AdvertController extends Controller
         if ($request->isMethod('POST')) {
             $form->handleRequest($request);
             $formData = $form->getData();
-
             try {
+                if(!$form->isValid()){
+                    throw new \Exception('Максимальный размер загружаемых изображений 2 МБ');
+                }
                 $newParams = $this->get('model.advert')->setAdvertParams($formData);
                 $this->get('model.advert')->update($this->getUser(), $advert, $newParams);
 

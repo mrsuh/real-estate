@@ -60,11 +60,20 @@ class CreateAdvertForm extends AbstractType
 
         $builder->add('advert_image', 'collection', [
             'type'   =>  new FileType(),
-            'label' => false,
             'allow_add'    => true,
             'allow_delete' => true,
-            'data' => [new AdvertImage(), new AdvertImage(), new AdvertImage()],
-            'required' => false
+            'data' => [
+                new AdvertImage(),
+                new AdvertImage(),
+                new AdvertImage(),
+                new AdvertImage(),
+                new AdvertImage(),
+                new AdvertImage(),
+                new AdvertImage(),
+                new AdvertImage(),
+                new AdvertImage(),
+                new AdvertImage()],
+            'required' => false,
         ]);
 
         $builder->add('submit', 'submit', array('label' => 'Создать'));

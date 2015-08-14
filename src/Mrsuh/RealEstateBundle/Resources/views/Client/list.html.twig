@@ -18,7 +18,6 @@
             <td><a href="##" id="order_field_user">Специалист</a></td>
         </tr>
 
-
         {% for client in pagination.items %}
             {% if constant('Mrsuh\\RealEstateBundle\\C::STATUS_CLIENT_IN_WORK') == client.status %}
                 {% set clientStatus = 'В работе' %}

@@ -168,14 +168,21 @@
     <hr>
     <div id="block_img">
         <div class="row">
-            {% for img in advert.getImg %}
-                <div class="col-md-2 img-responsive text-center">
-                    <a href="##" class="photo" data-path="{{ img.getWebPath }}"><img src="{{ asset( img.getMiniWebPath ) }}" style="max-width: 150px; max-height: 150px"></a>
+            <div class="col-md-12 ">
+                <div class="row">
+                    <div class="col-md-1"><button type="button" class="btn btn-success" id="add_img">+</button></div>
+                    <div class="col-md-2"><div id="editAdvert_advert_image"></div></div>
+                    <div class="col-md-9">
+                        {% for img in advert.getImg %}
+                            <div style="margin-right: 20px; float: left; margin-top: 20px;" id="photo_{{ img.id }}">
+                            <a href="##" class="photo img-responsive text-center" data-path="{{ img.getWebPath }}" style="float:left"><img src="{{ asset( img.getMiniWebPath ) }}"  class="img" style="max-width: 150px; max-height: 150px; float: left;"></a>
+                            <a href="##" style="float:right" class="photo_delete" data-id="{{ img.id }}"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></a>
+                            </div>
+                        {% endfor %}
+                    </div>
                 </div>
-
-            {% endfor %}
+            </div>
         </div>
-
     </div>
     <br>
     <label id="button_block_description"><a href="##">Описание</a></label>
@@ -183,15 +190,14 @@
     <div id="block_description">
         <div class="row">
             <div class="col-md-2"><label>Описание</label></div>
-            <div class="col-md-10">{{ form_widget(form.description_description, {'attr': {'class': 'form-control' }})
-                }}
+            <div class="col-md-10">{{ form_widget(form.description_description, {'attr': {'class': 'form-control' }} ) }}
             </div>
         </div>
         <br>
 
         <div class="row">
             <div class="col-md-2"><label>Комментарии</label></div>
-            <div class="col-md-10">{{ form_widget(form.description_comment, {'attr': {'class': 'form-control' }}) }}
+            <div class="col-md-10">{{ form_widget(form.description_comment, {'attr': {'class': 'form-control' }} ) }}
             </div>
         </div>
     </div>
@@ -217,6 +223,9 @@
     <div class="col-md-2"><button type="button" class="btn btn-success btn-width" id="submit_button">Сохранить</button></div>
     </div>
 
+    <div id="editAdvert_advert_image_delete" style="display: none;"></div>
+    {% do form.advert_image.setRendered  %}
+    {% do form.advert_image_delete.setRendered  %}
     {{ form_widget(form.submit, {'attr': {'class': 'btn btn-success', 'style': 'display: none;' }}) }}
     {{ form_end(form) }}
 
@@ -225,7 +234,7 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                    <h4 class="modal-title" id="myModalLabel">-</h4>
+                    <h4 class="modal-title" id="myModalLabel">Просмотр изображения</h4>
                 </div>
                 <div class="modal-body img-responsive text-center">
                 </div>
@@ -240,8 +249,17 @@
         $(function () {
 
             $('.photo').click(function(){
-                $('#myModal .modal-body').html("<img src='{{ app.request.baseurl }}/../" + $(this).data('path') + "'  style='max-width:850px; max-height:600px'>");
+                $('#myModal .modal-body').html("<img src='{{ app.request.baseurl }}/../" + $(this).data('path') + "'  style='max-width:850px; max-height:600px;'>");
                 $('#myModal').modal();
+            });
+
+            var delete_img_form = $('#editAdvert_advert_image_delete');
+
+            $('.photo_delete').click(function(){
+                var id = $(this).data('id');
+                $('#photo_' + id).hide('slow');
+                var input = '<input type="checkbox" id="editAdvert_advert_image_delete_"' + id + '  name="editAdvert[advert_image_delete][' + id + ']" value="1" checked="checked">';
+                delete_img_form.append(input);
             });
 
             var submit = $('#editAdvert_submit');
@@ -339,6 +357,17 @@
 
             object_common_area.bind('change', mathMeterPrice);
             advert_price.bind('change', mathMeterPrice);
+
+            var images = $('#editAdvert_advert_image');
+            var add_img = $('#add_img');
+            var count = 0;
+            add_img.click(function(){
+                if(count <= 10) {
+                    var img = '<input type="file" id="editAdvert_advert_image_' + count +'_file" name="editAdvert[advert_image][' + count +'][file]" class="btn">';
+                    images.append(img);
+                    count++;
+                }
+            });
         });
     </script>
 {% endblock %}

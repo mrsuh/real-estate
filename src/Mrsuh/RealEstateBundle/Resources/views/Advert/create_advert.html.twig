@@ -131,11 +131,8 @@
     <hr>
     <div class="row">
         <div class="col-md-2"><label>Фото</label></div>
-        <div class="col-md-10">
-            {% for file in form.advert_image %}
-                {{ form_widget(file) }}
-            {% endfor %}
-    </div>
+        <div class="col-md-1"><button type="button" class="btn btn-success" id="add_img">+</button></div>
+        <div class="col-md-9"><div id="createAdvert_advert_image"></div></div>
         </div>
     <br>
     <label>Описание</label>
@@ -155,6 +152,7 @@
         <div class="col-md-2"><button type="button" class="btn btn-success btn-width" id="submit_button">Создать</button></div>
     </div>
 
+    {% do form.advert_image.setRendered  %}
     {{ form_widget(form.submit, {'attr': {'class': 'btn btn-success btn-width', 'style': 'display: none;'}}) }}
     {{ form_end(form) }}
 
@@ -198,6 +196,17 @@
 
         object_common_area.bind('change', mathMeterPrice);
         advert_price.bind('change',mathMeterPrice);
+
+        var images = $('#createAdvert_advert_image');
+        var add_img = $('#add_img');
+        var count = 0;
+        add_img.click(function(){
+            if(count <= 10) {
+                var img = '<input type="file" id="createAdvert_advert_image_' + count +'_file" name="createAdvert[advert_image][' + count +'][file]" class="btn">';
+                images.append(img);
+                count++;
+            }
+        });
     });
 </script>
 {% endblock %}

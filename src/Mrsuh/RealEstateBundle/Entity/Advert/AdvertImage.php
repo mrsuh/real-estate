@@ -40,7 +40,8 @@ class AdvertImage
     private $advert;
 
     /**
-     * @Assert\File(maxSize="6000000")
+     * @Assert\File(maxSize="2m")
+     * @Assert\Valid
      */
     private $file;
 
@@ -50,6 +51,13 @@ class AdvertImage
         return null === $this->type
             ? null
             : $this->getUploadRootDir().'/'. $this->id  . '.' . $this->type;
+    }
+
+    public function getMiniAbsolutePath()
+    {
+        return null === $this->type
+            ? null
+            : $this->getUploadRootDir().'/'. $this->id  . 'mini.' . $this->type;
     }
 
     public function getWebPath()
@@ -77,6 +85,7 @@ class AdvertImage
     }
 
     private $temp;
+    private $tempMini;
 
     public function getFile()
     {
@@ -150,6 +159,7 @@ class AdvertImage
     public function storeFilenameForRemove()
     {
         $this->temp = $this->getAbsolutePath();
+        $this->tempMini = $this->getMiniAbsolutePath();
     }
 
     /**
@@ -157,8 +167,12 @@ class AdvertImage
      */
     public function removeUpload()
     {
-        if (isset($this->temp)) {
+        if (isset($this->temp) && file_exists($this->temp)) {
             unlink($this->temp);
+        }
+
+        if (isset($this->tempMini) && file_exists($this->tempMini)) {
+            unlink($this->tempMini);
         }
     }
 

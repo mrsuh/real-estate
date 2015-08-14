@@ -121,17 +121,21 @@ class AdvertModel
                 $params['advert_change_user'] = $user;
             }
 
-
             $this->objectRepo->update($advert->getObject(), $params);
             $this->advertRepo->update($advert, $params);
 
-//            foreach($params['advert_image'] as $i) {
-//                if(is_null($i->getType())) {
-//                    continue;
-//                }
-//                $i->setAdvert($advert);
-//                $this->em->persist($i);
-//            }
+            foreach($params['advert_image_delete'] as $k => $v) {
+                $img = $this->advertImageRepo->findOneById($k);
+                $this->advertImageRepo->delete($img);
+            }
+
+            foreach($params['advert_image'] as $i) {
+                if(is_null($i->getType())) {
+                    continue;
+                }
+                $i->setAdvert($advert);
+                $this->em->persist($i);
+            }
 
             $this->em->flush();
             $this->em->commit();
