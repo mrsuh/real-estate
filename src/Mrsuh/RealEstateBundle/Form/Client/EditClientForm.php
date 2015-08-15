@@ -46,6 +46,8 @@ class EditClientForm extends AbstractType
         $builder->add('floors_from', 'text', ['required' => false, 'data' => $this->client->getFloorsFrom()]);
         $builder->add('floors_to', 'text', ['required' => false, 'data' => $this->client->getFloorsTo()]);
 
+        $builder->add('reviewed_adverts', 'text', ['required' => false]);
+
         $date = null;
         if(!is_null($this->client->getBirthDay())) {
             $date = $this->client->getBirthDay()->format('d.m.Y');

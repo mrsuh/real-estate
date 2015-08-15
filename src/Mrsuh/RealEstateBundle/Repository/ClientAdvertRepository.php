@@ -3,17 +3,17 @@
 namespace Mrsuh\RealEstateBundle\Repository;
 
 use Doctrine\ORM\EntityRepository;
-use Mrsuh\RealEstateBundle\Entity\ClientRegionCity;
+use Mrsuh\RealEstateBundle\Entity\ClientAdvert;
 
-class ClientRegionCityRepository extends EntityRepository
+class ClientAdvertRepository extends EntityRepository
 {
-    public function create($client, $regionCity)
+    public function create($client, $advert)
     {
         $this->_em->beginTransaction();
         try {
-            $obj = new ClientRegionCity();
+            $obj = new ClientAdvert();
             $obj->setClient($client)
-                ->setRegionCity($regionCity);
+                ->setAdvert($advert);
 
             $this->_em->persist($obj);
 
@@ -30,4 +30,5 @@ class ClientRegionCityRepository extends EntityRepository
     {
         $this->_em->remove($obj);
     }
+
 }

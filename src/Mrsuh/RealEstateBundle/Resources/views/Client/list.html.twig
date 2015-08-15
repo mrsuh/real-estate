@@ -18,7 +18,7 @@
                 {% set clientStatus = 'В работе' %}
                 <tr class="success">
             {% elseif constant('Mrsuh\\RealEstateBundle\\C::STATUS_CLIENT_TEMPORARY_SUSPENDED') == client.status %}
-                {% set clientStatus = 'Временно присотановил поиск' %}
+                {% set clientStatus = 'Временно приостановил поиск' %}
                 <tr>
             {% elseif constant('Mrsuh\\RealEstateBundle\\C::STATUS_CLIENT_BOUGHT_WITH_US') == client.status %}
                 {% set clientStatus = 'Купил а нашем агенстве' %}
@@ -33,6 +33,7 @@
                 {% set clientStatus = '' %}
                 <tr>
             {% endif %}
+
             <td class="text-center"><a href="{{ url('client', { 'id': client.id }) }}">{{ client.id }}</a></td>
             <td class="text-center"><a href="{{ url('client', { 'id': client.id }) }}">{{ client.phone1 }}</a></td>
             <td class="text-center"><a href="{{ url('client', { 'id': client.id }) }}">{{ client.name1 }}</a></td>

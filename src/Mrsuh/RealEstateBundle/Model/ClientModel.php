@@ -15,6 +15,8 @@ class ClientModel
     public function __construct($em, $paginator)
     {
         $this->clientRepo = $em->getRepository(C::REPO_CLIENT);
+        $this->advertRepo = $em->getRepository(C::REPO_ADVERT);
+        $this->clientAdvertRepo = $em->getRepository(C::REPO_CLIENT_ADVERT);
         $this->clientRegionCityRepo = $em->getRepository(C::REPO_CLIENT_REGION_CITY);
         $this->regionCityRepo = $em->getRepository(C::REPO_ADDRESS_REGION_CITY);
         $this->paginator = $paginator;
@@ -101,6 +103,15 @@ class ClientModel
                 }
             }
 
+            if(isset($params['reviewed_adverts'])) {
+                foreach(explode(',', $params['reviewed_adverts']) as $o){
+                    $advert = $this->advertRepo->findOneById(trim($o));
+                    if($advert && !$this->clientAdvertRepo->findOneBy(['client' => $client, 'advert' => $advert])) {
+                        $this->clientAdvertRepo->create($client, $advert);
+                    }
+                }
+            }
+
             $this->em->flush();
             $this->em->commit();
         } catch(\Exception $e){
@@ -133,4 +144,13 @@ class ClientModel
         return $array;
     }
 
+    public function getReviewedAdvertsByClient($client)
+    {
+        $adverts = [];
+        foreach($this->clientAdvertRepo->findByClient($client) as $o) {
+            $adverts[] = $o->getAdvert();
+        }
+
+        return $adverts;
+    }
 }

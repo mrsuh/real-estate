@@ -41,6 +41,10 @@ find_advert:
     path: /find-advert
     defaults: { _controller: MrsuhRealEstateBundle:Advert:findAdvert }
 
+find_advert_by_client:
+    path: /find-advert-by-client/{clientId}
+    defaults: { _controller: MrsuhRealEstateBundle:Advert:findAdvertByClient, clientId: clientId }
+
 create_advert:
     path: /create-advert
     defaults: { _controller: MrsuhRealEstateBundle:Advert:createAdvert }

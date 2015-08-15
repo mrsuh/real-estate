@@ -7,7 +7,7 @@
             <a href="{{ url('profile') }}">Профиль</a>
         </li>
         <li><span><a href="#" >Объявления</a></span>
-            <ul {% if  path == path('find_advert') or path == path('create_advert') or path == path('change_user_advert') or path == path('advert') %} style="display: block;" {% else %} style="display: none;" {% endif %}>
+            <ul {% if  path == path('find_advert') or path == path('create_advert') or path == path('find_advert_by_client') or path == path('change_user_advert') or path == path('advert') %} style="display: block;" {% else %} style="display: none;" {% endif %}>
                 <li><a href="{{ url('find_advert') }}">Поиск объявления</a></li>
                 <li><a href="{{ url('create_advert') }}">Добавить объявление</a></li>
                 <li><a href="{{ url('change_user_advert') }}">Перенос объявлений</a></li>

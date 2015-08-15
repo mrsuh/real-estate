@@ -22,7 +22,11 @@ class ClientController extends Controller
             $pagination = $this->get('model.client')->findByParams($formData);
         }
 
-        return $this->render('MrsuhRealEstateBundle:Client:find_client.html.twig', ['pageName' => 'Поиск клиента', 'pagination' => $pagination, 'form' => $form->createView()]);
+        return $this->render('MrsuhRealEstateBundle:Client:find_client.html.twig', [
+            'pageName' => 'Поиск клиента',
+            'pagination' => $pagination,
+            'form' => $form->createView()
+        ]);
     }
 
     public function createClientAction(Request $request)
@@ -53,7 +57,11 @@ class ClientController extends Controller
             }
         }
 
-        return $this->render('MrsuhRealEstateBundle:Client:create_client.html.twig', ['pageName' => 'Добавить клиента', 'form' => $form->createView(), 'regionsCity' => $regionsCity]);
+        return $this->render('MrsuhRealEstateBundle:Client:create_client.html.twig', [
+            'pageName' => 'Добавить клиента',
+            'form' => $form->createView(),
+            'regionsCity' => $regionsCity
+        ]);
     }
 
     public function getClientByIdAction($id, Request $request)
@@ -86,7 +94,15 @@ class ClientController extends Controller
         $form = $this->createForm(new EditClientForm($client, $params));
         $regionsCity = $this->get('model.advert')->getAllRegionCity();
         $clientRegionsCity = $this->get('model.client')->getRegionCityByClientId($client->getId());
+        $reviewedAdverts = $this->get('model.client')->getReviewedAdvertsByClient($client);
 
-        return $this->render('MrsuhRealEstateBundle:Client:client.html.twig', ['pageName' => 'Клиент #' . $client->getId(), 'form' => $form->createView(), 'regionsCity' => $regionsCity, 'clientRegionsCity' => $clientRegionsCity]);
+        return $this->render('MrsuhRealEstateBundle:Client:client.html.twig', [
+            'pageName' => 'Клиент #' . $client->getId(),
+            'clientId' => $client->getId(),
+            'form' => $form->createView(),
+            'regionsCity' => $regionsCity,
+            'clientRegionsCity' => $clientRegionsCity,
+            'reviewedAdverts' => $reviewedAdverts
+        ]);
     }
 }
