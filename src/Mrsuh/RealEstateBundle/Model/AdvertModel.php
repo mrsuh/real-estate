@@ -150,19 +150,9 @@ class AdvertModel
         return $this->advertRepo->findOneById($id);
     }
 
-    public function findByParam()
+    public function findByParams($params)
     {
-        return $this->advertRepo->findAll();
-    }
-
-    public function findByString($params)
-    {
-        return $this->paginator->paginate($this->advertRepo->findByString($params), $params['pagination_page'], $params['pagination_items_on_page']);
-    }
-
-    public function findByExtensionParams($params)
-    {
-        return $this->paginator->paginate($this->advertRepo->findByExtensionParams($params), $params['pagination_page'], $params['pagination_items_on_page']);
+        return $this->paginator->paginate($this->advertRepo->findByParams($params), $params['pagination_page'], $params['pagination_items_on_page']);
     }
 
     public function getAllRegionCity()
@@ -178,5 +168,10 @@ class AdvertModel
         }
 
         return $array;
+    }
+
+    public function findByChangeUser()
+    {
+        return $this->advertRepo->findByChangeUser();
     }
 }

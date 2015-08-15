@@ -36,7 +36,7 @@ class EditAdvertForm extends AbstractType
         $builder->add('advert_price', 'text', ['required' => false, 'data' => $this->advert->getPrice()]);
         $builder->add('advert_meter_price', 'text', ['required' => false, 'data' => $this->advert->getMeterPrice()]);
         $builder->add('advert_status', 'choice', ['choices' => [C::STATUS_ADVERT_ACTIVE => 'активно', C::STATUS_ADVERT_NOT_ACTIVE => 'не активно', C::STATUS_ADVERT_DELETED => 'архив', C::STATUS_ADVERT_NO_RESPONSE => 'нет связи', C::STATUS_ADVERT_RECALL => 'перезвонить'], 'data' => $this->advert->getStatus()]);
-        $builder->add('advert_change_user', 'choice', ['choices' => $this->params['advert_user'], 'required' => false, 'placeholder' => 'Перенос объявления']);
+        $builder->add('advert_change_user', 'choice', ['choices' => $this->params['advert_user'], 'required' => false, 'placeholder' => 'Перенос объявления', 'data' => !is_null($this->advert->getChangeUser()) ? $this->advert->getChangeUser()->getId() : null]);
 
         $builder->add('object_type', 'choice', ['choices' => $this->params['object_type'], 'data' => $this->advert->getObject()->getType()->getId()]);
         $builder->add('object_state', 'choice', ['choices' => $this->params['object_state'], 'data' => $this->advert->getObject()->getState()->getId()]);

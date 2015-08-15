@@ -56,13 +56,11 @@ class C
     const STATUS_CLIENT_BOUGHT_HIMSELF = 4;
     const STATUS_CLIENT_BLACK_LIST = 5;
 
-
     const OBJECT_TYPE_HOUSE = 'Дом(коттедж)';
     const OBJECT_TYPE_EARTH_AREA = 'Земельный участок';
     const OBJECT_TYPE_FLAT = 'Квартира';
     const OBJECT_TYPE_COMMERCE = 'Коммерческая';
     const OBJECT_TYPE_ROOM = 'Комната';
-
 
     const OBJECT_NUMBER = 1;
     const PHONE_NUMBER = 2;
@@ -70,17 +68,10 @@ class C
     const LANDMARK = 4;
     const DESCRIPTION = 5;
 
-    const SEARCH_STRING = 'search_string';
-    const SEARCH_EXTENSION= 'search_extension';
-
-
     const ORDER_TYPE_ASC = 'ASC';
     const ORDER_TYPE_DESC = 'DESC';
 
     const PASSWORD_LENGTH = 6;
-
-    const USER_STATUS_ACTIVE = 1;
-    const USER_STATUS_DELETED = 2;
 
     const SYSTEM_USER = 'root';
 

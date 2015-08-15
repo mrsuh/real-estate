@@ -7,7 +7,7 @@
         <div class="row">
             <div class="col-md-2">{{ form_widget(form.search_string_type, {'attr': {'class': 'form-control' }}) }}</div>
             <div class="col-md-4">{{ form_widget(form.search_string_string, {'attr': {'class': 'form-control' }}) }}</div>
-            <div class="col-md-2"><button type="button" class="btn btn-success btn-width" id="submit_search_string">Поиск</button></div>
+            <div class="col-md-2"><button type="button" class="btn btn-success btn-width" id="submit_button">Поиск</button></div>
         </div>
         <br>
         <div class="row">
@@ -195,12 +195,9 @@
             </div>
 
         </div>
-        <br>
-        <button type="button" class="btn btn-success btn-width" id="submit_search_extension">Поиск</button>
     </div>
     <hr>
-    {{ form_widget(form.search, {'attr': {'hidden': 'true' }} ) }}
-    {% do form.object_region_city.setRendered %}
+
 
     <div class="row">
         {% if pagination and pagination.items is not empty %}
@@ -213,6 +210,9 @@
     </div>
     <br>
 
+    {{ form_widget(form.search, {'attr': {'hidden': 'true' }} ) }}
+
+    {% do form.object_region_city.setRendered %}
     {{ form_end(form) }}
 
     {% include "MrsuhRealEstateBundle::Advert/list.html.twig" %}
@@ -225,11 +225,7 @@
             var extension_button = $('#extension_button');
             var extension_search = $('#extension_search');
 
-            var submit_search_extension = $('#submit_search_extension');
-            var submit_search_string = $('#submit_search_string');
-
-
-            var search_type = $('#findAdvert_search_type');
+            var submit_button = $('#submit_button');
 
             var current_page = 1;
             var max_page = 1;
@@ -348,15 +344,8 @@
                 search_submit.click();
             });
 
-            submit_search_extension.click(function()
+            submit_button.click(function()
             {
-                search_type.val('{{ constant('Mrsuh\\RealEstateBundle\\C::SEARCH_EXTENSION') }}');
-                submit_click();
-            });
-
-            submit_search_string.click(function()
-            {
-                search_type.val('{{ constant('Mrsuh\\RealEstateBundle\\C::SEARCH_STRING') }}');
                 submit_click();
             });
 

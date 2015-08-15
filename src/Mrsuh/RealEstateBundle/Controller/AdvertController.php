@@ -1,5 +1,6 @@
 <?php namespace Mrsuh\RealEstateBundle\Controller;
 
+use Mrsuh\RealEstateBundle\Form\Advert\ChangeUserAdvertListForm;
 use Mrsuh\RealEstateBundle\Form\Advert\CreateAdvertForm;
 use Mrsuh\RealEstateBundle\Form\Advert\FindAdvertByClientForm;
 use Mrsuh\RealEstateBundle\Form\Advert\FindAdvertForm;
@@ -58,17 +59,8 @@ class AdvertController extends Controller
         $pagination = [];
 
         if ($request->isMethod('POST')) {
-
             $form->handleRequest($request);
-            $formData = $form->getData();
-
-            switch ($formData['search_type']) {
-                case C::SEARCH_STRING:
-                    $pagination = $this->get('model.advert')->findByString($formData);
-                    break;
-                case C::SEARCH_EXTENSION:
-                    $pagination = $this->get('model.advert')->findByExtensionParams($formData);
-            }
+            $pagination = $this->get('model.advert')->findByParams($form->getData());
         }
 
         return $this->render('MrsuhRealEstateBundle:Advert:find_advert.html.twig', [
@@ -101,19 +93,28 @@ class AdvertController extends Controller
             'client' => $client]);
     }
 
-    public function getListAdvertAction(Request $request)
+    public function changeUserAdvertListAction(Request $request)
     {
-        $adverts = $this->get('model.advert')->findByParam();
-        return $this->render('MrsuhRealEstateBundle:Advert:list_advert.html.twig', [
-            'pageName' => 'Список объявлений',
-            'adverts' => $adverts
+
+        $form = $this->createForm(new ChangeUserAdvertListForm());
+        $params = ['change_user' => true, 'pagination_page' =>1, 'pagination_items_on_page' => 1000 ];
+        $pagination = $this->get('model.advert')->findByParams($params);
+
+        if ($request->isMethod('POST')) {
+            $form->handleRequest($request);
+            $pagination = $this->get('model.advert')->findByParams(array_merge($params, (array)$form->getData()));
+        }
+
+        return $this->render('MrsuhRealEstateBundle:Advert:change_user_list.html.twig', [
+            'pageName' => 'Список объявлений для переноса пользователя',
+            'pagination' => $pagination,
+            'form' => $form->createView(),
         ]);
     }
 
     public function getAdvertByIdAction($id, Request $request)
     {
         $advert = $this->get('model.advert')->getOneById($id);
-
         $params = $this->get('model.advert')->getAdvertParams();
         $form = $this->createForm(new EditAdvertForm($params, $advert));
         $regionsCity = $this->get('model.advert')->getAllRegionCity();

@@ -49,9 +49,9 @@ create_advert:
     path: /create-advert
     defaults: { _controller: MrsuhRealEstateBundle:Advert:createAdvert }
 
-change_user_advert:
-    path: /change-user-advert
-    defaults: { _controller: MrsuhRealEstateBundle:Advert:changeUserAdvert }
+change_user_advert_list:
+    path: /change-user-advert-list
+    defaults: { _controller: MrsuhRealEstateBundle:Advert:changeUserAdvertList }
 
 #Users
 user:
