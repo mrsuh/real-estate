@@ -19,7 +19,6 @@
     <br>
     <div class="row">
         <div class="col-md-6"><a href="##" id="extension_button">Расширенный поиск</a></div>
-        <div class="col-md-2 col-md-offset-4">{{ form_widget(form.pagination_items_on_page, {'attr': {'class': 'form-control' }} ) }}</div>
     </div>
 
     <div id="extension_search" hidden="true">
@@ -202,6 +201,18 @@
     <hr>
     {{ form_widget(form.search, {'attr': {'hidden': 'true' }} ) }}
     {% do form.object_region_city.setRendered %}
+
+    <div class="row">
+        {% if pagination and pagination.items is not empty %}
+            <div class="col-md-9"><b>Всего результатов:</b> {{ pagination.getTotalItemCount }}</div>
+            <div class="col-md-2"><b class="pull-right">Показывать на странице:</b></div>
+            <div class="col-md-1">{{ form_widget(form.pagination_items_on_page, {'attr': {'class': 'form-control' }}) }}</div>
+        {% else %}
+            <div class="col-md-1">{{ form_widget(form.pagination_items_on_page, {'attr': {'class': 'form-control', 'style':'display: none' }}) }}</div>
+        {% endif %}
+    </div>
+    <br>
+
     {{ form_end(form) }}
 
     {% include "MrsuhRealEstateBundle::Advert/list.html.twig" %}

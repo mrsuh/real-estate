@@ -162,7 +162,7 @@ class ClientRepository extends EntityRepository
                 case 'create_time':
                     $qb->orderBy('c.createTime', $params['order_type']);
                     break;
-                case 'update_tim':
+                case 'update_time':
                     $qb->orderBy('c.updateTime', $params['order_type']);
                     break;
                 case 'hot':

@@ -5,11 +5,21 @@
         <div class="col-md-2">{{ form_widget(form.phone, {'attr': {'class': 'form-control' }}) }}</div>
         <div class="col-md-2">{{ form_widget(form.status, {'attr': {'class': 'form-control' }}) }}</div>
         <div class="col-md-2">{{ form_widget(form.user, {'attr': {'class': 'form-control' }}) }}</div>
-        <div class="col-md-2">{{ form_widget(form.pagination_items_on_page, {'attr': {'class': 'form-control' }}) }}</div>
         <div class="col-md-2">{{ form_widget(form.submit, {'attr': {'class': 'btn btn-success btn-width' }} ) }}</div>
     </div>
     <br>
     <hr>
+
+    <div class="row">
+        {% if pagination and pagination.items is not empty %}
+        <div class="col-md-9"><b>Всего результатов:</b> {{ pagination.getTotalItemCount }}</div>
+            <div class="col-md-2"><b class="pull-right">Показывать на странице:</b></div>
+        <div class="col-md-1">{{ form_widget(form.pagination_items_on_page, {'attr': {'class': 'form-control' }}) }}</div>
+        {% else %}
+            <div class="col-md-1">{{ form_widget(form.pagination_items_on_page, {'attr': {'class': 'form-control', 'style':'display: none' }}) }}</div>
+        {% endif %}
+    </div>
+    <br>
 
     {{ form_end(form) }}
 
