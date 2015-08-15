@@ -31,103 +31,23 @@
 {% block js %}
     <script>
         $(function(){
-            var order_type_asc = '{{ constant('Mrsuh\\RealEstateBundle\\C::ORDER_TYPE_ASC') }}';
-            var order_type_desc = '{{ constant('Mrsuh\\RealEstateBundle\\C::ORDER_TYPE_DESC') }}';
 
-            var order_type = $('#findClient_order_type');
-            var order_field = $('#findClient_order_field');
-
-            var search_submit = $('#findClient_submit');
-
-            var order_field_id = $('#order_field_id');
-            var order_field_name = $('#order_field_name');
-            var order_field_phone = $('#order_field_phone');
-            var order_field_create_time = $('#order_field_create_time');
-            var order_field_update_time = $('#order_field_update_time');
-            var order_field_hot = $('#order_field_hot');
-            var order_field_mortgage = $('#order_field_mortgage');
-            var order_field_status = $('#order_field_status');
-            var order_field_user = $('#order_field_user');
-
-            var setOrderType = function(field){
-                if(field === order_field.val()) {
-                    if(order_type_asc === order_type.val()){
-                        order_type.val(order_type_desc);
-                    } else {
-                        order_type.val(order_type_asc);
-                    }
-                } else {
-                    order_type.val(order_type_asc);
-                }
-            };
-
-            var orderFields = function()
+            var submit = function()
             {
-                order_field_id.click(function(){
-                    setOrderType('id');
-                    order_field.val('id');
-                    search_submit.click();
-
-                });
-
-                order_field_name.click(function(){
-                    setOrderType('name');
-                    order_field.val('name');
-                    search_submit.click();
-
-                });
-
-                order_field_phone.click(function(){
-                    setOrderType('phone');
-                    order_field.val('phone');
-                    search_submit.click();
-
-                });
-
-                order_field_create_time.click(function(){
-                    setOrderType('create_time');
-                    order_field.val('create_time');
-                    search_submit.click();
-
-                });
-
-                order_field_update_time.click(function(){
-                    setOrderType('update_time');
-                    order_field.val('update_time');
-                    search_submit.click();
-
-                });
-
-                order_field_hot.click(function(){
-                    setOrderType('hot');
-                    order_field.val('hot');
-                    search_submit.click();
-
-                });
-
-                order_field_mortgage.click(function(){
-                    setOrderType('mortgage');
-                    order_field.val('mortgage');
-                    search_submit.click();
-
-                });
-
-                order_field_status.click(function(){
-                    setOrderType('status');
-                    order_field.val('status');
-                    search_submit.click();
-
-                });
-
-                order_field_user.click(function(){
-                    setOrderType('id');
-                    order_field.val('id');
-                    search_submit.click();
-
-                });
+                $('[name="findClient"]').submit();
             };
 
-            orderFields();
+            order('findClient', [
+                'order_field_id',
+                'order_field_phone',
+                'order_field_name',
+                'order_field_create_time',
+                'order_field_update_time',
+                'order_field_hot',
+                'order_field_mortgage',
+                'order_field_status',
+                'order_field_user'
+            ], submit);
 
             var current_page = 1;
             var max_page = 1;
@@ -137,7 +57,7 @@
             max_page = {{ pagination.getPaginationData.pageCount }};
             {% endif %}
 
-            pagination('findClient', current_page, max_page);
+            pagination('findClient', current_page, max_page, submit);
 
         });
     </script>

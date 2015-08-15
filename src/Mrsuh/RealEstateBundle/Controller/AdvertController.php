@@ -15,9 +15,11 @@ class AdvertController extends Controller
 {
     public function createAdvertAction(Request $request)
     {
-        $params = $this->get('model.advert')->getAdvertParams();
+        $modelAdvert = $this->get('model.advert');
+
+        $params = $modelAdvert->getAdvertParams();
         $form = $this->createForm(new CreateAdvertForm($params));
-        $regionsCity = $this->get('model.advert')->getAllRegionCity();
+        $regionsCity = $modelAdvert->getAllRegionCity();
 
         if ($request->isMethod('POST')) {
             $form->handleRequest($request);
@@ -26,9 +28,9 @@ class AdvertController extends Controller
                 if(!$form->isValid()){
                     throw new \Exception('Максимальный размер загружаемых изображений 2 МБ');
                 }
-                $newParams = $this->get('model.advert')->setAdvertParams($formData);
+                $newParams = $modelAdvert->setAdvertParams($formData);
                 $user = $this->getUser();
-                $advert = $this->get('model.advert')->create($newParams, $user);
+                $advert = $modelAdvert->create($newParams, $user);
 
                 $this->addFlash(
                     'success',
@@ -53,36 +55,44 @@ class AdvertController extends Controller
 
     public function findAdvertAction(Request $request)
     {
-        $params = $this->get('model.advert')->getAdvertParams();
-        $form = $this->createForm(new FindAdvertForm($params));
-        $regionsCity = $this->get('model.advert')->getAllRegionCity();
-        $pagination = [];
+        $modelAdvert = $this->get('model.advert');
 
+        $params = $modelAdvert->getAdvertParams();
+        $form = $this->createForm(new FindAdvertForm($params));
+        $regionsCity = $modelAdvert->getAllRegionCity();
+        $pagination = [];
+        $regions = [];
         if ($request->isMethod('POST')) {
             $form->handleRequest($request);
-            $pagination = $this->get('model.advert')->findByParams($form->getData());
+            $formData = $form->getData();
+            $regions = $formData['object_region_city'];
+            $pagination = $modelAdvert->findByParams($formData);
         }
 
         return $this->render('MrsuhRealEstateBundle:Advert:find_advert.html.twig', [
             'pageName' => 'Поиск объявления',
             'pagination' => $pagination,
             'form' => $form->createView(),
-            'regionsCity' => $regionsCity
+            'regionsCity' => $regionsCity,
+            'regions' => $regions
         ]);
     }
 
     public function findAdvertByClientAction(Request $request, $clientId)
     {
-        $params = $this->get('model.advert')->getAdvertParams();
-        $client = $this->get('model.client')->getOneById($clientId);
+        $modelAdvert = $this->get('model.advert');
+        $modelClient = $this->get('model.client');
+
+        $params = $modelAdvert->getAdvertParams();
+        $client = $modelClient->getOneById($clientId);
         $form = $this->createForm(new FindAdvertByClientForm($params, $client));
-        $regionsCity = $this->get('model.advert')->getAllRegionCity();
-        $clientRegionsCity = $this->get('model.client')->getRegionCityByClientId($client->getId());
+        $regionsCity = $modelAdvert->getAllRegionCity();
+        $clientRegionsCity = $modelClient->getRegionCityByClientId($client->getId());
         $pagination = [];
 
         if ($request->isMethod('POST')) {
             $form->handleRequest($request);
-            $pagination = $this->get('model.advert')->findByExtensionParams($form->getData());
+            $pagination = $modelAdvert->findByParams($form->getData());
         }
 
         return $this->render('MrsuhRealEstateBundle:Advert:find_advert_by_client.html.twig', [
@@ -95,14 +105,15 @@ class AdvertController extends Controller
 
     public function changeUserAdvertListAction(Request $request)
     {
+        $modelAdvert = $this->get('model.advert');
 
         $form = $this->createForm(new ChangeUserAdvertListForm());
-        $params = ['change_user' => true, 'pagination_page' =>1, 'pagination_items_on_page' => 1000 ];
-        $pagination = $this->get('model.advert')->findByParams($params);
+        $params = ['change_user' => true, 'pagination_page' => 1, 'pagination_items_on_page' => 1000 ];
+        $pagination = $modelAdvert->findByParams($params);
 
         if ($request->isMethod('POST')) {
             $form->handleRequest($request);
-            $pagination = $this->get('model.advert')->findByParams(array_merge($params, (array)$form->getData()));
+            $pagination = $modelAdvert->findByParams(array_merge($params, (array)$form->getData()));
         }
 
         return $this->render('MrsuhRealEstateBundle:Advert:change_user_list.html.twig', [
@@ -114,10 +125,12 @@ class AdvertController extends Controller
 
     public function getAdvertByIdAction($id, Request $request)
     {
-        $advert = $this->get('model.advert')->getOneById($id);
-        $params = $this->get('model.advert')->getAdvertParams();
+        $modelAdvert = $this->get('model.advert');
+
+        $advert = $modelAdvert->getOneById($id);
+        $params = $modelAdvert->getAdvertParams();
         $form = $this->createForm(new EditAdvertForm($params, $advert));
-        $regionsCity = $this->get('model.advert')->getAllRegionCity();
+        $regionsCity = $modelAdvert->getAllRegionCity();
 
         if ($request->isMethod('POST')) {
             $form->handleRequest($request);
@@ -127,7 +140,7 @@ class AdvertController extends Controller
                     throw new \Exception('Максимальный размер загружаемых изображений 2 МБ');
                 }
                 $newParams = $this->get('model.advert')->setAdvertParams($formData);
-                $this->get('model.advert')->update($this->getUser(), $advert, $newParams);
+                $modelAdvert->update($this->getUser(), $advert, $newParams);
 
                 $this->addFlash(
                     'success',
@@ -153,7 +166,7 @@ class AdvertController extends Controller
             'advert' => $advert,
             'form' => $form->createView(),
             'self' => $self,
-            'regionsCity' => $regionsCity
+            'regionsCity' => $regionsCity,
         ]);
     }
 }

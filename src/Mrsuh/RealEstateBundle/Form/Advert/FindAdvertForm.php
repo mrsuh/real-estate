@@ -68,7 +68,7 @@ class FindAdvertForm extends AbstractType
         $builder->add('not_first_floor', 'checkbox', ['required' => false]);
         $builder->add('not_last_floor', 'checkbox',['required' => false]);
 
-        $builder->add('pagination_items_on_page', 'choice', ['choices' => [2=>2, 20 => 20, 50 => 50, 100 => 100], 'required' => true]);
+        $builder->add('pagination_items_on_page', 'choice', ['choices' => [20 => 20, 50 => 50, 100 => 100], 'required' => true]);
         $builder->add('pagination_page', 'hidden', ['data' => 1]);
 
         $builder->add('advert_type', 'choice', ['choices' => $this->params['advert_type'], 'required' => false, 'placeholder' => 'Тип объявления']);

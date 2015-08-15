@@ -185,7 +185,7 @@
                         {% for id,city in regionsCity %}
                             <div class="region_city" id="region_city_{{ id }}" style="display: none;">
                                 {% for key,name in city %}
-                                    <input type="checkbox" id="findAdvert_object_region_city_{{ key }}" name="findAdvert[object_region_city][{{ key }}]"  value={{ key }}> <label for="findAdvert_object_region_city_{{ key }}" >{{ name }}</label><br>
+                                    <input type="checkbox" id="findAdvert_object_region_city_{{ key }}" name="findAdvert[object_region_city][{{ key }}]"  value={{ key }}{% if key in regions | keys %} checked {% endif %}> <label for="findAdvert_object_region_city_{{ key }}" >{{ name }}</label><br>
                                 {% endfor %}
                             </div>
                         {% endfor %}
@@ -197,7 +197,6 @@
         </div>
     </div>
     <hr>
-
 
     <div class="row">
         {% if pagination and pagination.items is not empty %}
@@ -223,32 +222,19 @@
 {% block js %}
     <script>
         $(function () {
-            var extension_button = $('#extension_button');
-            var extension_search = $('#extension_search');
-
             var submit_button = $('#submit_button');
 
-            var current_page = 1;
-            var max_page = 1;
-
-            var order_type = $('#findAdvert_order_type');
-            var order_field = $('#findAdvert_order_field');
-
-            var order_field_id = $('#order_field_id');
-            var order_field_city = $('#order_field_city');
-            var order_field_region = $('#order_field_region');
-            var order_field_price = $('#order_field_price');
-            var order_field_status = $('#order_field_status');
-            var order_field_create_time = $('#order_field_create_time');
-            var order_field_update_time = $('#order_field_update_time');
-            var order_field_expire_time= $('#order_field_expire_time');
-
-            var order_type_asc = '{{ constant('Mrsuh\\RealEstateBundle\\C::ORDER_TYPE_ASC') }}';
-            var order_type_desc = '{{ constant('Mrsuh\\RealEstateBundle\\C::ORDER_TYPE_DESC') }}';
-
+            var extension_button = $('#extension_button');
+            var extension_search = $('#extension_search');
+            extension_button.click(function () {
+                if (extension_search.is(':hidden')) {
+                    extension_search.show('slow')
+                } else {
+                    extension_search.hide('slow')
+                }
+            });
 
             var region_city = $('#findAdvert_object_region_city');
-
             var select_city = $('#findAdvert_object_city');
             select_city.change(function(){
                 set_region_city();
@@ -262,91 +248,34 @@
 
             set_region_city();
 
+            submit_button.click(function(){
+                submit();
+            });
 
-            var submit_click = function(type){
-                if(type) {
-                    setOrderType(type);
-                    order_field.val(type);
-                }
-
-                region_city.html($('.region_city:visible input'));
-                search_submit.click();
+            var submit = function(){
+                region_city.clone($('.region_city:visible input'));
+                $('[name="findAdvert"]').submit();
             };
 
-            var setOrderType = function(field){
-                if(field === order_field.val()) {
-                    if(order_type_asc === order_type.val()){
-                        order_type.val(order_type_desc);
-                    } else {
-                        order_type.val(order_type_asc);
-                    }
-                } else {
-                    order_type.val(order_type_asc);
-                }
-            };
+            order('findAdvert', [
+                'order_field_id',
+                'order_field_city',
+                'order_field_region',
+                'order_field_price',
+                'order_field_create_time',
+                'order_field_update_time',
+                'order_field_expire_time',
+                'order_field_status'
+            ], submit);
 
-            var orderFields = function()
-            {
-                order_field_id.click(function(){
-                    submit_click('id');
-                });
-
-                order_field_city.click(function(){
-                    submit_click('city');
-                });
-
-                order_field_region.click(function(){
-                    submit_click('region');
-                });
-
-                order_field_price.click(function(){
-                    submit_click('price');
-                });
-
-                order_field_status.click(function(){
-                    submit_click('status');
-                });
-
-                order_field_create_time.click(function(){
-                    submit_click('create_time');
-                });
-
-                order_field_update_time.click(function(){
-                    submit_click('update_time');
-                });
-
-                order_field_expire_time.click(function(){
-                    submit_click('expire_time');
-                });
-            };
-
-            orderFields();
-
-
+            var current_page = 1;
+            var max_page = 1;
             {% if pagination %}
             current_page = {{ pagination.getPaginationData.current }};
             max_page = {{ pagination.getPaginationData.pageCount }};
             {% endif %}
 
-            pagination('findAdvert', current_page, max_page);
-
-            var search_submit = $('#findAdvert_search');
-
-            submit_button.click(function()
-            {
-                submit_click();
-            });
-
-
-
-
-            extension_button.click(function () {
-                if (extension_search.is(':hidden')) {
-                    extension_search.show('slow')
-                } else {
-                    extension_search.hide('slow')
-                }
-            });
+            pagination('findAdvert', current_page, max_page, submit);
         });
     </script>
 

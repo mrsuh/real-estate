@@ -202,7 +202,7 @@
             set_region_city();
 
             submit_button.click(function () {
-                region_city.html($('.region_city:visible input'));
+                region_city.clone($('.region_city:visible input'));
 
                 submit.click();
             });
