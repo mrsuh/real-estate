@@ -66,12 +66,10 @@ class CommonFunction
             throw new \Exception('Invalid format');
         }
 
-        $w_o = $width;
-        $koe = $w_i/$width;
-        $h_0=ceil($h_i/$koe);
+        $squire = $w_i > $h_i ? $h_i : $w_i;
 
-        $img_o = imagecreatetruecolor($w_o, $h_0);
-        ImageCopyResampled($img_o, $img, 0, 0, 0, 0, $w_o, $h_0, $w_i, $h_i);
+        $img_o = imagecreatetruecolor($width, $width);
+        ImageCopyResampled($img_o, $img, 0, 0, 0, 0, $width, $width, $squire, $squire);
         if ($type == 2) {
             return imagejpeg($img_o,$file_output,$quality);
         } else {

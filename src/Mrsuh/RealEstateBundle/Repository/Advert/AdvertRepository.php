@@ -61,8 +61,8 @@ class AdvertRepository extends EntityRepository
     {
         $this->_em->beginTransaction();
         try {
-
             $advert->setUpdateTime(new \DateTime());
+            $advert->setExpireTime((new \DateTime)->modify('+ 1 month'));
 
             foreach ([
                          'advert_user',
