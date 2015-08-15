@@ -1,0 +1,29 @@
+{% if pagination and pagination.items is not empty %}
+
+    <div class="row">
+        <div class="col-md-12">
+            <nav>
+                <ul class="pagination">
+                    <li><a href="##" id="pagination_start">start</a></li>
+                    <li>
+                        <a href="##" aria-label="Previous" id="pagination_previous">
+                            <span aria-hidden="true">&laquo;</span>
+                        </a>
+                    </li>
+                    <li><a href="##">{{ pagination.getPaginationData.current }}</a></li>
+                    <li>
+                        <a href="##" aria-label="Next" id="pagination_next">
+                            <span aria-hidden="true">&raquo;</span>
+                        </a>
+                    </li>
+                    <li><a href="##" id="pagination_fin">&nbsp;fin&nbsp;&nbsp;</a></li>
+                </ul>
+            </nav>
+        </div>
+    </div>
+
+{% elseif pagination and pagination.items is empty %}
+
+    <b>Запрос не дал результатов...</b>
+
+{% endif %}

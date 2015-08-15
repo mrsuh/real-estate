@@ -216,6 +216,7 @@
     {{ form_end(form) }}
 
     {% include "MrsuhRealEstateBundle::Advert/list.html.twig" %}
+    {% include "MrsuhRealEstateBundle::Default/pagination.html.twig" %}
 
 {% endblock %}
 
@@ -327,22 +328,9 @@
             max_page = {{ pagination.getPaginationData.pageCount }};
             {% endif %}
 
-
-            var pagination_start = $('#pagination_start');
-            var pagination_previous = $('#pagination_previous');
-            var pagination_next = $('#pagination_next');
-            var pagination_fin = $('#pagination_fin');
+            pagination('findAdvert', current_page, max_page);
 
             var search_submit = $('#findAdvert_search');
-
-            var pagination_page = $('#findAdvert_pagination_page');
-
-            var pagination_items_on_page = $('#findAdvert_pagination_items_on_page');
-
-            pagination_items_on_page.change(function(){
-                pagination_page.val(1);
-                search_submit.click();
-            });
 
             submit_button.click(function()
             {
@@ -350,41 +338,7 @@
             });
 
 
-            var pagination = function ()
-            {
-                pagination_next.click(function(){
-                    var page = max_page;
-                    if(++current_page <= max_page) {
-                        page = current_page;
-                    }
 
-                    pagination_page.val(page);
-                    submit_click();
-                });
-
-                pagination_previous.click(function(){
-                    var page = 1;
-                    if(--current_page >= 1) {
-                        page = current_page;
-                    }
-
-                    pagination_page.val(page);
-                    submit_click();
-                });
-
-                pagination_start.click(function(){
-                    pagination_page.val(1);
-                    submit_click();
-                });
-
-                pagination_fin.click(function(){
-                    pagination_page.val(max_page);
-                    submit_click();
-                });
-
-            };
-
-            pagination();
 
             extension_button.click(function () {
                 if (extension_search.is(':hidden')) {

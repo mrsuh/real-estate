@@ -26,7 +26,7 @@ class FindClientForm extends AbstractType
         $builder->add('user', 'choice', ['choices' => $this->params['user'], 'required' => false, 'placeholder' => 'Специалист']);
         $builder->add('phone', 'text', ['required' => false, 'attr' => ['placeholder' => 'телефон']]);
 
-        $builder->add('pagination_items_on_page', 'choice', ['choices' => [20 => 20, 50 => 50, 100 => 100], 'required' => true]);
+        $builder->add('pagination_items_on_page', 'choice', ['choices' => [2=> 2, 20 => 20, 50 => 50, 100 => 100], 'required' => true]);
         $builder->add('pagination_page', 'hidden', ['data' => 1]);
 
         $builder->add('order_field', 'hidden');
