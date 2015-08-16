@@ -57,10 +57,6 @@ if [ ! -e "app/config/fixtures/address/region.yml" ] ; then
     echo "Fixtures created from region.yml.dist"
 fi
 
-if [ ! -e "app/config/fixtures/address/region_city.yml" ] ; then
-    cp app/config/fixtures/address/region_city.yml.dist app/config/fixtures/address/region_city.yml
-    echo "Fixtures created from region_city.yml.dist"
-fi
 
 if [ ! -e "app/config/fixtures/address/street.yml" ] ; then
     cp app/config/fixtures/address/street.yml.dist app/config/fixtures/address/street.yml
