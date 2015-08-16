@@ -1,4 +1,12 @@
-php app/console doctrine:database:drop --force
+#!/bin/bash
+
+if [ ! -e "composer.phar" ] ; then
+    php -r "readfile('https://getcomposer.org/installer');" | php
+else
+    php composer.phar self-update
+fi
+
+php composer.phar install
 
 php app/console doctrine:database:create
 php app/console doctrine:schema:create
