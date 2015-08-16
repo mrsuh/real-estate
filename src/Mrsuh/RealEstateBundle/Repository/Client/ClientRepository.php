@@ -1,10 +1,10 @@
 <?php
 
-namespace Mrsuh\RealEstateBundle\Repository;
+namespace Mrsuh\RealEstateBundle\Repository\Client;
 
 use Mrsuh\RealEstateBundle\Service\CommonFunction;
 use Doctrine\ORM\EntityRepository;
-use Mrsuh\RealEstateBundle\Entity\Client;
+use Mrsuh\RealEstateBundle\Entity\Client\Client;
 
 
 class ClientRepository extends EntityRepository

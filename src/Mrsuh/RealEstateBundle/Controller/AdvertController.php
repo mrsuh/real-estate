@@ -92,7 +92,9 @@ class AdvertController extends Controller
 
         if ($request->isMethod('POST')) {
             $form->handleRequest($request);
-            $pagination = $modelAdvert->findByParams($form->getData());
+            $formData = $form->getData();
+            $pagination = $modelAdvert->findByParams($formData);
+            $clientRegionsCity = array_keys($formData['object_region_city']);
         }
 
         return $this->render('MrsuhRealEstateBundle:Advert:find_advert_by_client.html.twig', [

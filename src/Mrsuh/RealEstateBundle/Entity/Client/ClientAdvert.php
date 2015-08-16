@@ -1,6 +1,6 @@
 <?php
 
-namespace Mrsuh\RealEstateBundle\Entity;
+namespace Mrsuh\RealEstateBundle\Entity\Client;
 
 use Doctrine\ORM\Mapping as ORM;
 
@@ -8,7 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
  * ClientAdvert
  *
  * @ORM\Table()
- * @ORM\Entity(repositoryClass="Mrsuh\RealEstateBundle\Repository\ClientAdvertRepository")
+ * @ORM\Entity(repositoryClass="Mrsuh\RealEstateBundle\Repository\Client\ClientAdvertRepository")
  */
 class ClientAdvert
 {
@@ -24,7 +24,7 @@ class ClientAdvert
     /**
      * @var integer
      *
-     * @ORM\ManyToOne(targetEntity="Mrsuh\RealEstateBundle\Entity\Client")
+     * @ORM\ManyToOne(targetEntity="Mrsuh\RealEstateBundle\Entity\Client\Client")
      * @ORM\JoinColumn(name="client", referencedColumnName="id")
      */
     private $client;

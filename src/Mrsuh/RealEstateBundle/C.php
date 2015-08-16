@@ -22,9 +22,9 @@ class C
     const REPO_ROLE = 'MrsuhRealEstateBundle:Role';
     const REPO_USER = 'MrsuhRealEstateBundle:User';
 
-    const REPO_CLIENT = 'MrsuhRealEstateBundle:Client';
-    const REPO_CLIENT_REGION_CITY = 'MrsuhRealEstateBundle:ClientRegionCity';
-    const REPO_CLIENT_ADVERT = 'MrsuhRealEstateBundle:ClientAdvert';
+    const REPO_CLIENT = 'MrsuhRealEstateBundle:Client\Client';
+    const REPO_CLIENT_REGION_CITY = 'MrsuhRealEstateBundle:Client\ClientRegionCity';
+    const REPO_CLIENT_ADVERT = 'MrsuhRealEstateBundle:Client\ClientAdvert';
 
     const REPO_ADVERT = 'MrsuhRealEstateBundle:Advert\Advert';
     const REPO_ADVERT_CATEGORY = 'MrsuhRealEstateBundle:Advert\AdvertCategory';
