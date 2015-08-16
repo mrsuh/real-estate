@@ -174,4 +174,13 @@ class AdvertModel
     {
         return $this->advertRepo->findByChangeUser();
     }
+
+    public function setExpireTime()
+    {
+        foreach($this->advertRepo->findExpireAdverts() as $a) {
+            $this->advertRepo->setDeleted($a);
+        }
+
+        $this->em->flush();
+    }
 }
