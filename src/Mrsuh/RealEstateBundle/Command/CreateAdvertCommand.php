@@ -27,7 +27,6 @@ class CreateAdvertCommand extends ContainerAwareCommand
         $em = $this->getContainer()->get('doctrine.orm.entity_manager');
 
 
-
         for ($i = 0; $i < 100; $i++) {
             $output->writeln($i);
             $commonArea = rand(50, 100);
@@ -40,7 +39,7 @@ class CreateAdvertCommand extends ContainerAwareCommand
                 'object_type' => $em->getRepository(C::REPO_OBJECT_TYPE)->findOneById(1),
                 'object_state' => $em->getRepository(C::REPO_OBJECT_STATE)->findOneById(1),
                 'object_wall' => $em->getRepository(C::REPO_OBJECT_WALL)->findOneById(1),
-                'object_room_number' => rand(1,5),
+                'object_room_number' => rand(1, 5),
                 'object_common_area' => $commonArea,
                 'object_live_area' => $kitchenArea,
                 'object_kitchen_area' => $liveArea,
@@ -64,7 +63,7 @@ class CreateAdvertCommand extends ContainerAwareCommand
             ];
 
             $price = rand(1500000, 3000000);
-            $meterPrice = round($price/$commonArea);
+            $meterPrice = round($price / $commonArea);
 
             $advert = [
                 'advert_user' => $em->getRepository(C::REPO_USER)->findOneById(rand(1, 3)),

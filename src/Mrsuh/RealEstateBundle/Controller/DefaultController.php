@@ -13,6 +13,9 @@ class DefaultController extends Controller
     public function sidebarAction($path)
     {
         $name = $this->get('security.token_storage')->getToken()->getUser()->getUsername();
-        return $this->render('MrsuhRealEstateBundle:Default:sidebar.html.twig', ['username' => $name, 'path' => $path]);
+        return $this->render('MrsuhRealEstateBundle:Default:sidebar.html.twig', [
+            'username' => $name,
+            'path' => $path
+        ]);
     }
 }

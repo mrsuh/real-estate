@@ -40,7 +40,7 @@ class ClientAdvert
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {

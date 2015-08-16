@@ -74,4 +74,12 @@ class UserRepository extends EntityRepository
     {
         $this->_em->remove($user);
     }
+
+    public function findAllExceptSystem()
+    {
+        return $this->createQueryBuilder('u')
+            ->where('u.username != :name')
+            ->setParameter('name', C::SYSTEM_USER)
+            ->getQuery()->getResult();
+    }
 }

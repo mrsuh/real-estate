@@ -35,7 +35,6 @@ class C
     //roles
     const ROLE_ADMIN = 'ROLE_ADMIN';
     const ROLE_USER = 'ROLE_USER';
-    const ROLE_SYSTEM = 'ROLE_SYSTEM';
 
     const STATUS_USER_ACTIVE = 1;
     const STATUS_USER_DELETED = 2;

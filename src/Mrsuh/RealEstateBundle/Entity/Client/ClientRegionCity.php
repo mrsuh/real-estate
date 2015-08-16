@@ -40,7 +40,7 @@ class ClientRegionCity
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -63,7 +63,7 @@ class ClientRegionCity
     /**
      * Get client
      *
-     * @return integer 
+     * @return integer
      */
     public function getClient()
     {
@@ -86,7 +86,7 @@ class ClientRegionCity
     /**
      * Get regionCity
      *
-     * @return integer 
+     * @return integer
      */
     public function getRegionCity()
     {
