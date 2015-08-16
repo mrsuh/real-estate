@@ -2,22 +2,22 @@
 
     <table class="table table-bordered">
         <tr class="text-center">
-            <td><a href="##" id="order_field_id">#</a></td>
+            <td><a href="##" data-order="id">#</a></td>
             <td>Фото</td>
             <td>Тип объекта</td>
             <td>
-                <a href="##" id="order_field_city">Город</a> |
-                <a href="##" id="order_field_region">Район</a> |
+                <a href="##" data-order="city">Город</a> |
+                <a href="##" data-order="region">Район</a> |
                 Адрес |
                 Описание
             </td>
             <td>Площадь</td>
-            <td><a href="##" id="order_field_price">Цена</a></td>
-            <td><a href="##" id="order_field_status">Статус</a></td>
+            <td><a href="##" data-order="price">Цена</a></td>
+            <td><a href="##" data-order="status">Статус</a></td>
             <td>
-                <a href="##" id="order_field_create_time">Создано</a> |
-                <a href="##" id="order_field_update_time">Обновлено</a> |
-                <a href="##" id="order_field_expire_time">Истекает</a>
+                <a href="##" data-order="create_time">Создано</a> |
+                <a href="##" data-order="update_time">Обновлено</a> |
+                <a href="##" data-order="expire_time">Истекает</a>
             </td>
         </tr>
         {% for advert in pagination.items %}

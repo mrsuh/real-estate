@@ -66,59 +66,12 @@ var order = function(formName, fields, submit)
     };
 
     fields.forEach(function(val, key){
-        $('#' + val).click(function(){
-            var field = null;
+        $('[data-order="' + val + '"]').click(function(){
+            var field = $('[data-order="' + val + '"]').data('order');
 
-            switch(true){
-                case ((val.indexOf('id') + 1) > 0):
-                    field = 'id';
-                    break;
-                case ((val.indexOf('name') + 1) > 0):
-                    field = 'name';
-                    break;
-                case ((val.indexOf('phone') + 1) > 0):
-                    field = 'phone';
-                    break;
-                case ((val.indexOf('create_time') + 1) > 0):
-                    field = 'create_time';
-                    break;
-                case ((val.indexOf('update_time') + 1) > 0):
-                    field = 'update_time';
-                    break;
-                case ((val.indexOf('hot') + 1) > 0):
-                    field = 'hot';
-                    break;
-                case ((val.indexOf('mortgage') + 1) > 0):
-                    field = 'mortgage';
-                    break;
-                case ((val.indexOf('status') + 1) > 0):
-                    field = 'status';
-                    break;
-                case ((val.indexOf('user') + 1) > 0):
-                    field = 'user';
-                    break;
-                case ((val.indexOf('city') + 1) > 0):
-                    field = 'city';
-                    break;
-                case ((val.indexOf('region') + 1) > 0):
-                    field = 'region';
-                    break;
-                case ((val.indexOf('price') + 1) > 0):
-                    field = 'price';
-                    break;
-                case ((val.indexOf('expire_time') + 1) > 0):
-                    field = 'expire_time';
-                    break;
-                default:
-                    field = null;
-            }
-
-            if(null !== field) {
-                setOrderType(field);
-                order_field.val(field);
-                submit();
-            }
-
+            setOrderType(field);
+            order_field.val(field);
+            submit();
         })
     });
 };
