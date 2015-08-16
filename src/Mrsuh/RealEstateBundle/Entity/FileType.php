@@ -1,6 +1,7 @@
 <?php
 
 namespace Mrsuh\RealEstateBundle\Entity;
+
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -20,10 +21,10 @@ class FileType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class'=>'Mrsuh\RealEstateBundle\Entity\Advert\AdvertImage',
-            'csrf_protection'=>true,
-            'csrf_field_name'=>'_token',
-            'intention'=>'file'
+            'data_class' => 'Mrsuh\RealEstateBundle\Entity\Advert\AdvertImage',
+            'csrf_protection' => true,
+            'csrf_field_name' => '_token',
+            'intention' => 'file'
         ));
     }
 }

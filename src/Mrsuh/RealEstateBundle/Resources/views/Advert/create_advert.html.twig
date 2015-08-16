@@ -2,30 +2,30 @@
 {% block content %}
 
     {{ form_start(form) }}
-    <label>Данные продавца</label>
+    <a href="##"><b>Данные продавца</b></a>
     <hr>
     <div class="row">
-        <div class="col-md-2"><label>Имя продавца 1</label></div>
+        <div class="col-md-2"><label>ФИО продавца 1</label></div>
         <div class="col-md-4">{{ form_widget(form.advert_seller_name1, {'attr': {'class': 'form-control' }}) }}</div>
         <div class="col-md-2"><label>Телефон продавца 1</label></div>
         <div class="col-md-4">{{ form_widget(form.advert_seller_phone1, {'attr': {'class': 'form-control' }}) }}</div>
     </div>
     <br>
     <div class="row">
-        <div class="col-md-2"><label>Имя продавца 2</label></div>
+        <div class="col-md-2"><label>ФИО продавца 2</label></div>
         <div class="col-md-4">{{ form_widget(form.advert_seller_name2, {'attr': {'class': 'form-control' }}) }}</div>
         <div class="col-md-2"><label>Телефон продавца 2</label></div>
         <div class="col-md-4">{{ form_widget(form.advert_seller_phone2, {'attr': {'class': 'form-control' }}) }}</div>
     </div>
     <br>
     <div class="row">
-        <div class="col-md-2"><label>Имя продавца 3</label></div>
+        <div class="col-md-2"><label>ФИО продавца 3</label></div>
         <div class="col-md-4">{{ form_widget(form.advert_seller_name3, {'attr': {'class': 'form-control' }}) }}</div>
         <div class="col-md-2"><label>Телефон продавца 3</label></div>
         <div class="col-md-4">{{ form_widget(form.advert_seller_phone3, {'attr': {'class': 'form-control' }}) }}</div>
     </div>
     <br>
-    <label>Характеристики</label>
+    <a href="##"><b>Характеристики</b></a>
     <hr>
     <div class="row">
         <div class="col-md-2"><label>Тип Объявления*</label></div>
@@ -94,7 +94,8 @@
         <div class="col-md-2"><label>Ипотека</label></div>
         <div class="col-md-2">{{ form_widget(form.object_mortgage, {'attr': {'class': 'form-control' }}) }}</div>
     </div>
-    <label>Местоположение</label>
+    <br>
+    <a href="##"><b>Местоположение</b></a>
     <hr>
     <div class="row">
         <div class="col-md-2"><label>Регион</label></div>
@@ -127,15 +128,14 @@
         <div class="col-md-10">{{ form_widget(form.object_landmark, {'attr': {'class': 'form-control' }}) }}</div>
     </div>
     <br>
-    <label>Фотографии</label>
+    <a href="##"><b>Фотографии</b></a>
     <hr>
     <div class="row">
-        <div class="col-md-2"><label>Фото</label></div>
-        <div class="col-md-1"><button type="button" class="btn btn-success" id="add_img">+</button></div>
+        <div class="col-md-1 col-md-offset-2"><button type="button" class="btn btn-success" id="add_img">+</button></div>
         <div class="col-md-9"><div id="createAdvert_advert_image"></div></div>
         </div>
     <br>
-    <label>Описание</label>
+    <a href="##"><b>Описание</b></a>
     <hr>
     <div class="row">
         <div class="col-md-2"><label>Описание</label></div>

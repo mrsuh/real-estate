@@ -22,9 +22,9 @@ class UserModel
         $this->mail = $mail;
     }
 
-    public function getAll()
+    public function getAllExceptSystem()
     {
-        return $this->userRepo->findAll();
+        return $this->userRepo->findAllExceptSystem();
     }
 
     public function getUserById($id)
@@ -34,7 +34,7 @@ class UserModel
 
     public function create($params)
     {
-        if($this->userRepo->findOneByUsername($params['username'])) {
+        if ($this->userRepo->findOneByUsername($params['username'])) {
             throw new \Exception('Пользователь с логином ' . $params['username'] . ' уже существует');
         };
 
@@ -42,11 +42,11 @@ class UserModel
 
         $password = CommonFunction::generatePassword();
         $params['password'] = $password;
-        $params['role'] =  $this->roleRepo->findOneByName(C::ROLE_USER);
+        $params['role'] = $this->roleRepo->findOneByName(C::ROLE_USER);
 
         $mail = [
             'to' => $params['email'],
-            'body' => 'login: ' . $params['username'] .'<br>' . 'pass: ' . $password,
+            'body' => 'login: ' . $params['username'] . '<br>' . 'pass: ' . $password,
             'subject' => 'Новый пользователь Real-Estate'];
         $this->mail->sendMail($mail);
 
@@ -57,19 +57,19 @@ class UserModel
     {
         CommonFunction::checkEmail($params['email']);
 
-        if(!empty($params['password'])) {
-            if(C::PASSWORD_LENGTH  > strlen($params['password'])) {
+        if (!empty($params['password'])) {
+            if (C::PASSWORD_LENGTH > strlen($params['password'])) {
                 throw new \Exception('Пароль должен содержать не менее ' . C::PASSWORD_LENGTH . ' символов ');
             }
 
             $mail = [
                 'to' => $params['email'],
-                'body' => 'login: ' . $params['username'] .'<br>' . 'pass: ' . $params['password'],
+                'body' => 'login: ' . $params['username'] . '<br>' . 'pass: ' . $params['password'],
                 'subject' => 'Новый пароль Real-Estate'];
             $this->mail->sendMail($mail);
         }
 
-       return $this->userRepo->update($user, $params);
+        return $this->userRepo->update($user, $params);
     }
 
     public function getUsersArray()
@@ -88,7 +88,7 @@ class UserModel
         try {
 
             $systemUser = $this->userRepo->findOneByUsername(C::SYSTEM_USER);
-            foreach($this->advertRepo->findByUser($user) as $a) {
+            foreach ($this->advertRepo->findByUser($user) as $a) {
                 $a->setUser($systemUser);
             }
 

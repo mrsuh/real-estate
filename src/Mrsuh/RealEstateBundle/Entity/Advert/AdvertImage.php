@@ -50,33 +50,33 @@ class AdvertImage
     {
         return null === $this->type
             ? null
-            : $this->getUploadRootDir().'/'. $this->id  . '.' . $this->type;
+            : $this->getUploadRootDir() . '/' . $this->id . '.' . $this->type;
     }
 
     public function getMiniAbsolutePath()
     {
         return null === $this->type
             ? null
-            : $this->getUploadRootDir().'/'. $this->id  . 'mini.' . $this->type;
+            : $this->getUploadRootDir() . '/' . $this->id . 'mini.' . $this->type;
     }
 
     public function getWebPath()
     {
         return null === $this->type
             ? null
-            : $this->getUploadDir().'/'. $this->id  . '.' . $this->type;
+            : $this->getUploadDir() . '/' . $this->id . '.' . $this->type;
     }
 
     public function getMiniWebPath()
     {
         return null === $this->type
             ? null
-            : $this->getUploadDir().'/'. $this->id  . 'mini.' . $this->type;
+            : $this->getUploadDir() . '/' . $this->id . 'mini.' . $this->type;
     }
 
     protected function getUploadRootDir()
     {
-        return __DIR__.'/../../../../../web/' . $this->getUploadDir();
+        return __DIR__ . '/../../../../../web/' . $this->getUploadDir();
     }
 
     protected function getUploadDir()
@@ -145,10 +145,10 @@ class AdvertImage
         // which the UploadedFile move() method does
         $this->getFile()->move(
             $this->getUploadRootDir(),
-            $this->id.'.'.$this->getFile()->guessExtension()
+            $this->id . '.' . $this->getFile()->guessExtension()
         );
 
-        CommonFunction::imageCrop($this->getUploadRootDir().'/'. $this->id  . '.' . $this->type, $this->getUploadRootDir().'/'. $this->id  . 'mini.' . $this->type, 150, 50);
+        CommonFunction::imageCrop($this->getUploadRootDir() . '/' . $this->id . '.' . $this->type, $this->getUploadRootDir() . '/' . $this->id . 'mini.' . $this->type, 150, 50);
 
         $this->setFile(null);
     }
@@ -179,7 +179,7 @@ class AdvertImage
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {

@@ -161,7 +161,8 @@ class Advert
      */
     private $changeUser;
 
-    public function __construct() {
+    public function __construct()
+    {
         $this->img = new ArrayCollection();
     }
 
@@ -169,7 +170,7 @@ class Advert
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -192,7 +193,7 @@ class Advert
     /**
      * Get user
      *
-     * @return integer 
+     * @return integer
      */
     public function getUser()
     {
@@ -215,7 +216,7 @@ class Advert
     /**
      * Get description
      *
-     * @return string 
+     * @return string
      */
     public function getDescription()
     {
@@ -238,7 +239,7 @@ class Advert
     /**
      * Get type
      *
-     * @return integer 
+     * @return integer
      */
     public function getType()
     {
@@ -261,7 +262,7 @@ class Advert
     /**
      * Get status
      *
-     * @return integer 
+     * @return integer
      */
     public function getStatus()
     {
@@ -284,7 +285,7 @@ class Advert
     /**
      * Get createTime
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getCreateTime()
     {
@@ -307,7 +308,7 @@ class Advert
     /**
      * Get updateTime
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getUpdateTime()
     {
@@ -330,7 +331,7 @@ class Advert
     /**
      * Get expireTime
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getExpireTime()
     {
@@ -353,7 +354,7 @@ class Advert
     /**
      * Get exclusive
      *
-     * @return boolean 
+     * @return boolean
      */
     public function getExclusive()
     {
@@ -376,7 +377,7 @@ class Advert
     /**
      * Get object
      *
-     * @return integer 
+     * @return integer
      */
     public function getObject()
     {

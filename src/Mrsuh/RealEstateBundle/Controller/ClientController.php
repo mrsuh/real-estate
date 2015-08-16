@@ -12,13 +12,11 @@ class ClientController extends Controller
     public function findClientAction(Request $request)
     {
         $pagination = [];
-
         $form = $this->createForm(new FindClientForm(['user' => $this->get('model.user')->getUsersArray()]));
 
         if ($request->isMethod('POST')) {
             $form->handleRequest($request);
             $formData = $form->getData();
-
             $pagination = $this->get('model.client')->findByParams($formData);
         }
 
@@ -31,7 +29,8 @@ class ClientController extends Controller
 
     public function createClientAction(Request $request)
     {
-        $params = $this->get('model.client')->getClientParams();
+        $modelClient = $this->get('model.client');
+        $params = $modelClient->getClientParams();
         $form = $this->createForm(new CreateClientForm($params));
         $regionsCity = $this->get('model.advert')->getAllRegionCity();
 
@@ -39,9 +38,8 @@ class ClientController extends Controller
             $form->handleRequest($request);
             $formData = $form->getData();
             try {
-                $newParams = $this->get('model.client')->setClientParams($formData);
-                $user = $this->getUser();
-                $client = $this->get('model.client')->create($newParams, $user);
+                $newParams = $modelClient->setClientParams($formData);
+                $client = $modelClient->create($newParams, $this->getUser());
 
                 $this->addFlash(
                     'success',
@@ -66,17 +64,17 @@ class ClientController extends Controller
 
     public function getClientByIdAction($id, Request $request)
     {
-        $client = $this->get('model.client')->getOneById($id);
-
-        $params = $this->get('model.client')->getClientParams();
+        $modelClient = $this->get('model.client');
+        $client = $modelClient->getOneById($id);
+        $params = $modelClient->getClientParams();
         $form = $this->createForm(new EditClientForm($client, $params));
 
         if ($request->isMethod('POST')) {
             $form->handleRequest($request);
             $formData = $form->getData();
             try {
-                $newParams = $this->get('model.client')->setClientParams($formData);
-                $this->get('model.client')->update($client, $newParams);
+                $newParams = $modelClient->setClientParams($formData);
+                $modelClient->update($client, $newParams);
 
                 $this->addFlash(
                     'success',
@@ -93,12 +91,12 @@ class ClientController extends Controller
 
         $form = $this->createForm(new EditClientForm($client, $params));
         $regionsCity = $this->get('model.advert')->getAllRegionCity();
-        $clientRegionsCity = $this->get('model.client')->getRegionCityByClientId($client->getId());
-        $reviewedAdverts = $this->get('model.client')->getReviewedAdvertsByClient($client);
+        $clientRegionsCity = $modelClient->getRegionCityByClientId($client->getId());
+        $reviewedAdverts = $modelClient->getReviewedAdvertsByClient($client);
 
         return $this->render('MrsuhRealEstateBundle:Client:client.html.twig', [
             'pageName' => 'Клиент #' . $client->getId(),
-            'clientId' => $client->getId(),
+            'client' => $client,
             'form' => $form->createView(),
             'regionsCity' => $regionsCity,
             'clientRegionsCity' => $clientRegionsCity,

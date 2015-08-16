@@ -25,12 +25,11 @@ class AdvertController extends Controller
             $form->handleRequest($request);
             $formData = $form->getData();
             try {
-                if(!$form->isValid()){
+                if (!$form->isValid()) {
                     throw new \Exception('Максимальный размер загружаемых изображений 2 МБ');
                 }
                 $newParams = $modelAdvert->setAdvertParams($formData);
-                $user = $this->getUser();
-                $advert = $modelAdvert->create($newParams, $user);
+                $advert = $modelAdvert->create($newParams, $this->getUser());
 
                 $this->addFlash(
                     'success',
@@ -92,7 +91,9 @@ class AdvertController extends Controller
 
         if ($request->isMethod('POST')) {
             $form->handleRequest($request);
-            $pagination = $modelAdvert->findByParams($form->getData());
+            $formData = $form->getData();
+            $pagination = $modelAdvert->findByParams($formData);
+            $clientRegionsCity = array_keys($formData['object_region_city']);
         }
 
         return $this->render('MrsuhRealEstateBundle:Advert:find_advert_by_client.html.twig', [
@@ -108,7 +109,7 @@ class AdvertController extends Controller
         $modelAdvert = $this->get('model.advert');
 
         $form = $this->createForm(new ChangeUserAdvertListForm());
-        $params = ['change_user' => true, 'pagination_page' => 1, 'pagination_items_on_page' => 1000 ];
+        $params = ['change_user' => true, 'pagination_page' => 1, 'pagination_items_on_page' => 1000];
         $pagination = $modelAdvert->findByParams($params);
 
         if ($request->isMethod('POST')) {
@@ -136,7 +137,7 @@ class AdvertController extends Controller
             $form->handleRequest($request);
             $formData = $form->getData();
             try {
-                if(!$form->isValid()){
+                if (!$form->isValid()) {
                     throw new \Exception('Максимальный размер загружаемых изображений 2 МБ');
                 }
                 $newParams = $this->get('model.advert')->setAdvertParams($formData);
@@ -155,7 +156,7 @@ class AdvertController extends Controller
             }
         }
 
-        if($this->getUser()->getId() === $advert->getUser()->getId() || CommonFunction::checkRoles($this->getUser()->getRole(), [C::ROLE_ADMIN])) {
+        if ($this->getUser()->getId() === $advert->getUser()->getId() || CommonFunction::checkRoles($this->getUser()->getRole(), [C::ROLE_ADMIN])) {
             $self = true;
         } else {
             $self = false;

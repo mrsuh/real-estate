@@ -11,7 +11,7 @@ class UserController extends Controller
 {
     public function getListUserAction(Request $request)
     {
-        $users = $this->get('model.user')->getAll();
+        $users = $this->get('model.user')->getAllExceptSystem();
         return $this->render('MrsuhRealEstateBundle:User:list_user.html.twig', ['pageName' => 'Пользователи', 'users' => $users]);
     }
 
@@ -39,7 +39,7 @@ class UserController extends Controller
                             'Пользователь успешно удален'
                         );
                         return $this->redirect($this->generateUrl('list_user'));
-                    break;
+                        break;
                 }
 
                 $form = $this->createForm(new EditUserForm($user));
@@ -51,12 +51,11 @@ class UserController extends Controller
             }
         }
 
-        return $this->render('MrsuhRealEstateBundle:User:user.html.twig', ['pageName' => 'Пользователь ' . $user->getUsername(), 'form' => $form->createView()]);
-    }
-
-    public function finsUserAction(Request $request)
-    {
-        return $this->render('MrsuhRealEstateBundle:User:find_user.html.twig', ['pageName' => 'Поиск пользователей']);
+        return $this->render('MrsuhRealEstateBundle:User:user.html.twig', [
+            'pageName' => 'Пользователь ' . $user->getUsername(),
+            'form' => $form->createView(),
+            'self' => (integer)$this->getUser()->getId() === (integer)$id
+        ]);
     }
 
     public function createUserAction(Request $request)
@@ -84,7 +83,10 @@ class UserController extends Controller
             }
         }
 
-        return $this->render('MrsuhRealEstateBundle:User:create_user.html.twig', ['pageName' => 'Создать пользователя', 'form' => $form->createView()]);
+        return $this->render('MrsuhRealEstateBundle:User:create_user.html.twig', [
+            'pageName' => 'Создать пользователя',
+            'form' => $form->createView()
+        ]);
     }
 
     public function profileAction(Request $request)
@@ -113,6 +115,10 @@ class UserController extends Controller
             }
         }
 
-        return $this->render('MrsuhRealEstateBundle:User:user.html.twig', ['pageName' => 'Профиль', 'form' => $form->createView()]);
+        return $this->render('MrsuhRealEstateBundle:User:user.html.twig', [
+            'pageName' => 'Профиль',
+            'form' => $form->createView(),
+            'self' => true
+        ]);
     }
 }
