@@ -64,7 +64,15 @@ class CreateClientForm extends AbstractType
         $builder->add('hot', 'choice', ['choices' => [1 => 'да', 0 => 'нет']]);
 
         $builder->add('city', 'choice', ['choices' => $this->params['city']]);
-        $builder->add('region_city', 'choice', ['choices' => $this->params['region_city']]);
+
+        $builder->add('region_city', 'collection', [
+            'type'   =>  'checkbox',
+            'label' => false,
+            'allow_add'    => true,
+            'allow_delete' => true,
+            'data' => [],
+            'required' => false
+        ]);
 
         $builder->add('submit', 'submit', array('label' => 'Создать'));
     }

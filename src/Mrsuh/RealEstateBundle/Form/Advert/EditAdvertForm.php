@@ -3,6 +3,8 @@
 use Mrsuh\RealEstateBundle\C;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Mrsuh\RealEstateBundle\Entity\FileType;
+use Mrsuh\RealEstateBundle\Entity\Advert\AdvertImage;
 
 class EditAdvertForm extends AbstractType
 {
@@ -33,7 +35,8 @@ class EditAdvertForm extends AbstractType
         $builder->add('advert_category', 'choice', ['choices' =>  $this->params['advert_category'], 'data' => $this->advert->getCategory()->getId()]);
         $builder->add('advert_price', 'text', ['required' => false, 'data' => $this->advert->getPrice()]);
         $builder->add('advert_meter_price', 'text', ['required' => false, 'data' => $this->advert->getMeterPrice()]);
-        $builder->add('advert_status', 'choice', ['choices' => [C::STATUS_ADVERT_ACTIVE => 'активно', C::STATUS_ADVERT_AGENT => 'агент', C::STATUS_ADVERT_DELETED => 'архив', C::STATUS_ADVERT_REQUEST_DELETE => 'запрос на перенос в архив'], 'data' => $this->advert->getStatus()]);
+        $builder->add('advert_status', 'choice', ['choices' => [C::STATUS_ADVERT_ACTIVE => 'активно', C::STATUS_ADVERT_NOT_ACTIVE => 'не активно', C::STATUS_ADVERT_DELETED => 'архив', C::STATUS_ADVERT_NO_RESPONSE => 'нет связи', C::STATUS_ADVERT_RECALL => 'перезвонить'], 'data' => $this->advert->getStatus()]);
+        $builder->add('advert_change_user', 'choice', ['choices' => $this->params['advert_user'], 'required' => false, 'placeholder' => 'Перенос объявления', 'data' => !is_null($this->advert->getChangeUser()) ? $this->advert->getChangeUser()->getId() : null]);
 
         $builder->add('object_type', 'choice', ['choices' => $this->params['object_type'], 'data' => $this->advert->getObject()->getType()->getId()]);
         $builder->add('object_state', 'choice', ['choices' => $this->params['object_state'], 'data' => $this->advert->getObject()->getState()->getId()]);
@@ -55,11 +58,38 @@ class EditAdvertForm extends AbstractType
 
         $builder->add('object_region', 'choice', ['choices' => $this->params['object_region'], 'data' => $this->advert->getObject()->getRegion()->getId()]);
         $builder->add('object_city', 'choice', ['choices' => $this->params['object_city'], 'data' => $this->advert->getObject()->getCity()->getId()]);
-        $builder->add('object_region_city', 'choice', ['choices' => $this->params['object_region_city'], 'data' => $this->advert->getObject()->getRegionCity()->getId()]);
+        $builder->add('object_region_city', 'hidden', ['data' => $this->advert->getObject()->getRegionCity()->getId()]);
         $builder->add('object_street', 'choice', ['choices' => $this->params['object_street'], 'data' => $this->advert->getObject()->getStreet()->getId()]);
         $builder->add('object_house', 'text', ['required' => false, 'data' => $this->advert->getObject()->getHouse()]);
         $builder->add('object_flat', 'text', ['required' => false, 'data' => $this->advert->getObject()->getFlat()]);
         $builder->add('object_landmark', 'textarea', ['required' => false, 'data' => $this->advert->getObject()->getLandmark()]);
+
+        $builder->add('advert_image', 'collection', [
+            'type'   =>  new FileType(),
+            'allow_add'    => true,
+            'allow_delete' => true,
+            'data' => [
+                new AdvertImage(),
+                new AdvertImage(),
+                new AdvertImage(),
+                new AdvertImage(),
+                new AdvertImage(),
+                new AdvertImage(),
+                new AdvertImage(),
+                new AdvertImage(),
+                new AdvertImage(),
+                new AdvertImage()],
+            'required' => false,
+        ]);
+
+        $builder->add('advert_image_delete', 'collection', [
+            'type'   =>  'checkbox',
+            'label' => false,
+            'allow_add'    => true,
+            'allow_delete' => true,
+            'data' => [],
+            'required' => false
+        ]);
 
         $builder->add('submit', 'submit', array('label' => 'Сохранить'));
     }

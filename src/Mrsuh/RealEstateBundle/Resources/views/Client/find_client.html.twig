@@ -5,200 +5,49 @@
         <div class="col-md-2">{{ form_widget(form.phone, {'attr': {'class': 'form-control' }}) }}</div>
         <div class="col-md-2">{{ form_widget(form.status, {'attr': {'class': 'form-control' }}) }}</div>
         <div class="col-md-2">{{ form_widget(form.user, {'attr': {'class': 'form-control' }}) }}</div>
-        <div class="col-md-2">{{ form_widget(form.pagination_items_on_page, {'attr': {'class': 'form-control' }}) }}</div>
         <div class="col-md-2">{{ form_widget(form.submit, {'attr': {'class': 'btn btn-success btn-width' }} ) }}</div>
     </div>
     <br>
     <hr>
 
+    <div class="row">
+        {% if pagination and pagination.items is not empty %}
+        <div class="col-md-9"><b>Всего результатов:</b> {{ pagination.getTotalItemCount }}</div>
+            <div class="col-md-2"><b class="pull-right">Показывать на странице:</b></div>
+        <div class="col-md-1">{{ form_widget(form.pagination_items_on_page, {'attr': {'class': 'form-control' }}) }}</div>
+        {% else %}
+            <div class="col-md-1">{{ form_widget(form.pagination_items_on_page, {'attr': {'class': 'form-control', 'style':'display: none' }}) }}</div>
+        {% endif %}
+    </div>
+    <br>
 
     {{ form_end(form) }}
-    {% if pagination and pagination.items is not empty %}
 
-        <div class="row">
-            <div class="col-md-12"><b>Всего результатов:</b> {{ pagination.getTotalItemCount }}</div>
-        </div>
-        <br>
-
-    <table class="table table-bordered">
-        <tr class="text-center active">
-            <td><a href="##" id="order_field_id">#</a></td>
-            <td><a href="##" id="order_field_phone">Номер телефона</a></td>
-            <td><a href="##" id="order_field_name">ФИО</a></td>
-            <td><a href="##" id="order_field_create_time">Создан</a></td>
-            <td><a href="##" id="order_field_update_time">Обновлен</a></td>
-            <td><a href="##" id="order_field_hot">Горячий клиент</a></td>
-            <td><a href="##" id="order_field_mortgage">Ипотека</a></td>
-            <td><a href="##" id="order_field_status">Статус</a></td>
-            <td><a href="##" id="order_field_user">Специалист</a></td>
-        </tr>
-
-
-        {% for client in pagination.items %}
-            {% if constant('Mrsuh\\RealEstateBundle\\C::STATUS_CLIENT_IN_WORK') == client.status %}
-                {% set clientStatus = 'В работе' %}
-                <tr class="success">
-            {% elseif constant('Mrsuh\\RealEstateBundle\\C::STATUS_CLIENT_TEMPORARY_SUSPENDED') == client.status %}
-                {% set clientStatus = 'Временно присотановил поиск' %}
-                <tr>
-            {% elseif constant('Mrsuh\\RealEstateBundle\\C::STATUS_CLIENT_BOUGHT_WITH_US') == client.status %}0
-                {% set clientStatus = 'Купил а нашем агенстве' %}
-                <tr>
-            {% elseif constant('Mrsuh\\RealEstateBundle\\C::STATUS_CLIENT_BOUGHT_HIMSELF') == client.status %}
-                {% set clientStatus = 'Купил самостоятельно' %}
-                <tr>
-            {% elseif constant('Mrsuh\\RealEstateBundle\\C::STATUS_CLIENT_BLACK_LIST') == client.status %}
-                {% set clientStatus = 'Черный список' %}
-                <tr class="danger">
-            {% else %}
-                {% set clientStatus = '' %}
-                <tr>
-                {% endif %}
-                <td class="text-center"><a href="{{ url('client', { 'id': client.id }) }}">{{ client.id }}</a></td>
-                <td class="text-center"><a href="{{ url('client', { 'id': client.id }) }}">{{ client.phone1 }}</a></td>
-                <td class="text-center"><a href="{{ url('client', { 'id': client.id }) }}">{{ client.name1 }}</a></td>
-                <td class="text-center">{% if null != client.createTime  %}{{ client.createTime | date('d.m.Y') }}{% endif %}</td>
-                <td class="text-center">{% if null != client.updateTime  %}{{ client.updateTime | date('d.m.Y') }}{% endif %}</td>
-                <td class="text-center">{% if client.hot  %}Да{% else %}Нет{% endif %}</td>
-                <td class="text-center">{% if client.mortgage  %}Да{% else %}Нет{% endif %}</td>
-                <td class="text-center">{{ clientStatus }}</td>
-                <td class="text-center">{{ client.user.lastName }} {{ client.user.firstName }} {{ client.user.middleName }}</td>
-            </tr>
-        {% endfor %}
-    </table>
-
-        <div class="row">
-            <div class="col-md-12">
-                <nav>
-                    <ul class="pagination">
-                        <li><a href="##" id="pagination_start">start</a></li>
-                        <li>
-                            <a href="##" aria-label="Previous" id="pagination_previous">
-                                <span aria-hidden="true">&laquo;</span>
-                            </a>
-                        </li>
-                        <li><a href="##">{{ pagination.getPaginationData.current }}</a></li>
-                        <li>
-                            <a href="##" aria-label="Next" id="pagination_next">
-                                <span aria-hidden="true">&raquo;</span>
-                            </a>
-                        </li>
-                        <li><a href="##" id="pagination_fin">&nbsp;fin&nbsp;&nbsp;</a></li>
-                    </ul>
-                </nav>
-            </div>
-        </div>
-
-    {% elseif pagination and pagination.items is empty%}
-
-        <b>Запрос не дал результатов...</b>
-
-    {% endif %}
-
-
+    {% include "MrsuhRealEstateBundle::Client/list.html.twig" %}
+    {% include "MrsuhRealEstateBundle::Default/pagination.html.twig" %}
 
 {% endblock %}
 
 {% block js %}
     <script>
         $(function(){
-            var order_type_asc = '{{ constant('Mrsuh\\RealEstateBundle\\C::ORDER_TYPE_ASC') }}';
-            var order_type_desc = '{{ constant('Mrsuh\\RealEstateBundle\\C::ORDER_TYPE_DESC') }}';
 
-            var order_type = $('#findClient_order_type');
-            var order_field = $('#findClient_order_field');
-
-            var search_submit = $('#findClient_submit');
-
-            var order_field_id = $('#order_field_id');
-            var order_field_name = $('#order_field_name');
-            var order_field_phone = $('#order_field_phone');
-            var order_field_create_time = $('#order_field_create_time');
-            var order_field_update_time = $('#order_field_update_time');
-            var order_field_hot = $('#order_field_hot');
-            var order_field_mortgage = $('#order_field_mortgage');
-            var order_field_status = $('#order_field_status');
-            var order_field_user = $('#order_field_user');
-
-            var setOrderType = function(field){
-                if(field === order_field.val()) {
-                    if(order_type_asc === order_type.val()){
-                        order_type.val(order_type_desc);
-                    } else {
-                        order_type.val(order_type_asc);
-                    }
-                } else {
-                    order_type.val(order_type_asc);
-                }
-            };
-
-            var orderFields = function()
+            var submit = function()
             {
-                order_field_id.click(function(){
-                    setOrderType('id');
-                    order_field.val('id');
-                    search_submit.click();
-
-                });
-
-                order_field_name.click(function(){
-                    setOrderType('name');
-                    order_field.val('name');
-                    search_submit.click();
-
-                });
-
-                order_field_phone.click(function(){
-                    setOrderType('phone');
-                    order_field.val('phone');
-                    search_submit.click();
-
-                });
-
-                order_field_create_time.click(function(){
-                    setOrderType('create_time');
-                    order_field.val('create_time');
-                    search_submit.click();
-
-                });
-
-                order_field_update_time.click(function(){
-                    setOrderType('update_time');
-                    order_field.val('update_time');
-                    search_submit.click();
-
-                });
-
-                order_field_hot.click(function(){
-                    setOrderType('hot');
-                    order_field.val('hot');
-                    search_submit.click();
-
-                });
-
-                order_field_mortgage.click(function(){
-                    setOrderType('mortgage');
-                    order_field.val('mortgage');
-                    search_submit.click();
-
-                });
-
-                order_field_status.click(function(){
-                    setOrderType('status');
-                    order_field.val('status');
-                    search_submit.click();
-
-                });
-
-                order_field_user.click(function(){
-                    setOrderType('id');
-                    order_field.val('id');
-                    search_submit.click();
-
-                });
+                $('[name="findClient"]').submit();
             };
 
-            orderFields();
+            order('findClient', [
+                'id',
+                'phone',
+                'name',
+                'create_time',
+                'update_time',
+                'hot',
+                'mortgage',
+                'status',
+                'user'
+            ], submit);
 
             var current_page = 1;
             var max_page = 1;
@@ -208,64 +57,7 @@
             max_page = {{ pagination.getPaginationData.pageCount }};
             {% endif %}
 
-
-            var pagination_start = $('#pagination_start');
-            var pagination_previous = $('#pagination_previous');
-            var pagination_next = $('#pagination_next');
-            var pagination_fin = $('#pagination_fin');
-
-
-            var pagination_page = $('#findClient_pagination_page');
-            var pagination_items_on_page = $('#findClient_pagination_items_on_page');
-
-            pagination_items_on_page.change(function(){
-                pagination_page.val(1);
-                search_submit.click();
-            });
-
-            var pagination = function ()
-            {
-                pagination_next.click(function(){
-                    var page = max_page;
-                    if(++current_page <= max_page) {
-                        page = current_page;
-                    }
-
-                    pagination_page.val(page);
-
-                    search_submit.click();
-
-                });
-
-                pagination_previous.click(function(){
-                    var page = 1;
-                    if(--current_page >= 1) {
-                        page = current_page;
-                    }
-
-                    pagination_page.val(page);
-
-                    search_submit.click();
-
-                });
-
-                pagination_start.click(function(){
-                    pagination_page.val(1);
-
-                    search_submit.click();
-
-                });
-
-                pagination_fin.click(function(){
-                    pagination_page.val(max_page);
-
-                    search_submit.click();
-
-                });
-
-            };
-
-            pagination();
+            pagination('findClient', current_page, max_page, submit);
 
         });
     </script>

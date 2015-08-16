@@ -23,16 +23,27 @@ class UserController extends Controller
         if ($request->isMethod('POST')) {
             $form->handleRequest($request);
             $formData = $form->getData();
-            try{
-                $user = $this->get('model.user')->update($user, $formData);
-
-                $this->addFlash(
-                    'success',
-                    'Данные успешно сохранены'
-                );
+            try {
+                switch (true) {
+                    case $form->get('user_save')->isClicked():
+                        $user = $this->get('model.user')->update($user, $formData);
+                        $this->addFlash(
+                            'success',
+                            'Данные успешно сохранены'
+                        );
+                        break;
+                    case $form->get('user_delete')->isClicked():
+                        $user = $this->get('model.user')->delete($user);
+                        $this->addFlash(
+                            'success',
+                            'Пользователь успешно удален'
+                        );
+                        return $this->redirect($this->generateUrl('list_user'));
+                    break;
+                }
 
                 $form = $this->createForm(new EditUserForm($user));
-            } catch(\Exception $e){
+            } catch (\Exception $e) {
                 $this->addFlash(
                     'warning',
                     'Произошла ошибка: ' . $e->getMessage()
@@ -55,7 +66,7 @@ class UserController extends Controller
         if ($request->isMethod('POST')) {
             $form->handleRequest($request);
             $formData = $form->getData();
-            try{
+            try {
                 $user = $this->get('model.user')->create($formData);
 
                 $this->addFlash(
@@ -65,7 +76,7 @@ class UserController extends Controller
 
                 return $this->redirect($this->generateUrl('user', ['id' => $user->getId()]));
 
-            } catch(\Exception $e){
+            } catch (\Exception $e) {
                 $this->addFlash(
                     'warning',
                     'Произошла ошибка: ' . $e->getMessage()
@@ -85,7 +96,7 @@ class UserController extends Controller
             $form->handleRequest($request);
             $formData = $form->getData();
 
-            try{
+            try {
 
                 $this->get('model.user')->update($currentUser, $formData);
 
@@ -94,7 +105,7 @@ class UserController extends Controller
                     'Данные успешно сохранены'
                 );
 
-            } catch(\Exception $e){
+            } catch (\Exception $e) {
                 $this->addFlash(
                     'warning',
                     'Произошла ошибка: ' . $e->getMessage()

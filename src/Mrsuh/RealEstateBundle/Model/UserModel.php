@@ -8,13 +8,17 @@ class UserModel
 
     private $userRepo;
     private $roleRepo;
+    private $advertRepo;
     private $mail;
+    private $em;
 
 
     public function __construct($em, $mail)
     {
+        $this->em = $em;
         $this->userRepo = $em->getRepository(C::REPO_USER);
         $this->roleRepo = $em->getRepository(C::REPO_ROLE);
+        $this->advertRepo = $em->getRepository(C::REPO_ADVERT);
         $this->mail = $mail;
     }
 
@@ -76,5 +80,27 @@ class UserModel
         }
 
         return $users;
+    }
+
+    public function delete($user)
+    {
+        $this->em->beginTransaction();
+        try {
+
+            $systemUser = $this->userRepo->findOneByUsername(C::SYSTEM_USER);
+            foreach($this->advertRepo->findByUser($user) as $a) {
+                $a->setUser($systemUser);
+            }
+
+            $this->em->flush();
+
+            $this->userRepo->delete($user);
+
+            $this->em->flush();
+            $this->em->commit();
+        } catch (\Exception $e) {
+            $this->em->rollback();
+            throw $e;
+        }
     }
 }

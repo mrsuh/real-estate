@@ -41,6 +41,26 @@
         </div>
     </div>
     <br>
-    {{ form_widget(form.submit, {'attr': {'class': 'btn btn-success btn-width'}}) }}
+    <div class="row">
+        <div class="col-md-2">{{ form_widget(form.user_save, {'attr': {'class': 'btn btn-success btn-width'}}) }}</div>
+        <div class="col-md-2"><button type="button" class="btn btn-danger btn-width pull-right" id="delete_button">Удалить</button></div>
+    </div>
+
+    {{ form_widget(form.user_delete, {'attr': {'style': 'display: none;'}}) }}
     {{ form_end(form) }}
+{% endblock %}
+
+{% block js %}
+    <script>
+
+        var delete_button = $('#delete_button');
+        var delete_submit = $('#editUser_user_delete');
+
+        delete_button.click(function () {
+            if (confirm('Вы уверены, что хотите удалить пользователя?')) {
+                delete_submit.click();
+            }
+        });
+
+    </script>
 {% endblock %}

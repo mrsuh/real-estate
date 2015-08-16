@@ -70,12 +70,6 @@ class Client
     private $city;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Mrsuh\RealEstateBundle\Entity\Address\AddressRegionCity")
-     * @ORM\JoinColumn(name="region_city", referencedColumnName="id")
-     */
-    private $regionCity;
-
-    /**
      * @ORM\ManyToOne(targetEntity="Mrsuh\RealEstateBundle\Entity\Object\ObjectType")
      * @ORM\JoinColumn(name="type", referencedColumnName="id")
      */
@@ -432,29 +426,6 @@ class Client
     public function getCity()
     {
         return $this->city;
-    }
-
-    /**
-     * Set regionCity
-     *
-     * @param integer $regionCity
-     * @return Client
-     */
-    public function setRegionCity($regionCity)
-    {
-        $this->regionCity = $regionCity;
-
-        return $this;
-    }
-
-    /**
-     * Get regionCity
-     *
-     * @return integer 
-     */
-    public function getRegionCity()
-    {
-        return $this->regionCity;
     }
 
     /**

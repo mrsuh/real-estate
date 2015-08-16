@@ -14,8 +14,8 @@
         {% for user in users%}
             <tr>
                 <td class="text-center">   <a href="{{ url('user', { 'id': user.id }) }}">{{ user.username }}</a></td>
-                <td class="text-center">{{ user.firstName}}</td>
                 <td class="text-center">{{ user.lastName }}</td>
+                <td class="text-center">{{ user.firstName}}</td>
                 <td class="text-center">{{ user.middleName }}</td>
                 <td class="text-center">{{ user.phone }}</td>
                 <td class="text-center">{{ user.email}}</td>

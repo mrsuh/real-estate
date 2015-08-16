@@ -3,9 +3,11 @@
 <head>
     <meta charset="utf-8">
     <title>Real estate agency</title>
-    <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}?v=2" />
+    <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}?v=2"/>
+    {#<link rel="stylesheet" href="{{ asset('css/bootstrap.min.css') }}">#}
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
-    <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css">
+    <link rel="stylesheet" href="{{ asset('css/jquery-ui.css') }}">
     <link href="{{ asset('css/sidebar.css') }}" rel="stylesheet">
 
     <style>
@@ -24,6 +26,11 @@
         .btn-width {
             width: 200px;
         }
+        .img:hover {
+            -moz-box-shadow: 0 0 10px grey;
+            -webkit-box-shadow: 0 0 10px grey;
+            box-shadow: 0 0 10px grey;
+        }
 
     </style>
 </head>
@@ -31,47 +38,51 @@
 
 <div id="wrapper">
 
-    <!-- Sidebar -->
     {{ render(controller('MrsuhRealEstateBundle:Default:sidebar', {'path': path(app.request.attributes.get('_route')) } )) }}
-    <!-- /#sidebar-wrapper -->
 
-    <!-- Page Content -->
     <div id="page-content-wrapper">
         <div class="container-fluid">
             <div class="row">
                 <div class="col-lg-12">
-                    <b>{{ pageName }}</b>
-                    <hr></div></div>
-            {% include "MrsuhRealEstateBundle::alert.html.twig" %}<br>
-                    {% block content %}{% endblock %}
+                    <h3><b>{{ pageName }}</b></h3>
+                    <hr>
                 </div>
             </div>
+            {% include "MrsuhRealEstateBundle::alert.html.twig" %}<br>
+            {% block content %}{% endblock %}
         </div>
     </div>
-    <!-- /#page-content-wrapper -->
+</div>
+</div>
 
 </div>
-<!-- /#wrapper -->
 
-<script src="//code.jquery.com/jquery-2.1.4.min.js"></script>
-<script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+<script src="{{ asset('js/jquery-2.1.4.min.js') }}"></script>
+<script src="{{ asset('js/jquery-ui.js') }}"></script>
+<script src="{{ asset('js/bootstrap.min.js') }}"></script>
+<script src="{{  asset('js/common.js') }}"></script>
 {% block js %}{% endblock %}
 <script>
-    $("#menu-toggle").click(function(e) {
+    $("#menu-toggle").click(function (e) {
         e.preventDefault();
         $("#wrapper").toggleClass("toggled");
     });
 
-
-    $("#menu li span").click(function() {
+    $("#menu li span").click(function () {
         $("#menu ul:visible").slideUp("normal");
         if (($(this).next().is("ul")) && (!$(this).next().is(":visible"))) {
             $(this).next().slideDown("normal");
         }
     });
 
+    var logout = $('#logout');
+
+    logout.click(function () {
+        if (confirm('Вы уверены, что хотите выйти?')) {
+            window.location.href = '{{ url('logout') }}';
+        }
+    });
+
 </script>
 </body>
-{#</body>#}
 </html>

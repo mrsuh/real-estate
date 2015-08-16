@@ -23,7 +23,8 @@ class EditUserForm extends AbstractType
         $builder->add('email', 'text', ['attr' =>['value' => $this->user->getEmail()]]);
         $builder->add('password', 'password', ['required' => false]);
 
-        $builder->add('submit', 'submit', array('label' => 'Сохранить',));
+        $builder->add('user_save', 'submit', array('label' => 'Сохранить',));
+        $builder->add('user_delete', 'submit', array('label' => 'Удалить',));
     }
 
     public function getName()

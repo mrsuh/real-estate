@@ -2,6 +2,12 @@
 {% block content %}
 
     {{ form_start(form) }}
+    <div class="row">
+        <div class="col-md-2"><label>Статус клиента</label></div>
+        <div class="col-md-4">{{ form_widget(form.status, {'attr': {'class': 'form-control' }}) }}</div>
+    </div>
+    <hr>
+    <br>
 
     <div class="row">
         <div class="col-md-2"><label>ФИО 1</label></div>
@@ -23,107 +29,198 @@
         <div class="col-md-2"><label>Номер телефона 3</label></div>
         <div class="col-md-4">{{ form_widget(form.phone3, {'attr': {'class': 'form-control' }}) }}</div>
     </div>
-    <br>
     <hr>
+    <br>
+
     <div class="row">
         <div class="col-md-6">
             <div class="row">
-                <div class="col-md-2"><label>Статус клиента</label></div>
-                <div class="col-md-4">{{ form_widget(form.status, {'attr': {'class': 'form-control' }}) }}</div>
                 <div class="col-md-2"><label>Тип недвижимости</label></div>
                 <div class="col-md-4">{{ form_widget(form.object_type, {'attr': {'class': 'form-control' }}) }}</div>
-            </div>
-            <br>
-            <div class="row">
                 <div class="col-md-2"><label>Ипотека</label></div>
                 <div class="col-md-4">{{ form_widget(form.mortgage, {'attr': {'class': 'form-control' }}) }}</div>
+            </div>
+            <br>
+
+            <div class="row">
+                <div class="col-md-2"><label>Дата рождения клиента</label></div>
+                <div class="col-md-4">{{ form_widget(form.birth_day, {'attr': {'class': 'form-control' }}) }}</div>
                 <div class="col-md-2"><label>Гораячий клиент</label></div>
                 <div class="col-md-4">{{ form_widget(form.hot, {'attr': {'class': 'form-control' }}) }}</div>
             </div>
             <br>
-            <div class="row">
-                <div class="col-md-2"><label>Город</label></div>
-                <div class="col-md-4">{{ form_widget(form.city, {'attr': {'class': 'form-control' }}) }}</div>
-                <div class="col-md-2"><label>Район города</label></div>
-                <div class="col-md-4">{{ form_widget(form.region_city, {'attr': {'class': 'form-control' }}) }}</div>
-            </div>
-            <br>
-            <div class="row">
-                <div class="col-md-2"><label>Дата рождения клиента</label></div>
-                <div class="col-md-4">{{ form_widget(form.birth_day, {'attr': {'class': 'form-control' }}) }}</div>
-            </div>
-            <br>
-            <br>
-            <br>
+
             <div class="row">
                 <div class="col-md-2"><label>Комментарии</label></div>
                 <div class="col-md-12">{{ form_widget(form.comment, {'attr': {'class': 'form-control' }}) }}</div>
-
             </div>
             <br>
+
+            <div class="row">
+                <div class="col-md-4"><label>Просмотренные объекты</label></div>
+                <div class="col-md-8">{{ form_widget(form.reviewed_adverts, {'attr': {'class': 'form-control' }}) }}
+                </div>
+            </div>
+            <br>
+            <div class="row">
+                <div class="col-md-12">
+
+                    {% if reviewedAdverts is not empty %}
+                        <table class="table table-bordered">
+                            <tr class="text-center active">
+                                <td>#</td>
+                                <td>Дата создания</td>
+                                <td>Специалист</td>
+                            </tr>
+
+                            {% for advert in  reviewedAdverts %}
+                                <tr>
+                                    <td>{{ advert.id }}</td>
+                                    <td>{% if null != advert.createTime %}{{ advert.createTime|date("d.m.Y") }}{% endif %}</td>
+                                    <td>{{ advert.user.lastName }} {{ advert.user.firstName }} {{ advert.user.middleName }}</td>
+                                </tr>
+                            {% endfor %}
+
+                        </table>
+                    {% endif %}
+
+                </div>
+            </div>
         </div>
-        <div class="col-md-6">
+
+        <div class="col-md-3">
+            <div class="row">
+                <div class="col-md-4"><label>Город</label></div>
+                <div class="col-md-8">{{ form_widget(form.city, {'attr': {'class': 'form-control' }}) }}</div>
+            </div>
+            <br>
+
+            <div class="row">
+                <div class="col-md-12"><label>Район города</label>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-8 col-md-offset-4">
+                    <div id="editClient_region_city" style="display: none;"></div>
+                    {% for id,city in regionsCity %}
+                        <div class="region_city" id="region_city_{{ id }}"
+                             {% if form.city.vars.value != id %}style="display: none;"{% endif %}>
+                            {% for key,name in city %}
+                                <input type="checkbox" id="editClient_region_city_{{ key }}"
+                                       name="editClient[region_city][{{ key }}]"
+                                       value={{ key }} {% if key in clientRegionsCity %} checked {% endif %}> <label
+                                    for="editClient_region_city_{{ key }}">{{ name }}</label><br>
+                            {% endfor %}
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+
+
+        <div class="col-md-3">
             <div class="row">
                 <div class="col-md-4"><label>Цена</label></div>
                 <div class="col-md-4">{{ form_widget(form.price_from, {'attr': {'class': 'form-control' }}) }}</div>
                 <div class="col-md-4">{{ form_widget(form.price_to, {'attr': {'class': 'form-control' }}) }}</div>
             </div>
             <br>
+
             <div class="row">
                 <div class="col-md-4"><label>Количество комнат</label></div>
                 <div class="col-md-4">{{ form_widget(form.room_from, {'attr': {'class': 'form-control' }}) }}</div>
                 <div class="col-md-4">{{ form_widget(form.room_to, {'attr': {'class': 'form-control' }}) }}</div>
             </div>
             <br>
+
             <div class="row">
                 <div class="col-md-4"><label>Общая площадь</label></div>
-                <div class="col-md-4">{{ form_widget(form.common_area_from, {'attr': {'class': 'form-control' }}) }}</div>
+                <div class="col-md-4">{{ form_widget(form.common_area_from, {'attr': {'class': 'form-control' }}) }}
+                </div>
                 <div class="col-md-4">{{ form_widget(form.common_area_to, {'attr': {'class': 'form-control' }}) }}</div>
             </div>
             <br>
+
             <div class="row">
                 <div class="col-md-4"><label>Жилая площадь</label></div>
                 <div class="col-md-4">{{ form_widget(form.live_area_from, {'attr': {'class': 'form-control' }}) }}</div>
                 <div class="col-md-4">{{ form_widget(form.live_area_to, {'attr': {'class': 'form-control' }}) }}</div>
             </div>
             <br>
+
             <div class="row">
                 <div class="col-md-4"><label>Площадь кухни</label></div>
-                <div class="col-md-4">{{ form_widget(form.kitchen_area_from, {'attr': {'class': 'form-control' }}) }}</div>
-                <div class="col-md-4">{{ form_widget(form.kitchen_area_to, {'attr': {'class': 'form-control' }}) }}</div>
+                <div class="col-md-4">{{ form_widget(form.kitchen_area_from, {'attr': {'class': 'form-control' }}) }}
+                </div>
+                <div class="col-md-4">{{ form_widget(form.kitchen_area_to, {'attr': {'class': 'form-control' }}) }}
+                </div>
             </div>
             <br>
+
             <div class="row">
                 <div class="col-md-4"><label>Земельный участок</label></div>
-                <div class="col-md-4">{{ form_widget(form.section_area_from, {'attr': {'class': 'form-control' }}) }}</div>
-                <div class="col-md-4">{{ form_widget(form.section_area_to, {'attr': {'class': 'form-control' }}) }}</div>
+                <div class="col-md-4">{{ form_widget(form.section_area_from, {'attr': {'class': 'form-control' }}) }}
+                </div>
+                <div class="col-md-4">{{ form_widget(form.section_area_to, {'attr': {'class': 'form-control' }}) }}
+                </div>
             </div>
             <br>
+
             <div class="row">
                 <div class="col-md-4"><label>Этаж</label></div>
                 <div class="col-md-4">{{ form_widget(form.floor_from, {'attr': {'class': 'form-control' }}) }}</div>
                 <div class="col-md-4">{{ form_widget(form.floor_to, {'attr': {'class': 'form-control' }}) }}</div>
             </div>
             <br>
+
             <div class="row">
                 <div class="col-md-4"><label>Этажность дома</label></div>
                 <div class="col-md-4">{{ form_widget(form.floors_from, {'attr': {'class': 'form-control' }}) }}</div>
                 <div class="col-md-4">{{ form_widget(form.floors_to, {'attr': {'class': 'form-control' }}) }}</div>
             </div>
-            <br>
         </div>
     </div>
+    <hr>
+    <br>
 
-    {{ form_widget(form.submit, {'attr': {'class': 'btn btn-success' }}) }}
+    <button type="button" class="btn btn-success btn-width" id="submit_edit_client">Cохранить</button>
+    <a href="{{ url('find_advert_by_client', {'clientId': clientId}) }}" class="btn btn-primary btn-width">Поиск по
+        клиенту</a>
+
+    {{ form_widget(form.submit, {'attr': {'hidden': 'true' }} ) }}
     {{ form_end(form) }}
 
 {% endblock %}
 
 {% block js %}
     <script>
-        $(function(){
+        $(function () {
             var birth_date = $('#editClient_birth_day');
-            birth_date.datepicker({ dateFormat: 'dd.mm.yy' });
+            birth_date.datepicker({dateFormat: 'dd.mm.yy'});
+
+            var region_city = $('#editClient_region_city');
+
+            var select_city = $('#editClient_city');
+            select_city.change(function () {
+                set_region_city();
+            });
+
+            var submit = $('#editClient_submit');
+            var submit_button = $('#submit_edit_client');
+
+            var set_region_city = function () {
+                $('.region_city').hide();
+                $('#region_city_' + select_city.val()).show();
+            };
+
+            set_region_city();
+
+            submit_button.click(function () {
+                region_city.clone($('.region_city:visible input'));
+
+                submit.click();
+            });
         });
     </script>
 {% endblock %}

@@ -5,17 +5,6 @@ use Symfony\Component\HttpFoundation\Request;
 
 class DefaultController extends Controller
 {
-    public function defaultAction(Request $request)
-    {
-
-        $this->addFlash(
-            'success',
-            'Hello'
-        );
-
-        return $this->render('MrsuhRealEstateBundle:Default:default.html.twig', ['pageName' => 'DEFAULT']);
-    }
-
     public function redirectAction()
     {
         return $this->redirect($this->generateUrl('login'));

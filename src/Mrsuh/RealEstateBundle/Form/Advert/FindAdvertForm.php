@@ -55,19 +55,26 @@ class FindAdvertForm extends AbstractType
 
         $builder->add('object_region', 'choice', ['choices' => $this->params['object_region'], 'required' => false, 'placeholder' => 'Регион']);
         $builder->add('object_city', 'choice', ['choices' => $this->params['object_city'], 'required' => false, 'placeholder' => 'Город']);
-        $builder->add('object_region_city', 'choice', ['choices' => $this->params['object_region_city'], 'multiple' => true, 'expanded' => true, 'required' => false]);
+
+        $builder->add('object_region_city', 'collection', [
+            'type'   =>  'checkbox',
+            'label' => false,
+            'allow_add'    => true,
+            'allow_delete' => true,
+            'data' => [],
+            'required' => false
+        ]);
 
         $builder->add('not_first_floor', 'checkbox', ['required' => false]);
         $builder->add('not_last_floor', 'checkbox',['required' => false]);
 
-        $builder->add('pagination_items_on_page', 'choice', ['choices' => [2 => 2, 20 => 20, 50 => 50, 100 => 100], 'required' => true]);
+        $builder->add('pagination_items_on_page', 'choice', ['choices' => [20 => 20, 50 => 50, 100 => 100], 'required' => true]);
         $builder->add('pagination_page', 'hidden', ['data' => 1]);
 
         $builder->add('advert_type', 'choice', ['choices' => $this->params['advert_type'], 'required' => false, 'placeholder' => 'Тип объявления']);
         $builder->add('advert_user', 'choice', ['choices' => $this->params['advert_user'], 'required' => false, 'placeholder' => 'Автор']);
-        $builder->add('advert_status', 'choice', ['choices' => [C::STATUS_ADVERT_ACTIVE => 'активно', C::STATUS_ADVERT_AGENT => 'агент', C::STATUS_ADVERT_DELETED => 'архив'], 'placeholder' => 'Cтатус', 'required' => false]);
+        $builder->add('advert_status', 'choice', ['choices' => [C::STATUS_ADVERT_ACTIVE => 'активно', C::STATUS_ADVERT_NOT_ACTIVE => 'не активно', C::STATUS_ADVERT_DELETED => 'архив', C::STATUS_ADVERT_NO_RESPONSE => 'нет связи', C::STATUS_ADVERT_RECALL => 'перезвонить'], 'placeholder' => 'Cтатус', 'required' => false]);
 
-        $builder->add('search_type', 'hidden');
         $builder->add('order_field', 'hidden');
         $builder->add('order_type', 'hidden', ['data' => C::ORDER_TYPE_DESC]);
 

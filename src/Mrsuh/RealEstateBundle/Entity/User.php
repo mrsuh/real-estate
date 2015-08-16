@@ -85,6 +85,13 @@ class User implements UserInterface, \Serializable
      */
     private $role;
 
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="status", type="integer" )
+     */
+    private $status;
+
 
     /**
      * Get id
@@ -175,9 +182,16 @@ class User implements UserInterface, \Serializable
         return [$this->role->getName()];
     }
 
+    public function getRole()
+    {
+        return $this->role->getName();
+    }
+
     public function setRoles($role)
     {
         $this->role = $role;
+
+        return $this;
     }
 
     public function eraseCredentials()
@@ -288,6 +302,24 @@ class User implements UserInterface, \Serializable
     public function setPhone($phone)
     {
         $this->phone = $phone;
+
+        return $this;
+    }
+
+    /**
+     * @return int
+     */
+    public function getStatus()
+    {
+        return $this->status;
+    }
+
+    /**
+     * @param int $status
+     */
+    public function setStatus($status)
+    {
+        $this->status = $status;
 
         return $this;
     }
