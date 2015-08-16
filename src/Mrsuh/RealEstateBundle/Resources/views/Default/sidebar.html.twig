@@ -7,11 +7,10 @@
             <a href="{{ url('profile') }}">Профиль</a>
         </li>
         <li><span><a href="#" >Объявления</a></span>
-            <ul {% if  path == path('find_advert') or path == path('create_advert') or path == path('list_advert') or path == path('to_archive_advert') or path == path('advert') %} style="display: block;" {% else %} style="display: none;" {% endif %}>
+            <ul {% if  path == path('find_advert') or path == path('create_advert') or path == path('find_advert_by_client') or path == path('change_user_advert_list') or path == path('advert') %} style="display: block;" {% else %} style="display: none;" {% endif %}>
                 <li><a href="{{ url('find_advert') }}">Поиск объявления</a></li>
                 <li><a href="{{ url('create_advert') }}">Добавить объявление</a></li>
-                <li><a href="{{ url('list_advert') }}">Список объявлений</a></li>
-                <li><a href="{{ url('to_archive_advert') }}">В архив</a></li>
+                {% if is_granted('ROLE_ADMIN') %}<li><a href="{{ url('change_user_advert_list') }}">Перенос объявлений</a></li>{% endif %}
             </ul>
         </li>
         <li><span><a href="#">Клиенты</a></span>
@@ -27,7 +26,7 @@
             </ul>
         </li>
         <li>
-            <a href="{{ url('logout') }}">Выйти</a>
+            <a href="##" id="logout">Выйти</a>
         </li>
     </ul>
 </div>

@@ -1,22 +1,22 @@
 <?php
 
-namespace Mrsuh\RealEstateBundle\Repository\Advert;
+namespace Mrsuh\RealEstateBundle\Repository;
 
 use Doctrine\ORM\EntityRepository;
-use Mrsuh\RealEstateBundle\Entity\Advert\AdvertImage;
+use Mrsuh\RealEstateBundle\Entity\ClientRegionCity;
 
-class AdvertImageRepository extends EntityRepository
+class ClientRegionCityRepository extends EntityRepository
 {
-    public function create($advert, $file)
+    public function create($client, $regionCity)
     {
         $this->_em->beginTransaction();
         try {
-            $obj = new AdvertImage();
-            $obj
-                ->setAdvert($advert)
-                ->setFile($file);
+            $obj = new ClientRegionCity();
+            $obj->setClient($client)
+                ->setRegionCity($regionCity);
 
             $this->_em->persist($obj);
+
             $this->_em->commit();
         } catch (\Exception $e) {
             $this->_em->rollback();

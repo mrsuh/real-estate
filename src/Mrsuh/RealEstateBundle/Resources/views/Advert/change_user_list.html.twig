@@ -1,0 +1,90 @@
+{% extends "MrsuhRealEstateBundle::layout.html.twig" %}
+{% block content %}
+
+    {{ form_start(form) }}
+    {% include "MrsuhRealEstateBundle::Advert/list.html.twig" %}
+    {{ form_widget(form.search, {'attr': {'hidden': 'true' }} ) }}
+    {{ form_end(form) }}
+
+{% endblock %}
+{% block js %}
+    <script>
+        $(function () {
+            var submit = $('#changeUserAdvertList_search');
+
+            var order_type = $('#changeUserAdvertList_order_type');
+            var order_field = $('#changeUserAdvertList_order_field');
+
+            var order_field_id = $('#order_field_id');
+            var order_field_city = $('#order_field_city');
+            var order_field_region = $('#order_field_region');
+            var order_field_price = $('#order_field_price');
+            var order_field_status = $('#order_field_status');
+            var order_field_create_time = $('#order_field_create_time');
+            var order_field_update_time = $('#order_field_update_time');
+            var order_field_expire_time= $('#order_field_expire_time');
+
+            var order_type_asc = '{{ constant('Mrsuh\\RealEstateBundle\\C::ORDER_TYPE_ASC') }}';
+            var order_type_desc = '{{ constant('Mrsuh\\RealEstateBundle\\C::ORDER_TYPE_DESC') }}';
+
+
+            var submit_click = function(type){
+                if(type) {
+                    setOrderType(type);
+                    order_field.val(type);
+                    submit.click();
+                }
+            };
+
+            var setOrderType = function(field){
+                if(field === order_field.val()) {
+                    if(order_type_asc === order_type.val()){
+                        order_type.val(order_type_desc);
+                    } else {
+                        order_type.val(order_type_asc);
+                    }
+                } else {
+                    order_type.val(order_type_asc);
+                }
+            };
+
+            var orderFields = function()
+            {
+                order_field_id.click(function(){
+                    submit_click('id');
+                });
+
+                order_field_city.click(function(){
+                    submit_click('city');
+                });
+
+                order_field_region.click(function(){
+                    submit_click('region');
+                });
+
+                order_field_price.click(function(){
+                    submit_click('price');
+                });
+
+                order_field_status.click(function(){
+                    submit_click('status');
+                });
+
+                order_field_create_time.click(function(){
+                    submit_click('create_time');
+                });
+
+                order_field_update_time.click(function(){
+                    submit_click('update_time');
+                });
+
+                order_field_expire_time.click(function(){
+                    submit_click('expire_time');
+                });
+            };
+
+            orderFields();
+        });
+    </script>
+
+{% endblock %}

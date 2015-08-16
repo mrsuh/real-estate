@@ -52,19 +52,29 @@ class CreateAdvertForm extends AbstractType
 
         $builder->add('object_region', 'choice', ['choices' => $this->params['object_region']]);
         $builder->add('object_city', 'choice', ['choices' => $this->params['object_city']]);
-        $builder->add('object_region_city', 'choice', ['choices' => $this->params['object_region_city']]);
+        $builder->add('object_region_city', 'hidden');
         $builder->add('object_street', 'choice', ['choices' => $this->params['object_street']]);
         $builder->add('object_house', 'text', ['required' => false, 'attr' =>['value' => null]]);
         $builder->add('object_flat', 'text', ['required' => false, 'attr' =>['value' => null]]);
         $builder->add('object_landmark', 'textarea', ['required' => false, 'attr' =>['value' => null]]);
 
-        $builder->add('advert_image', 'collection', array(
+        $builder->add('advert_image', 'collection', [
             'type'   =>  new FileType(),
             'allow_add'    => true,
             'allow_delete' => true,
-            'data' => [new AdvertImage(), new AdvertImage(), new AdvertImage()],
-            'required' => false
-        ));
+            'data' => [
+                new AdvertImage(),
+                new AdvertImage(),
+                new AdvertImage(),
+                new AdvertImage(),
+                new AdvertImage(),
+                new AdvertImage(),
+                new AdvertImage(),
+                new AdvertImage(),
+                new AdvertImage(),
+                new AdvertImage()],
+            'required' => false,
+        ]);
 
         $builder->add('submit', 'submit', array('label' => 'Создать'));
     }

@@ -22,19 +22,23 @@ class ClientController extends Controller
             $pagination = $this->get('model.client')->findByParams($formData);
         }
 
-        return $this->render('MrsuhRealEstateBundle:Client:find_client.html.twig', ['pageName' => 'Поиск клиента', 'pagination' => $pagination, 'form' => $form->createView()]);
+        return $this->render('MrsuhRealEstateBundle:Client:find_client.html.twig', [
+            'pageName' => 'Поиск клиента',
+            'pagination' => $pagination,
+            'form' => $form->createView()
+        ]);
     }
 
     public function createClientAction(Request $request)
     {
         $params = $this->get('model.client')->getClientParams();
         $form = $this->createForm(new CreateClientForm($params));
+        $regionsCity = $this->get('model.advert')->getAllRegionCity();
 
         if ($request->isMethod('POST')) {
             $form->handleRequest($request);
             $formData = $form->getData();
-
-            try{
+            try {
                 $newParams = $this->get('model.client')->setClientParams($formData);
                 $user = $this->getUser();
                 $client = $this->get('model.client')->create($newParams, $user);
@@ -45,7 +49,7 @@ class ClientController extends Controller
                 );
                 return $this->redirect($this->generateUrl('client', ['id' => $client->getId()]));
 
-            } catch(\Exception $e){
+            } catch (\Exception $e) {
                 $this->addFlash(
                     'warning',
                     'Произошла ошибка: ' . $e->getMessage()
@@ -53,7 +57,11 @@ class ClientController extends Controller
             }
         }
 
-        return $this->render('MrsuhRealEstateBundle:Client:create_client.html.twig', ['pageName' => 'Занести клиента', 'form' => $form->createView()]);
+        return $this->render('MrsuhRealEstateBundle:Client:create_client.html.twig', [
+            'pageName' => 'Добавить клиента',
+            'form' => $form->createView(),
+            'regionsCity' => $regionsCity
+        ]);
     }
 
     public function getClientByIdAction($id, Request $request)
@@ -66,8 +74,7 @@ class ClientController extends Controller
         if ($request->isMethod('POST')) {
             $form->handleRequest($request);
             $formData = $form->getData();
-
-            try{
+            try {
                 $newParams = $this->get('model.client')->setClientParams($formData);
                 $this->get('model.client')->update($client, $newParams);
 
@@ -76,7 +83,7 @@ class ClientController extends Controller
                     'Данные успешно сохранены'
                 );
 
-            } catch(\Exception $e){
+            } catch (\Exception $e) {
                 $this->addFlash(
                     'warning',
                     'Произошла ошибка: ' . $e->getMessage()
@@ -84,6 +91,18 @@ class ClientController extends Controller
             }
         }
 
-        return $this->render('MrsuhRealEstateBundle:Client:client.html.twig', ['pageName' => 'Клиент #' . $client->getId(), 'form' => $form->createView()]);
+        $form = $this->createForm(new EditClientForm($client, $params));
+        $regionsCity = $this->get('model.advert')->getAllRegionCity();
+        $clientRegionsCity = $this->get('model.client')->getRegionCityByClientId($client->getId());
+        $reviewedAdverts = $this->get('model.client')->getReviewedAdvertsByClient($client);
+
+        return $this->render('MrsuhRealEstateBundle:Client:client.html.twig', [
+            'pageName' => 'Клиент #' . $client->getId(),
+            'clientId' => $client->getId(),
+            'form' => $form->createView(),
+            'regionsCity' => $regionsCity,
+            'clientRegionsCity' => $clientRegionsCity,
+            'reviewedAdverts' => $reviewedAdverts
+        ]);
     }
 }
