@@ -37,6 +37,9 @@ class C
     const ROLE_USER = 'ROLE_USER';
     const ROLE_SYSTEM = 'ROLE_SYSTEM';
 
+    const STATUS_USER_ACTIVE = 1;
+    const STATUS_USER_DELETED = 2;
+
     //object status
     const STATUS_OBJECT_ACTIVE = 1;
     const STATUS_OBJECT_ARCHIVE = 2;

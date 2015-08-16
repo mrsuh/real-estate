@@ -21,7 +21,7 @@ class UserRepository extends EntityRepository
                 ->setLastName(isset($params['last_name']) ? $params['last_name'] : null)
                 ->setMiddleName(isset($params['middle_name']) ? $params['middle_name'] : null)
                 ->setPhone(isset($params['phone']) ? $params['phone'] : null)
-                ->setStatus(C::USER_STATUS_ACTIVE);
+                ->setStatus(C::STATUS_USER_ACTIVE);
 
             $salt = md5(time());
             $encoder = new MessageDigestPasswordEncoder('sha512', true, 10);
