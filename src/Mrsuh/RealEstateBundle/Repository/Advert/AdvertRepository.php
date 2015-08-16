@@ -2,14 +2,22 @@
 
 namespace Mrsuh\RealEstateBundle\Repository\Advert;
 
-use Mrsuh\RealEstateBundle\Service\CommonFunction;
 use Doctrine\ORM\EntityRepository;
+use Doctrine\ORM\Mapping\ClassMetadata;
 use Mrsuh\RealEstateBundle\C;
 use Mrsuh\RealEstateBundle\Entity\Advert\Advert;
-
+use Mrsuh\RealEstateBundle\Service\CommonFunction;
+use Symfony\Component\Validator\Constraints\DateTime;
 
 class AdvertRepository extends EntityRepository
 {
+    public function __construct($em, ClassMetadata $class)
+    {
+        parent::__construct($em, $class);
+
+        $this->_em->getConfiguration()->addCustomDatetimeFunction('DATE', 'Mrsuh\RealEstateBundle\DQL\Date');
+    }
+
     public function create($params)
     {
         $this->_em->beginTransaction();
@@ -350,5 +358,25 @@ class AdvertRepository extends EntityRepository
         return $this->createQueryBuilder('a')
             ->where('a.changeUser IS NOT NULL')
             ->getQuery()->getResult();
+    }
+
+    public function findExpireAdverts()
+    {
+        return $this->createQueryBuilder('a')
+            ->where('DATE(a.expireTime) <= CURRENT_DATE()')
+            ->getQuery()->getResult();
+    }
+
+    public function setDeleted($obj)
+    {
+        $this->_em->beginTransaction();
+        try {
+            $obj->setStatus(C::STATUS_ADVERT_DELETED);
+
+            $this->_em->commit();
+        } catch (\Exception $e) {
+            $this->_em->rollback();
+            throw $e;
+        }
     }
  }

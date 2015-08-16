@@ -30,9 +30,9 @@ class ClientModel
     public function getClientParams()
     {
         $params = [];
-        foreach($this->paramRepo as $k => $r) {
-            foreach($r->findAll() as $obj) {
-                if(!array_key_exists($k, $params)) {
+        foreach ($this->paramRepo as $k => $r) {
+            foreach ($r->findAll() as $obj) {
+                if (!array_key_exists($k, $params)) {
                     $params[$k] = [];
                 }
                 $params[$k][$obj->getId()] = $obj->getName();
@@ -42,9 +42,10 @@ class ClientModel
         return $params;
     }
 
-    public function setClientParams($params){
-        foreach($params as $k => $v) {
-            if(array_key_exists($k, $this->paramRepo)) {
+    public function setClientParams($params)
+    {
+        foreach ($params as $k => $v) {
+            if (array_key_exists($k, $this->paramRepo)) {
                 $repo = $this->paramRepo[$k];
                 $params[$k] = $repo->findOneById($v);
             }
@@ -57,16 +58,16 @@ class ClientModel
 
     public function create($params, $user)
     {
-        if($this->clientRepo->existClientByPhone($params['phone1'])) {
+        if ($this->clientRepo->existClientByPhone($params['phone1'])) {
             throw new \Exception('Клиент с телефоном ' . $params['phone1'] . ' уже существует');
         };
 
         $this->em->beginTransaction();
-        try{
+        try {
             $params['user'] = $user;
             $client = $this->clientRepo->create($params);
-            if(isset($params['region_city'])) {
-                foreach($params['region_city'] as $k => $v) {
+            if (isset($params['region_city'])) {
+                foreach ($params['region_city'] as $k => $v) {
                     $regionCity = $this->regionCityRepo->findOneById($k);
                     $this->clientRegionCityRepo->create($client, $regionCity);
                 }
@@ -74,7 +75,7 @@ class ClientModel
 
             $this->em->flush();
             $this->em->commit();
-        } catch(\Exception $e){
+        } catch (\Exception $e) {
             $this->em->rollback();
             throw $e;
         }
@@ -85,28 +86,28 @@ class ClientModel
     public function update($client, $params)
     {
         $this->em->beginTransaction();
-        try{
+        try {
 
             $this->clientRepo->update($client, $params);
 
-            if(isset($params['region_city'])) {
+            if (isset($params['region_city'])) {
 
-                foreach($this->clientRegionCityRepo->findByClient($client) as $r) {
+                foreach ($this->clientRegionCityRepo->findByClient($client) as $r) {
                     $this->clientRegionCityRepo->delete($r);
                 }
 
-                foreach($params['region_city'] as $k => $v) {
+                foreach ($params['region_city'] as $k => $v) {
                     $regionCity = $this->regionCityRepo->findOneById($k);
-                    if($regionCity) {
+                    if ($regionCity) {
                         $this->clientRegionCityRepo->create($client, $regionCity);
                     }
                 }
             }
 
-            if(isset($params['reviewed_adverts'])) {
-                foreach(explode(',', $params['reviewed_adverts']) as $o){
+            if (isset($params['reviewed_adverts'])) {
+                foreach (explode(',', $params['reviewed_adverts']) as $o) {
                     $advert = $this->advertRepo->findOneById(trim($o));
-                    if($advert && !$this->clientAdvertRepo->findOneBy(['client' => $client, 'advert' => $advert])) {
+                    if ($advert && !$this->clientAdvertRepo->findOneBy(['client' => $client, 'advert' => $advert])) {
                         $this->clientAdvertRepo->create($client, $advert);
                     }
                 }
@@ -114,7 +115,7 @@ class ClientModel
 
             $this->em->flush();
             $this->em->commit();
-        } catch(\Exception $e){
+        } catch (\Exception $e) {
             $this->em->rollback();
             throw $e;
         }
@@ -136,8 +137,7 @@ class ClientModel
     public function getRegionCityByClientId($id)
     {
         $array = [];
-        foreach($this->clientRegionCityRepo->findByClient($id) as $r)
-        {
+        foreach ($this->clientRegionCityRepo->findByClient($id) as $r) {
             $array[] = $r->getRegionCity()->getId();
         }
 
@@ -147,7 +147,7 @@ class ClientModel
     public function getReviewedAdvertsByClient($client)
     {
         $adverts = [];
-        foreach($this->clientAdvertRepo->findByClient($client) as $o) {
+        foreach ($this->clientAdvertRepo->findByClient($client) as $o) {
             $adverts[] = $o->getAdvert();
         }
 

@@ -1,6 +1,6 @@
 <?php
 
-namespace Mrsuh\RealEstateBundle\Entity;
+namespace Mrsuh\RealEstateBundle\Entity\Client;
 
 use Doctrine\ORM\Mapping as ORM;
 
@@ -8,7 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
  * Client
  *
  * @ORM\Table()
- * @ORM\Entity(repositoryClass="Mrsuh\RealEstateBundle\Repository\ClientRepository")
+ * @ORM\Entity(repositoryClass="Mrsuh\RealEstateBundle\Repository\Client\ClientRepository")
  */
 class Client
 {
@@ -260,7 +260,7 @@ class Client
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -283,7 +283,7 @@ class Client
     /**
      * Get name1
      *
-     * @return string 
+     * @return string
      */
     public function getName1()
     {
@@ -306,7 +306,7 @@ class Client
     /**
      * Get name2
      *
-     * @return string 
+     * @return string
      */
     public function getName2()
     {
@@ -329,7 +329,7 @@ class Client
     /**
      * Get name3
      *
-     * @return string 
+     * @return string
      */
     public function getName3()
     {
@@ -352,7 +352,7 @@ class Client
     /**
      * Get phone1
      *
-     * @return string 
+     * @return string
      */
     public function getPhone1()
     {
@@ -375,7 +375,7 @@ class Client
     /**
      * Get phone2
      *
-     * @return string 
+     * @return string
      */
     public function getPhone2()
     {
@@ -398,7 +398,7 @@ class Client
     /**
      * Get phone3
      *
-     * @return string 
+     * @return string
      */
     public function getPhone3()
     {
@@ -421,7 +421,7 @@ class Client
     /**
      * Get city
      *
-     * @return integer 
+     * @return integer
      */
     public function getCity()
     {
@@ -444,7 +444,7 @@ class Client
     /**
      * Get objectType
      *
-     * @return integer 
+     * @return integer
      */
     public function getObjectType()
     {
@@ -467,7 +467,7 @@ class Client
     /**
      * Get priceFrom
      *
-     * @return integer 
+     * @return integer
      */
     public function getPriceFrom()
     {
@@ -490,7 +490,7 @@ class Client
     /**
      * Get priceTo
      *
-     * @return integer 
+     * @return integer
      */
     public function getPriceTo()
     {
@@ -513,7 +513,7 @@ class Client
     /**
      * Get roomFrom
      *
-     * @return integer 
+     * @return integer
      */
     public function getRoomFrom()
     {
@@ -536,7 +536,7 @@ class Client
     /**
      * Get roomTo
      *
-     * @return integer 
+     * @return integer
      */
     public function getRoomTo()
     {
@@ -559,7 +559,7 @@ class Client
     /**
      * Get commonAreaFrom
      *
-     * @return integer 
+     * @return integer
      */
     public function getCommonAreaFrom()
     {
@@ -582,7 +582,7 @@ class Client
     /**
      * Get commonAreaTo
      *
-     * @return integer 
+     * @return integer
      */
     public function getCommonAreaTo()
     {
@@ -605,7 +605,7 @@ class Client
     /**
      * Get liveAreaFrom
      *
-     * @return integer 
+     * @return integer
      */
     public function getLiveAreaFrom()
     {
@@ -628,7 +628,7 @@ class Client
     /**
      * Get liveAreaTo
      *
-     * @return integer 
+     * @return integer
      */
     public function getLiveAreaTo()
     {
@@ -651,7 +651,7 @@ class Client
     /**
      * Get kitchenAreaFrom
      *
-     * @return integer 
+     * @return integer
      */
     public function getKitchenAreaFrom()
     {
@@ -674,7 +674,7 @@ class Client
     /**
      * Get kitchenAreaTo
      *
-     * @return integer 
+     * @return integer
      */
     public function getKitchenAreaTo()
     {
@@ -697,7 +697,7 @@ class Client
     /**
      * Get sectionAreaFrom
      *
-     * @return integer 
+     * @return integer
      */
     public function getSectionAreaFrom()
     {
@@ -720,7 +720,7 @@ class Client
     /**
      * Get sectionAreaTo
      *
-     * @return integer 
+     * @return integer
      */
     public function getSectionAreaTo()
     {
@@ -743,7 +743,7 @@ class Client
     /**
      * Get floorFrom
      *
-     * @return integer 
+     * @return integer
      */
     public function getFloorFrom()
     {
@@ -766,7 +766,7 @@ class Client
     /**
      * Get floorTo
      *
-     * @return integer 
+     * @return integer
      */
     public function getFloorTo()
     {
@@ -789,7 +789,7 @@ class Client
     /**
      * Get floorsFrom
      *
-     * @return integer 
+     * @return integer
      */
     public function getFloorsFrom()
     {
@@ -812,7 +812,7 @@ class Client
     /**
      * Get floorsTo
      *
-     * @return integer 
+     * @return integer
      */
     public function getFloorsTo()
     {
@@ -835,7 +835,7 @@ class Client
     /**
      * Get user
      *
-     * @return integer 
+     * @return integer
      */
     public function getUser()
     {
@@ -858,7 +858,7 @@ class Client
     /**
      * Get birthDay
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getBirthDay()
     {
@@ -881,7 +881,7 @@ class Client
     /**
      * Get status
      *
-     * @return integer 
+     * @return integer
      */
     public function getStatus()
     {
@@ -904,7 +904,7 @@ class Client
     /**
      * Get createTime
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getCreateTime()
     {
@@ -927,7 +927,7 @@ class Client
     /**
      * Get processingTime
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getProcessingTime()
     {
@@ -950,7 +950,7 @@ class Client
     /**
      * Get showTime
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getShowTime()
     {
@@ -973,7 +973,7 @@ class Client
     /**
      * Get comment
      *
-     * @return string 
+     * @return string
      */
     public function getComment()
     {
@@ -996,7 +996,7 @@ class Client
     /**
      * Get mortgage
      *
-     * @return boolean 
+     * @return boolean
      */
     public function getMortgage()
     {
@@ -1019,7 +1019,7 @@ class Client
     /**
      * Get hot
      *
-     * @return boolean 
+     * @return boolean
      */
     public function getHot()
     {

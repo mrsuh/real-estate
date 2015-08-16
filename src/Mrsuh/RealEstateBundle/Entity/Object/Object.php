@@ -202,7 +202,7 @@ class Object
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -225,7 +225,7 @@ class Object
     /**
      * Get status
      *
-     * @return integer 
+     * @return integer
      */
     public function getStatus()
     {
@@ -248,7 +248,7 @@ class Object
     /**
      * Get type
      *
-     * @return integer 
+     * @return integer
      */
     public function getType()
     {
@@ -271,7 +271,7 @@ class Object
     /**
      * Get state
      *
-     * @return integer 
+     * @return integer
      */
     public function getState()
     {
@@ -294,7 +294,7 @@ class Object
     /**
      * Get wall
      *
-     * @return integer 
+     * @return integer
      */
     public function getWall()
     {
@@ -317,7 +317,7 @@ class Object
     /**
      * Get roomNumber
      *
-     * @return integer 
+     * @return integer
      */
     public function getRoomNumber()
     {
@@ -340,7 +340,7 @@ class Object
     /**
      * Get commonArea
      *
-     * @return string 
+     * @return string
      */
     public function getCommonArea()
     {
@@ -363,7 +363,7 @@ class Object
     /**
      * Get liveArea
      *
-     * @return string 
+     * @return string
      */
     public function getLiveArea()
     {
@@ -386,7 +386,7 @@ class Object
     /**
      * Get citchenArea
      *
-     * @return string 
+     * @return string
      */
     public function getCitchenArea()
     {
@@ -409,7 +409,7 @@ class Object
     /**
      * Get sectionArea
      *
-     * @return string 
+     * @return string
      */
     public function getSectionArea()
     {
@@ -432,7 +432,7 @@ class Object
     /**
      * Get floor
      *
-     * @return integer 
+     * @return integer
      */
     public function getFloor()
     {
@@ -455,7 +455,7 @@ class Object
     /**
      * Get floors
      *
-     * @return integer 
+     * @return integer
      */
     public function getFloors()
     {
@@ -478,7 +478,7 @@ class Object
     /**
      * Get buildYear
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getBuildYear()
     {
@@ -501,7 +501,7 @@ class Object
     /**
      * Get waterSupply
      *
-     * @return integer 
+     * @return integer
      */
     public function getWaterSupply()
     {
@@ -524,7 +524,7 @@ class Object
     /**
      * Get heating
      *
-     * @return integer 
+     * @return integer
      */
     public function getHeating()
     {
@@ -547,7 +547,7 @@ class Object
     /**
      * Get newHouse
      *
-     * @return boolean 
+     * @return boolean
      */
     public function getNewHouse()
     {
@@ -570,7 +570,7 @@ class Object
     /**
      * Get mortgage
      *
-     * @return boolean 
+     * @return boolean
      */
     public function getMortgage()
     {
@@ -593,7 +593,7 @@ class Object
     /**
      * Get balcony
      *
-     * @return boolean 
+     * @return boolean
      */
     public function getBalcony()
     {
@@ -616,7 +616,7 @@ class Object
     /**
      * Get wc
      *
-     * @return integer 
+     * @return integer
      */
     public function getWc()
     {
@@ -639,7 +639,7 @@ class Object
     /**
      * Get region
      *
-     * @return integer 
+     * @return integer
      */
     public function getRegion()
     {
@@ -662,7 +662,7 @@ class Object
     /**
      * Get city
      *
-     * @return integer 
+     * @return integer
      */
     public function getCity()
     {
@@ -685,7 +685,7 @@ class Object
     /**
      * Get regionCity
      *
-     * @return integer 
+     * @return integer
      */
     public function getRegionCity()
     {
@@ -708,7 +708,7 @@ class Object
     /**
      * Get street
      *
-     * @return integer 
+     * @return integer
      */
     public function getStreet()
     {
@@ -731,7 +731,7 @@ class Object
     /**
      * Get house
      *
-     * @return integer 
+     * @return integer
      */
     public function getHouse()
     {
@@ -754,7 +754,7 @@ class Object
     /**
      * Get flat
      *
-     * @return integer 
+     * @return integer
      */
     public function getFlat()
     {
@@ -777,7 +777,7 @@ class Object
     /**
      * Get landmark
      *
-     * @return string 
+     * @return string
      */
     public function getLandmark()
     {

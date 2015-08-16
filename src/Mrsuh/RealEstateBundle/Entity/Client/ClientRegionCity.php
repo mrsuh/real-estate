@@ -1,6 +1,6 @@
 <?php
 
-namespace Mrsuh\RealEstateBundle\Entity;
+namespace Mrsuh\RealEstateBundle\Entity\Client;
 
 use Doctrine\ORM\Mapping as ORM;
 
@@ -8,7 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
  * ClientRegionCity
  *
  * @ORM\Table()
- * @ORM\Entity(repositoryClass="Mrsuh\RealEstateBundle\Repository\ClientRegionCityRepository")
+ * @ORM\Entity(repositoryClass="Mrsuh\RealEstateBundle\Repository\Client\ClientRegionCityRepository")
  */
 class ClientRegionCity
 {
@@ -24,7 +24,7 @@ class ClientRegionCity
     /**
      * @var integer
      *
-     * @ORM\ManyToOne(targetEntity="\Mrsuh\RealEstateBundle\Entity\Client")
+     * @ORM\ManyToOne(targetEntity="\Mrsuh\RealEstateBundle\Entity\Client\Client")
      * @ORM\JoinColumn(name="client", referencedColumnName="id")
      */
     private $client;
@@ -40,7 +40,7 @@ class ClientRegionCity
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -63,7 +63,7 @@ class ClientRegionCity
     /**
      * Get client
      *
-     * @return integer 
+     * @return integer
      */
     public function getClient()
     {
@@ -86,7 +86,7 @@ class ClientRegionCity
     /**
      * Get regionCity
      *
-     * @return integer 
+     * @return integer
      */
     public function getRegionCity()
     {

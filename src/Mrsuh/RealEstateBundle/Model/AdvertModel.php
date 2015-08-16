@@ -28,7 +28,7 @@ class AdvertModel
             'object_heating' => $em->getRepository(C::REPO_OBJECT_HEATING),
             'object_state' => $em->getRepository(C::REPO_OBJECT_STATE),
             'object_type' => $em->getRepository(C::REPO_OBJECT_TYPE),
-            'object_wall' =>$em->getRepository(C::REPO_OBJECT_WALL),
+            'object_wall' => $em->getRepository(C::REPO_OBJECT_WALL),
             'object_water_supply' => $em->getRepository(C::REPO_OBJECT_WATER_SUPPLY),
             'object_wc' => $em->getRepository(C::REPO_OBJECT_WC),
             'object_city' => $em->getRepository(C::REPO_ADDRESS_CITY),
@@ -44,12 +44,12 @@ class AdvertModel
     public function getAdvertParams()
     {
         $params = [];
-        foreach($this->paramRepo as $k => $r) {
-            foreach($r->findAll() as $obj) {
-                if(!array_key_exists($k, $params)) {
+        foreach ($this->paramRepo as $k => $r) {
+            foreach ($r->findAll() as $obj) {
+                if (!array_key_exists($k, $params)) {
                     $params[$k] = [];
                 }
-                if('advert_user' === $k){
+                if ('advert_user' === $k) {
                     $params[$k][$obj->getId()] = $obj->getLastName() . ' ' . $obj->getFirstName() . ' ' . $obj->getMiddleName();
                 } else {
                     $params[$k][$obj->getId()] = $obj->getName();
@@ -60,9 +60,10 @@ class AdvertModel
         return $params;
     }
 
-    public function setAdvertParams($params){
-        foreach($params as $k => $v) {
-            if(array_key_exists($k, $this->paramRepo)) {
+    public function setAdvertParams($params)
+    {
+        foreach ($params as $k => $v) {
+            if (array_key_exists($k, $this->paramRepo)) {
                 $repo = $this->paramRepo[$k];
                 $params[$k] = $repo->findOneById($v);
             }
@@ -74,15 +75,15 @@ class AdvertModel
     public function create($params, $user)
     {
         $this->em->beginTransaction();
-        try{
+        try {
             $params['object_region_city'] = $this->regionCityRepo->findOneById($params['object_region_city']);
             $params['advert_object'] = $this->objectRepo->create($params);
             $params['advert_user'] = $user;
             $params['advert_description'] = $this->advertDescriptRepo->create(['description' => $params['description_description'], 'comment' => $params['description_comment']]);
             $advert = $this->advertRepo->create($params);
 
-            foreach($params['advert_image'] as $i) {
-                if(is_null($i->getType())) {
+            foreach ($params['advert_image'] as $i) {
+                if (is_null($i->getType())) {
                     continue;
                 }
                 $i->setAdvert($advert);
@@ -91,7 +92,7 @@ class AdvertModel
 
             $this->em->flush();
             $this->em->commit();
-        } catch(\Exception $e){
+        } catch (\Exception $e) {
             $this->em->rollback();
             throw $e;
         }
@@ -102,35 +103,34 @@ class AdvertModel
     public function update($currentUser, $advert, $params)
     {
         $this->em->beginTransaction();
-        try{
+        try {
             $params['object_region_city'] = $this->regionCityRepo->findOneById($params['object_region_city']);
             $params['advert_description'] = $this->advertDescriptRepo->update($advert->getDescription(), ['description' => $params['description_description'], 'comment' => $params['description_comment']]);
 
-            if(isset($params['advert_change_user'])) {
-                if($currentUser->getId() !== $advert->getUser()->getId() && CommonFunction::checkRoles($currentUser->getRole(), [C::ROLE_USER])) {
+            if (isset($params['advert_change_user'])) {
+                if ($currentUser->getId() !== $advert->getUser()->getId() && CommonFunction::checkRoles($currentUser->getRole(), [C::ROLE_USER])) {
                     throw new \Exception('У вас недостаточно прав');
                 }
 
                 $user = $this->paramRepo['advert_user']->findOneById($params['advert_change_user']);
 
-                if(CommonFunction::checkRoles($currentUser->getRole(), [C::ROLE_ADMIN])) {
+                if (CommonFunction::checkRoles($currentUser->getRole(), [C::ROLE_ADMIN])) {
                     $params['advert_user'] = $user;
                     unset($params['advert_change_user']);
                 }
-
                 $params['advert_change_user'] = $user;
             }
 
             $this->objectRepo->update($advert->getObject(), $params);
             $this->advertRepo->update($advert, $params);
 
-            foreach($params['advert_image_delete'] as $k => $v) {
+            foreach ($params['advert_image_delete'] as $k => $v) {
                 $img = $this->advertImageRepo->findOneById($k);
                 $this->advertImageRepo->delete($img);
             }
 
-            foreach($params['advert_image'] as $i) {
-                if(is_null($i->getType())) {
+            foreach ($params['advert_image'] as $i) {
+                if (is_null($i->getType())) {
                     continue;
                 }
                 $i->setAdvert($advert);
@@ -139,7 +139,7 @@ class AdvertModel
 
             $this->em->flush();
             $this->em->commit();
-        } catch(\Exception $e){
+        } catch (\Exception $e) {
             $this->em->rollback();
             throw $e;
         }
@@ -158,9 +158,9 @@ class AdvertModel
     public function getAllRegionCity()
     {
         $array = [];
-        foreach($this->regionCityRepo->findAll() as $c) {
+        foreach ($this->regionCityRepo->findAll() as $c) {
             $index = $c->getCity()->getId();
-            if(!array_key_exists($index, $array)) {
+            if (!array_key_exists($index, $array)) {
                 $array[$index] = [];
             }
 
@@ -173,5 +173,14 @@ class AdvertModel
     public function findByChangeUser()
     {
         return $this->advertRepo->findByChangeUser();
+    }
+
+    public function setExpireTime()
+    {
+        foreach ($this->advertRepo->findExpireAdverts() as $a) {
+            $this->advertRepo->setDeleted($a);
+        }
+
+        $this->em->flush();
     }
 }

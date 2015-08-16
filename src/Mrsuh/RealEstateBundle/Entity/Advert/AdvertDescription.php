@@ -39,7 +39,7 @@ class AdvertDescription
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {

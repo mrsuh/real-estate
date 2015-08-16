@@ -43,7 +43,12 @@
     <br>
     <div class="row">
         <div class="col-md-2">{{ form_widget(form.user_save, {'attr': {'class': 'btn btn-success btn-width'}}) }}</div>
+        {% if self %}
+        <div class="col-md-2"><button type="button" class="btn btn-danger btn-width pull-right" id="delete_button" style="display: none">Удалить</button></div>
+        {% else %}
         <div class="col-md-2"><button type="button" class="btn btn-danger btn-width pull-right" id="delete_button">Удалить</button></div>
+        {% endif %}
+
     </div>
 
     {{ form_widget(form.user_delete, {'attr': {'style': 'display: none;'}}) }}
