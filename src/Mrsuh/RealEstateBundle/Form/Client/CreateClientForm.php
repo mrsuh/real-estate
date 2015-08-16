@@ -17,14 +17,14 @@ class CreateClientForm extends AbstractType
 
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('name1', 'text', ['required' => true, 'attr' => ['value' => null]]);
-        $builder->add('name2', 'text', ['required' => false, 'attr' => ['value' => null]]);
-        $builder->add('name3', 'text', ['required' => false, 'attr' => ['value' => null]]);
-        $builder->add('phone1', 'text', ['required' => true, 'attr' => ['value' => null]]);
-        $builder->add('phone2', 'text', ['required' => false, 'attr' => ['value' => null]]);
-        $builder->add('phone3', 'text', ['required' => false, 'attr' => ['value' => null]]);
+        $builder->add('name1', 'text', ['required' => true, 'attr' => ['value' => null, 'placeholder' => 'Фамилия Имя Отчество']]);
+        $builder->add('name2', 'text', ['required' => false, 'attr' => ['value' => null, 'placeholder' => 'Фамилия Имя Отчество']]);
+        $builder->add('name3', 'text', ['required' => false, 'attr' => ['value' => null, 'placeholder' => 'Фамилия Имя Отчество']]);
+        $builder->add('phone1', 'text', ['required' => true, 'attr' => ['value' => null, 'placeholder' => '8 999 214 43 42']]);
+        $builder->add('phone2', 'text', ['required' => false, 'attr' => ['value' => null, 'placeholder' => '8 999 214 43 42']]);
+        $builder->add('phone3', 'text', ['required' => false, 'attr' => ['value' => null, 'placeholder' => '8 999 214 43 42']]);
 
-        $builder->add('comment', 'textarea', ['required' => false, 'attr' => ['value' => null]]);
+        $builder->add('comment', 'textarea', ['required' => false, 'attr' => ['value' => null, 'placeholder' => 'Комментарий']]);
         $builder->add('object_type', 'choice', ['choices' => $this->params['object_type']]);
 
         $builder->add('price_from', 'text', ['required' => false, 'attr' => ['value' => null, 'placeholder' => 'от']]);
@@ -51,7 +51,7 @@ class CreateClientForm extends AbstractType
         $builder->add('floors_from', 'text', ['required' => false, 'attr' => ['value' => null, 'placeholder' => 'от']]);
         $builder->add('floors_to', 'text', ['required' => false, 'attr' => ['value' => null, 'placeholder' => 'до']]);
 
-        $builder->add('birth_day', 'text', ['required' => false, 'attr' => ['value' => null]]);
+        $builder->add('birth_day', 'text', ['required' => false, 'attr' => ['value' => null, 'placeholder' => '10.04.1991']]);
         $builder->add('status', 'choice', ['choices' => [
             C::STATUS_CLIENT_IN_WORK => 'В работе',
             C::STATUS_CLIENT_TEMPORARY_SUSPENDED => 'Временно приостановил поиск',

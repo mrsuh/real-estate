@@ -96,7 +96,7 @@ class ClientController extends Controller
 
         return $this->render('MrsuhRealEstateBundle:Client:client.html.twig', [
             'pageName' => 'Клиент #' . $client->getId(),
-            'clientId' => $client->getId(),
+            'client' => $client,
             'form' => $form->createView(),
             'regionsCity' => $regionsCity,
             'clientRegionsCity' => $clientRegionsCity,

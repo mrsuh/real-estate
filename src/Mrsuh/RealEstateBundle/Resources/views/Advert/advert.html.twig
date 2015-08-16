@@ -13,8 +13,9 @@
         <div class="col-md-4 col-md-offset-2">{{ form_widget(form.advert_change_user, {'attr': {'class': 'form-control', 'style': 'display:none' }}) }}</div>
         {% endif %}
     </div>
-    <label><a href="#" id="button_block_seller">Данные продавца</a></label><hr>
-
+    <br>
+    <a href="##"><b>Данные продавца</b></a>
+    <hr>
     <div id="block_seller">
         <div class="row">
             <div class="col-md-2"><label>Имя продавца 1</label></div>
@@ -46,7 +47,7 @@
         </div>
     </div>
     <br>
-    <label id="button_block_characteristic"><a href="##">Характеристики</a></label>
+    <a href="##"><b>Характеристики</b></a>
     <hr>
     <div id="block_characteristic">
         <div class="row">
@@ -128,7 +129,7 @@
         </div>
     </div>
     <br>
-    <label id="button_block_locate"><a href="##">Местоположение</a></label>
+    <a href="##"><b>Местоположение</b></a>
     <hr>
     <div id="block_locate">
         <div class="row">
@@ -165,7 +166,7 @@
         </div>
     </div>
     <br>
-    <label id="button_block_img"><a href="##">Фотографии</a></label>
+    <a href="##"><b>Фотографии</b></a>
     <hr>
     <div id="block_img">
         <div class="row">
@@ -186,7 +187,7 @@
         </div>
     </div>
     <br>
-    <label id="button_block_description"><a href="##">Описание</a></label>
+    <a href="##"><b>Описание</b></a>
     <hr>
     <div id="block_description">
         <div class="row">
@@ -203,15 +204,15 @@
         </div>
     </div>
     <hr>
-    <div id="block_other">
+    <div>
         <div class="row">
             <div class="col-md-3"><label>Пользователь</label></div>
             <div class="col-md-3"><label>Время создания</label></div>
-            <div class="col-md-3"><label>Время последнего обновления</label></div>
+            <div class="col-md-3"><label>Время обновления</label></div>
             <div class="col-md-3"><label>Время окончания</label></div>
         </div>
     </div>
-    <div id="block_other">
+    <div>
         <div class="row">
             <div class="col-md-3">{{ advert.user.lastName }} {{ advert.user.firstName }} {{ advert.user.middleName }}</div>
             <div class="col-md-3"> {% if null != advert.createTime %}{{ advert.createTime|date("d.m.Y") }}{% endif %}</div>
