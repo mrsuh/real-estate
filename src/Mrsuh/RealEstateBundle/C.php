@@ -17,7 +17,6 @@ class C
     const REPO_ADDRESS_CITY = 'MrsuhRealEstateBundle:Address\AddressCity';
     const REPO_ADDRESS_REGION = 'MrsuhRealEstateBundle:Address\AddressRegion';
     const REPO_ADDRESS_REGION_CITY = 'MrsuhRealEstateBundle:Address\AddressRegionCity';
-    const REPO_ADDRESS_STREET = 'MrsuhRealEstateBundle:Address\AddressStreet';
 
     const REPO_ROLE = 'MrsuhRealEstateBundle:Role';
     const REPO_USER = 'MrsuhRealEstateBundle:User';

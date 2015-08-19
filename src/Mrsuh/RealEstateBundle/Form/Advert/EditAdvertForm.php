@@ -59,7 +59,7 @@ class EditAdvertForm extends AbstractType
         $builder->add('object_region', 'choice', ['choices' => $this->params['object_region'], 'data' => $this->advert->getObject()->getRegion()->getId()]);
         $builder->add('object_city', 'choice', ['choices' => $this->params['object_city'], 'data' => $this->advert->getObject()->getCity()->getId()]);
         $builder->add('object_region_city', 'hidden', ['data' => $this->advert->getObject()->getRegionCity()->getId()]);
-        $builder->add('object_street', 'choice', ['choices' => $this->params['object_street'], 'data' => $this->advert->getObject()->getStreet()->getId()]);
+        $builder->add('object_street', 'text', ['data' => $this->advert->getObject()->getStreet(), 'required' => false]);
         $builder->add('object_house', 'text', ['required' => false, 'data' => $this->advert->getObject()->getHouse(), 'attr' =>['placeholder' => '43']]);
         $builder->add('object_flat', 'text', ['required' => false, 'data' => $this->advert->getObject()->getFlat(), 'attr' =>['placeholder' => '97']]);
         $builder->add('object_landmark', 'textarea', ['required' => false, 'data' => $this->advert->getObject()->getLandmark(), 'attr' =>['placeholder' => 'Ориентир']]);

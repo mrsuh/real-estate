@@ -177,7 +177,7 @@
                     <div class="col-md-9">
                         {% for img in advert.getImg %}
                             <div style="margin-right: 20px; float: left; margin-top: 20px;" id="photo_{{ img.id }}">
-                            <a href="##" class="photo img-responsive text-center" data-path="{{ img.getWebPath }}" style="float:left"><img src="{{ asset( img.getMiniWebPath ) }}"  class="img" style="max-width: 150px; max-height: 150px; float: left;"></a>
+                            <a href="##" class="photo img-responsive text-center" data-path="{{ img.getWebPath }}" style="float:left"><img src="{{ asset( img.getMiniWebPath ) }}"  class="img" style="max-width: 150px; max-height: 150px; float: left; border-radius: 10px;"></a>
                             <a href="##" style="float:right" class="photo_delete" data-id="{{ img.id }}"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></a>
                             </div>
                         {% endfor %}

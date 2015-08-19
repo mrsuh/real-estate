@@ -19,12 +19,16 @@
                 <li><a href="{{ url('create_client') }}">Добавить клиента</a></li>
             </ul>
         </li>
+
+        {% if is_granted('ROLE_ADMIN') %}
         <li><span><a href="#">Пользователи</a></span>
             <ul  {% if  path == path('list_user') or path == path('create_user')  or path == path('user')%} style="display: block;" {% else %} style="display: none;" {% endif %}>
                 <li><a href="{{ url('list_user') }}">Список пользователей</a></li>
                 <li><a href="{{ url('create_user') }}">Создать пользователя</a></li>
             </ul>
         </li>
+        {% endif %}
+
         <li>
             <a href="##" id="logout">Выйти</a>
         </li>
