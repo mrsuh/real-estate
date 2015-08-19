@@ -33,7 +33,6 @@ class AdvertModel
             'object_wc' => $em->getRepository(C::REPO_OBJECT_WC),
             'object_city' => $em->getRepository(C::REPO_ADDRESS_CITY),
             'object_region' => $em->getRepository(C::REPO_ADDRESS_REGION),
-            'object_street' => $em->getRepository(C::REPO_ADDRESS_STREET),
 
             'advert_type' => $em->getRepository(C::REPO_ADVERT_TYPE),
             'advert_category' => $em->getRepository(C::REPO_ADVERT_CATEGORY),
