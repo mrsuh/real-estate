@@ -172,8 +172,9 @@ class Object
     private $regionCity;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Mrsuh\RealEstateBundle\Entity\Address\AddressStreet")
-     * @ORM\JoinColumn(name="street", referencedColumnName="id")
+     * @var string
+     *
+     * @ORM\Column(name="street", type="string", length=255, nullable=true)
      */
     private $street;
 

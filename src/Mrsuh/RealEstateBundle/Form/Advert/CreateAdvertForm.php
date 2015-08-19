@@ -53,7 +53,7 @@ class CreateAdvertForm extends AbstractType
         $builder->add('object_region', 'choice', ['choices' => $this->params['object_region']]);
         $builder->add('object_city', 'choice', ['choices' => $this->params['object_city']]);
         $builder->add('object_region_city', 'hidden');
-        $builder->add('object_street', 'choice', ['choices' => $this->params['object_street']]);
+        $builder->add('object_street', 'text', ['required' => false]);
         $builder->add('object_house', 'text', ['required' => false, 'attr' =>['value' => null, 'placeholder' => '43']]);
         $builder->add('object_flat', 'text', ['required' => false, 'attr' =>['value' => null, 'placeholder' => '97']]);
         $builder->add('object_landmark', 'textarea', ['required' => false, 'attr' =>['value' => null, 'placeholder' => 'Ориентир']]);

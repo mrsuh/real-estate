@@ -28,7 +28,6 @@ parameters:
 
     fixtures_address_region: '%kernel.root_dir%/config/fixtures/address/region.yml'
     fixtures_address_city: '%kernel.root_dir%/config/fixtures/address/city.yml'
-    fixtures_address_street: '%kernel.root_dir%/config/fixtures/address/street.yml'
 
     fixtures_advert_type: '%kernel.root_dir%/config/fixtures/advert/type.yml'
     fixtures_advert_category: '%kernel.root_dir%/config/fixtures/advert/category.yml'

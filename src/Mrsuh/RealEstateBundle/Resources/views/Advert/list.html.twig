@@ -45,9 +45,9 @@
             <td class="img-responsive text-center">
                 {% if (advert.getImg | first) != null %}
                     <a href="{{ url('advert', { 'id': advert.id }) }}">
-                        <img src="{{ asset( (advert.getImg | first).getMiniWebPath ) }}" style="max-width: 100px; height: 100px"></a>
+                        <img src="{{ asset( (advert.getImg | first).getMiniWebPath ) }}" style="max-width: 100px; height: 100px; border-radius: 10px;"></a>
                 {% else %}
-                    <a href="{{ url('advert', { 'id': advert.id }) }}"><img src="{{ asset('img/real-estate.jpg') }}" style="max-width: 100px; height: 100px"></a>
+                    <a href="{{ url('advert', { 'id': advert.id }) }}"><img src="{{ asset('img/real-estate.jpg') }}" style="max-width: 100px; height: 100px; border-radius: 10px;"></a>
                 {% endif %}
 
             </td>
@@ -68,8 +68,7 @@
             </td>
             <td class="text-center">
                 {{ advert.object.city.name }},{{ advert.object.regionCity.name }},<br>
-                {{ advert.object.street.name }} ул{% if advert.object.house %}, {{ advert.object.house }}{% endif %}
-
+                {{ advert.object.street }} ул{% if advert.object.house %}, {{ advert.object.house }}{% endif %}
             </td>
             <td class="text-center">
                 {{ advert.object.commonArea }} / {{ advert.object.liveArea }} / {{ advert.object.kitchenArea }}
