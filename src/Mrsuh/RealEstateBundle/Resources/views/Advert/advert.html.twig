@@ -13,11 +13,12 @@
         <div class="col-md-4 col-md-offset-2">{{ form_widget(form.advert_change_user, {'attr': {'class': 'form-control', 'style': 'display:none' }}) }}</div>
         {% endif %}
     </div>
+
     <br>
-    <a href="##" data-type="seller" class="btn-selector"><b>Данные продавца</b></a>
-    <a href="##" data-type="characteristic" class="btn-selector"><b>Характеристики</b></a>
-    <a href="##" data-type="locate" class="btn-selector"><b>Местоположение</b></a>
-    <a href="##" data-type="img" class="btn-selector"><b>Фотографии</b></a>
+    <a href="##" data-type="seller" class="btn-selector"><b>Данные продавца</b></a> |
+    <a href="##" data-type="characteristic" class="btn-selector"><b>Характеристики</b></a> |
+    <a href="##" data-type="locate" class="btn-selector" style="color: #333; text-decoration: underline"><b>Местоположение</b></a> |
+    <a href="##" data-type="img" class="btn-selector"><b>Фотографии</b></a> |
     <a href="##" data-type="description" class="btn-selector"><b>Описание</b></a>
     <hr>
     <div class="selector block_seller" style="display: none">
@@ -133,7 +134,7 @@
     </div>
     <br>
 
-    <div class="selector block_locate" style="display: none">
+    <div class="selector block_locate" style="display: block">
         <div class="row">
             <div class="col-md-2"><label>Город</label></div>
             <div class="col-md-2">{{ form_widget(form.object_city, {'attr': {'class': 'form-control' }}) }}</div>
@@ -168,7 +169,7 @@
         <br>
         <div class="row">
             <div class="col-md-12">
-                <div id="map_canvas" style="height: 300px">Карта</div>
+                <div id="map_canvas" style="height: 300px; display: block">Карта</div>
             </div>
         </div>
     </div>
@@ -254,16 +255,21 @@
 {% block js %}
     <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false"></script>
     <script>
+        var btnSelector = $('.btn-selector');
+        btnSelector.click(function(){
+            btnSelector.css('color', '#337ab7');
+            btnSelector.css('text-decoration', 'none');
 
-        $('.btn-selector').click(function(){
            $('.selector').hide();
             var type = $(this).data('type');
-
-            $('.block_' + type).show('slow');
+            $(this).css('color', '#333');
+            $(this).css('text-decoration', 'underline');
+            $('.block_' + type).slideToggle();
         });
 
         function initialize() {
             var address = 'Россия Ростовская область город ' +  $('#editAdvert_object_city option:selected').text() + ' улица ' + $('#editAdvert_object_street').val() + ' дом ' + $('#editAdvert_object_house').val();
+            console.info(address);
             $.ajax({
                 method: 'GET',
                 url: 'http://maps.googleapis.com/maps/api/geocode/json',
@@ -274,6 +280,7 @@
                     language: 'ru'
                 },
                 success: function (data, textStatus) {
+                    console.info(data['results'][0]['geometry']['location']['lat'],data['results'][0]['geometry']['location']['lng']);
                     var myLatlng = new google.maps.LatLng(data['results'][0]['geometry']['location']['lat'],data['results'][0]['geometry']['location']['lng']);
                     var myOptions = {
                         zoom: 17,

@@ -227,11 +227,7 @@
             var extension_button = $('#extension_button');
             var extension_search = $('#extension_search');
             extension_button.click(function () {
-                if (extension_search.is(':hidden')) {
-                    extension_search.show('slow')
-                } else {
-                    extension_search.hide('slow')
-                }
+                extension_search.slideToggle()
             });
 
             var region_city = $('#findAdvert_object_region_city');
@@ -276,6 +272,7 @@
             {% endif %}
 
             pagination('findAdvert', current_page, max_page, submit);
+
         });
     </script>
 
