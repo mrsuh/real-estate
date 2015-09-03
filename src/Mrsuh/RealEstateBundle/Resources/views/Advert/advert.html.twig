@@ -14,14 +14,18 @@
         {% endif %}
     </div>
     <br>
-    <a href="##"><b>Данные продавца</b></a>
+    <a href="##" data-type="seller" class="btn-selector"><b>Данные продавца</b></a>
+    <a href="##" data-type="characteristic" class="btn-selector"><b>Характеристики</b></a>
+    <a href="##" data-type="locate" class="btn-selector"><b>Местоположение</b></a>
+    <a href="##" data-type="img" class="btn-selector"><b>Фотографии</b></a>
+    <a href="##" data-type="description" class="btn-selector"><b>Описание</b></a>
     <hr>
-    <div id="block_seller">
+    <div class="selector block_seller" style="display: none">
         <div class="row">
             <div class="col-md-2"><label>Имя продавца 1</label></div>
             <div class="col-md-4">{{ form_widget(form.advert_seller_name1, {'attr': {'class': 'form-control' }}) }}
             </div>
-            <div class="col-md-2"><label>Телефон продавца 1</label></div>
+            <div class="col-md-2"><label>Телефон 1</label></div>
             <div class="col-md-4">{{ form_widget(form.advert_seller_phone1, {'attr': {'class': 'form-control' }}) }}
             </div>
         </div>
@@ -31,7 +35,7 @@
             <div class="col-md-2"><label>Имя продавца 2</label></div>
             <div class="col-md-4">{{ form_widget(form.advert_seller_name2, {'attr': {'class': 'form-control' }}) }}
             </div>
-            <div class="col-md-2"><label>Телефон продавца 2</label></div>
+            <div class="col-md-2"><label>Телефон 2</label></div>
             <div class="col-md-4">{{ form_widget(form.advert_seller_phone2, {'attr': {'class': 'form-control' }}) }}
             </div>
         </div>
@@ -41,15 +45,14 @@
             <div class="col-md-2"><label>Имя продавца 3</label></div>
             <div class="col-md-4">{{ form_widget(form.advert_seller_name3, {'attr': {'class': 'form-control' }}) }}
             </div>
-            <div class="col-md-2"><label>Телефон продавца 3</label></div>
+            <div class="col-md-2"><label>Телефон 3</label></div>
             <div class="col-md-4">{{ form_widget(form.advert_seller_phone3, {'attr': {'class': 'form-control' }}) }}
             </div>
         </div>
     </div>
     <br>
-    <a href="##"><b>Характеристики</b></a>
-    <hr>
-    <div id="block_characteristic">
+
+    <div class="selector block_characteristic" style="display: none">
         <div class="row">
             <div class="col-md-2"><label>Тип Объявления</label></div>
             <div class="col-md-2">{{ form_widget(form.advert_type, {'attr': {'class': 'form-control' }}) }}</div>
@@ -129,12 +132,9 @@
         </div>
     </div>
     <br>
-    <a href="##"><b>Местоположение</b></a>
-    <hr>
-    <div id="block_locate">
+
+    <div class="selector block_locate" style="display: none">
         <div class="row">
-            <div class="col-md-2"><label>Регион</label></div>
-            <div class="col-md-2">{{ form_widget(form.object_region, {'attr': {'class': 'form-control' }}) }}</div>
             <div class="col-md-2"><label>Город</label></div>
             <div class="col-md-2">{{ form_widget(form.object_city, {'attr': {'class': 'form-control' }}) }}</div>
             <div class="col-md-2"><label>Район города</label></div>
@@ -164,11 +164,17 @@
             <div class="col-md-2"><label>Ориентир</label></div>
             <div class="col-md-10">{{ form_widget(form.object_landmark, {'attr': {'class': 'form-control' }}) }}</div>
         </div>
+
+        <br>
+        <div class="row">
+            <div class="col-md-12">
+                <div id="map_canvas" style="height: 300px">Карта</div>
+            </div>
+        </div>
     </div>
     <br>
-    <a href="##"><b>Фотографии</b></a>
-    <hr>
-    <div id="block_img">
+
+    <div class="selector block_img" style="display: none">
         <div class="row">
             <div class="col-md-12 ">
                 <div class="row">
@@ -187,9 +193,8 @@
         </div>
     </div>
     <br>
-    <a href="##"><b>Описание</b></a>
-    <hr>
-    <div id="block_description">
+
+    <div class="selector block_description" style="display: none">
         <div class="row">
             <div class="col-md-2"><label>Описание</label></div>
             <div class="col-md-10">{{ form_widget(form.description_description, {'attr': {'class': 'form-control' }} ) }}
@@ -247,7 +252,47 @@
 {% endblock %}
 
 {% block js %}
+    <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false"></script>
     <script>
+
+        $('.btn-selector').click(function(){
+           $('.selector').hide();
+            var type = $(this).data('type');
+
+            $('.block_' + type).show('slow');
+        });
+
+        function initialize() {
+            var address = 'Россия Ростовская область город ' +  $('#editAdvert_object_city option:selected').text() + ' улица ' + $('#editAdvert_object_street').val() + ' дом ' + $('#editAdvert_object_house').val();
+            $.ajax({
+                method: 'GET',
+                url: 'http://maps.googleapis.com/maps/api/geocode/json',
+                dataType : 'json',
+                data: {
+                    address: address,
+                    sensor: false,
+                    language: 'ru'
+                },
+                success: function (data, textStatus) {
+                    var myLatlng = new google.maps.LatLng(data['results'][0]['geometry']['location']['lat'],data['results'][0]['geometry']['location']['lng']);
+                    var myOptions = {
+                        zoom: 17,
+                        center: myLatlng,
+                        mapTypeId: google.maps.MapTypeId.ROADMAP
+                    };
+                    var map = new google.maps.Map(document.getElementById("map_canvas"), myOptions);
+
+                    var marker = new google.maps.Marker({
+                        position: myLatlng,
+                        map: map,
+                        title: address
+                    });
+                }
+            });
+        }
+
+        initialize();
+
         $(function () {
 
             $('.photo').click(function(){
@@ -280,20 +325,6 @@
                 submit.click();
             });
 
-            var block_seller = $("#block_seller");
-            var block_characteristic = $("#block_characteristic");
-            var block_locate = $("#block_locate");
-            var block_description = $("#block_description");
-            var block_other = $("#block_other");
-            var block_img = $("#block_img");
-
-            var button_block_seller = $("#button_block_seller");
-            var button_block_characteristic = $("#button_block_characteristic");
-            var button_block_locate = $("#button_block_locate");
-            var button_block_description = $("#button_block_description");
-            var button_block_other = $("#button_block_other");
-            var button_block_img = $("#button_block_img");
-
             var mathMeterPrice = function () {
                 var meters = parseFloat(object_common_area.val());
                 var price = parseFloat(advert_price.val());
@@ -304,54 +335,6 @@
 
                 advert_meter_price.val(meterPrice);
             };
-
-            button_block_seller.click(function () {
-                if (block_seller.is(':hidden')) {
-                    block_seller.show('slow')
-                } else {
-                    block_seller.hide('slow')
-                }
-            });
-
-            button_block_characteristic.click(function () {
-                if (block_characteristic.is(':hidden')) {
-                    block_characteristic.show('slow')
-                } else {
-                    block_characteristic.hide('slow')
-                }
-            });
-
-            button_block_locate.click(function () {
-                if (block_locate.is(':hidden')) {
-                    block_locate.show('slow')
-                } else {
-                    block_locate.hide('slow')
-                }
-            });
-
-            button_block_description.click(function () {
-                if (block_description.is(':hidden')) {
-                    block_description.show('slow')
-                } else {
-                    block_description.hide('slow')
-                }
-            });
-
-            button_block_other.click(function () {
-                if (block_other.is(':hidden')) {
-                    block_other.show('slow')
-                } else {
-                    block_other.hide('slow')
-                }
-            });
-
-            button_block_img.click(function () {
-                if (block_img.is(':hidden')) {
-                    block_img.show('slow')
-                } else {
-                    block_img.hide('slow')
-                }
-            });
 
             var advert_meter_price =  $( "#editAdvert_advert_meter_price");
             var advert_price =  $( "#editAdvert_advert_price");
