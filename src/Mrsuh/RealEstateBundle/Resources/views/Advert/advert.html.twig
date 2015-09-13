@@ -16,7 +16,7 @@
     <br>
     <a href="##" data-type="seller" class="btn-selector"><b>Данные продавца</b></a>
     <a href="##" data-type="characteristic" class="btn-selector"><b>Характеристики</b></a>
-    <a href="##" data-type="locate" class="btn-selector"><b>Местоположение</b></a>
+    <a href="##" data-type="locate" class="btn-selector" style="color: #333; text-decoration: underline"><b>Местоположение</b></a>
     <a href="##" data-type="img" class="btn-selector"><b>Фотографии</b></a>
     <a href="##" data-type="description" class="btn-selector"><b>Описание</b></a>
     <hr>
@@ -50,7 +50,6 @@
             </div>
         </div>
     </div>
-    <br>
 
     <div class="selector block_characteristic" style="display: none">
         <div class="row">
@@ -131,9 +130,8 @@
             <div class="col-md-2">{{ form_widget(form.object_mortgage, {'attr': {'class': 'form-control' }}) }}</div>
         </div>
     </div>
-    <br>
 
-    <div class="selector block_locate" style="display: none">
+    <div class="selector block_locate">
         <div class="row">
             <div class="col-md-2"><label>Город</label></div>
             <div class="col-md-2">{{ form_widget(form.object_city, {'attr': {'class': 'form-control' }}) }}</div>
@@ -172,27 +170,25 @@
             </div>
         </div>
     </div>
-    <br>
 
     <div class="selector block_img" style="display: none">
         <div class="row">
-            <div class="col-md-12 ">
-                <div class="row">
-                    <div class="col-md-1"><button type="button" class="btn btn-success" id="add_img">+</button></div>
-                    <div class="col-md-2"><div id="editAdvert_advert_image"></div></div>
-                    <div class="col-md-9">
-                        {% for img in advert.getImg %}
-                            <div style="margin-right: 20px; float: left; margin-top: 20px;" id="photo_{{ img.id }}">
-                            <a href="##" class="photo img-responsive text-center" data-path="{{ img.getWebPath }}" style="float:left"><img src="{{ asset( img.getMiniWebPath ) }}"  class="img" style="max-width: 150px; max-height: 150px; float: left; border-radius: 10px;"></a>
-                            <a href="##" style="float:right" class="photo_delete" data-id="{{ img.id }}"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></a>
-                            </div>
-                        {% endfor %}
+            <div class="col-md-1">
+                {{ form_widget(form.advert_image) }}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                {% for img in advert.getImg %}
+                    <div style="margin-right: 20px; float: left; margin-top: 20px;" id="photo_{{ img.id }}">
+                        <a href="##" class="photo img-responsive text-center" data-path="{{ img.getWebPath }}"
+                           style="float:left"><img src="{{ asset( img.getMiniWebPath ) }}" class="img" style="max-width: 150px; max-height: 150px; float: left; border-radius: 10px;"></a>
+                        <a href="##" style="float:right" class="photo_delete" data-id="{{ img.id }}"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></a>
                     </div>
-                </div>
+                {% endfor %}
             </div>
         </div>
     </div>
-    <br>
 
     <div class="selector block_description" style="display: none">
         <div class="row">
@@ -230,9 +226,7 @@
     <div class="col-md-2"><button type="button" class="btn btn-success btn-width" id="submit_button">Сохранить</button></div>
     </div>
 
-    <div id="editAdvert_advert_image_delete" style="display: none;"></div>
-    {% do form.advert_image.setRendered  %}
-    {% do form.advert_image_delete.setRendered  %}
+    {{ form_widget(form.advert_image_delete, {'attr': {'class': 'form-control', 'style': 'display: none;'  }} ) }}
     {{ form_widget(form.submit, {'attr': {'class': 'btn btn-success', 'style': 'display: none;' }}) }}
     {{ form_end(form) }}
 
@@ -256,8 +250,12 @@
     <script>
 
         $('.btn-selector').click(function(){
+            $('.btn-selector').css('color', '#23527c');
+            $('.btn-selector').css('text-decoration', 'none');
            $('.selector').hide();
             var type = $(this).data('type');
+            $(this).css('color', '#333');
+            $(this).css('text-decoration', 'underline');
 
             $('.block_' + type).show('slow');
         });
@@ -303,9 +301,10 @@
             var delete_img_form = $('#editAdvert_advert_image_delete');
 
             $('.photo_delete').click(function(){
+                console.info('delete');
                 var id = $(this).data('id');
                 $('#photo_' + id).hide('slow');
-                var input = '<input type="checkbox" id="editAdvert_advert_image_delete_"' + id + '  name="editAdvert[advert_image_delete][' + id + ']" value="1" checked="checked">';
+                var input = '<input type="checkbox" id="editAdvert_advert_image_delete_' + id + '"  name="editAdvert[advert_image_delete][' + id + ']" value="1" checked="checked">';
                 delete_img_form.append(input);
             });
 
@@ -343,7 +342,6 @@
             object_common_area.bind('change', mathMeterPrice);
             advert_price.bind('change', mathMeterPrice);
 
-            var images = $('#editAdvert_advert_image');
             var add_img = $('#add_img');
             var count = 0;
             add_img.click(function(){
@@ -353,6 +351,12 @@
                     count++;
                 }
             });
+
+            $('#editAdvert_advert_price').change('keyup', function(){
+                myPriceFormat($(this));
+            });
+
+            myPriceFormat($('#editAdvert_advert_price'));
         });
     </script>
 {% endblock %}
