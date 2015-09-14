@@ -24,7 +24,7 @@
     <div id="extension_search" hidden="true">
         <br>
         <div class="row">
-            <div class="col-md-2">
+            <div class="col-md-3">
 
                 <div class="row">
                     <div class="col-md-12"><label>Тип объекта</label></div>
@@ -65,7 +65,7 @@
                 </div>
             </div>
 
-            <div class="col-md-4">
+            <div class="col-md-6">
                 <div class="row">
                     <div class="col-md-4"><label>Цена</label></div>
                     <div class="col-md-4">{{ form_widget(form.price_from, {'attr': {'class': 'form-control' }}) }}</div>
@@ -163,13 +163,7 @@
                 <br>
             </div>
 
-            <div class="col-md-4">
-                <div class="row">
-                    <div class="col-md-8">{{ form_widget(form.object_region, {'attr': {'class': 'form-control' }}) }}
-                    </div>
-                </div>
-                <br>
-
+            <div class="col-md-3">
                 <div class="row">
                     <div class="col-md-8">{{ form_widget(form.object_city, {'attr': {'class': 'form-control' }}) }}
                     </div>
@@ -200,9 +194,9 @@
 
     <div class="row">
         {% if pagination and pagination.items is not empty %}
-            <div class="col-md-9"><b>Всего результатов:</b> {{ pagination.getTotalItemCount }}</div>
+            <div class="col-md-8"><b>Всего результатов:</b> {{ pagination.getTotalItemCount }}</div>
             <div class="col-md-2"><b class="pull-right">Показывать на странице:</b></div>
-            <div class="col-md-1">{{ form_widget(form.pagination_items_on_page, {'attr': {'class': 'form-control' }}) }}</div>
+            <div class="col-md-2">{{ form_widget(form.pagination_items_on_page, {'attr': {'class': 'form-control' }}) }}</div>
         {% else %}
             <div class="col-md-1">{{ form_widget(form.pagination_items_on_page, {'attr': {'class': 'form-control', 'style':'display: none' }}) }}</div>
         {% endif %}
@@ -276,6 +270,20 @@
             {% endif %}
 
             pagination('findAdvert', current_page, max_page, submit);
+
+            $('#findAdvert_price_from').on('keyup', function(){
+                myPriceFormat($(this));
+            });
+            $('#findAdvert_price_to').on('keyup', function(){
+                myPriceFormat($(this));
+            });
+            $('#findAdvert_meter_price_from').on('keyup', function(){
+                myPriceFormat($(this));
+            });
+            $('#findAdvert_meter_price_to').on('keyup', function(){
+                myPriceFormat($(this));
+            });
+
         });
     </script>
 

@@ -12,7 +12,7 @@
     <br>
 
     <div class="row">
-        <div class="col-md-2">
+        <div class="col-md-3">
 
             <div class="row">
                 <div class="col-md-12"><label>Тип объекта</label></div>
@@ -53,7 +53,7 @@
             </div>
         </div>
 
-        <div class="col-md-4">
+        <div class="col-md-6">
             <div class="row">
                 <div class="col-md-4"><label>Цена</label></div>
                 <div class="col-md-4">{{ form_widget(form.price_from, {'attr': {'class': 'form-control' }}) }}</div>
@@ -154,7 +154,7 @@
             <br>
         </div>
 
-        <div class="col-md-4">
+        <div class="col-md-3">
             <div class="row">
                 <div class="col-md-8">{{ form_widget(form.object_region, {'attr': {'class': 'form-control' }}) }}
                 </div>
@@ -265,6 +265,25 @@
             {% endif %}
 
             pagination('findAdvertByClient', current_page, max_page, submit);
+
+            $('#findAdvertByClient_price_from').on('keyup', function(){
+                myPriceFormat($(this));
+            });
+
+            $('#findAdvertByClient_price_to').on('keyup', function(){
+                myPriceFormat($(this));
+            });
+
+            $('#findAdvertByClient_meter_price_from').on('keyup', function(){
+                myPriceFormat($(this));
+            });
+
+            $('#findAdvertByClient_meter_price_to').on('keyup', function(){
+                myPriceFormat($(this));
+            });
+
+            myPriceFormat($('#findAdvertByClient_price_from'));
+            myPriceFormat($('#findAdvertByClient_price_to'));
         });
     </script>
 
