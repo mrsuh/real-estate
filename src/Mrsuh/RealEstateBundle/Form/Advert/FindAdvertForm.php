@@ -53,7 +53,6 @@ class FindAdvertForm extends AbstractType
         $builder->add('object_state', 'choice', ['choices' => $this->params['object_state'], 'multiple' => true, 'expanded' => true, 'required' => false]);
         $builder->add('object_wall', 'choice', ['choices' => $this->params['object_wall'], 'multiple' => true, 'expanded' => true, 'required' => false]);
 
-        $builder->add('object_region', 'choice', ['choices' => $this->params['object_region'], 'required' => false, 'placeholder' => 'Регион']);
         $builder->add('object_city', 'choice', ['choices' => $this->params['object_city'], 'required' => false, 'placeholder' => 'Город']);
 
         $builder->add('object_region_city', 'collection', [
