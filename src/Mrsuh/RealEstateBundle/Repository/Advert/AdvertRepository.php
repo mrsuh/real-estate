@@ -160,23 +160,23 @@ class AdvertRepository extends EntityRepository
 
 
         //price
-        if(isset($params['price_from'])) {
+        if(isset($params['price_from']) && !empty($params['price_from'])) {
             $qb->andWhere('a.price >= :price_from')
                 ->setParameter('price_from', $params['price_from']);
         }
 
-        if(isset($params['price_to'])) {
+        if(isset($params['price_to']) && !empty($params['price_to'])) {
             $qb->andWhere('a.price <= :price_to')
                 ->setParameter('price_to', $params['price_to']);
         }
 
         //meter price
-        if(isset($params['meter_price_from'])) {
+        if(isset($params['meter_price_from']) && !empty($params['meter_price_from'])) {
             $qb->andWhere('a.meterPrice >= :meter_price_from')
                 ->setParameter('meter_price_from', $params['meter_price_from']);
         }
 
-        if(isset($params['meter_price_to'])) {
+        if(isset($params['meter_price_to']) && !empty($params['meter_price_to'])) {
             $qb->andWhere('a.meterPrice <= :meter_price_to')
                 ->setParameter('meter_price_to', $params['meter_price_to']);
         }
@@ -267,12 +267,6 @@ class AdvertRepository extends EntityRepository
         if(isset($params['build_year_to'])) {
             $qb->andWhere('object.buildYear <= :build_year_to')
                 ->setParameter('build_year_to', $params['build_year_to']);
-        }
-
-        if(isset($params['object_region'])) {
-            $qb->join('object.region', 'object_region');
-            $qb->andWhere('object_region.id = :object_region')
-                ->setParameter('object_region', $params['object_region']);
         }
 
         if(isset($params['object_city'])) {

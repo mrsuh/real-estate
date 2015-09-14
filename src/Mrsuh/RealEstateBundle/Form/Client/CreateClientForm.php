@@ -60,8 +60,8 @@ class CreateClientForm extends AbstractType
             C::STATUS_CLIENT_BLACK_LIST => 'Черный список'
         ]]);
 
-        $builder->add('mortgage', 'choice', ['choices' => [1 => 'да', 0 => 'нет']]);
-        $builder->add('hot', 'choice', ['choices' => [1 => 'да', 0 => 'нет']]);
+        $builder->add('mortgage', 'choice', ['choices' => [1 => 'да', 0 => 'нет'], 'data' => 0]);
+        $builder->add('hot', 'choice', ['choices' => [1 => 'да', 0 => 'нет'], 'data' => 0]);
 
         $builder->add('city', 'choice', ['choices' => $this->params['city']]);
 

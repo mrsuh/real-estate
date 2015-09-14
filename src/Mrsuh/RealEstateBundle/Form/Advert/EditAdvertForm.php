@@ -56,7 +56,6 @@ class EditAdvertForm extends AbstractType
         $builder->add('object_balcony', 'choice', ['choices' => $this->params['object_balcony'], 'data' => $this->advert->getObject()->getBalcony()->getId()]);
         $builder->add('object_mortgage', 'choice', ['choices' => [1 => 'да', 0 => 'нет'], 'data' => $this->advert->getObject()->getMortgage()]);
 
-        $builder->add('object_region', 'choice', ['choices' => $this->params['object_region'], 'data' => $this->advert->getObject()->getRegion()->getId()]);
         $builder->add('object_city', 'choice', ['choices' => $this->params['object_city'], 'data' => $this->advert->getObject()->getCity()->getId()]);
         $builder->add('object_region_city', 'hidden', ['data' => $this->advert->getObject()->getRegionCity()->getId()]);
         $builder->add('object_street', 'text', ['data' => $this->advert->getObject()->getStreet(), 'required' => false]);
@@ -64,30 +63,14 @@ class EditAdvertForm extends AbstractType
         $builder->add('object_flat', 'text', ['required' => false, 'data' => $this->advert->getObject()->getFlat(), 'attr' =>['placeholder' => '97']]);
         $builder->add('object_landmark', 'textarea', ['required' => false, 'data' => $this->advert->getObject()->getLandmark(), 'attr' =>['placeholder' => 'Ориентир']]);
 
-        $builder->add('advert_image', 'collection', [
-            'type'   =>  new FileType(),
-            'allow_add'    => true,
-            'allow_delete' => true,
-            'data' => [
-                new AdvertImage(),
-                new AdvertImage(),
-                new AdvertImage(),
-                new AdvertImage(),
-                new AdvertImage(),
-                new AdvertImage(),
-                new AdvertImage(),
-                new AdvertImage(),
-                new AdvertImage(),
-                new AdvertImage()],
-            'required' => false,
-        ]);
+        $builder->add('advert_image', 'file', ['required' => false, 'multiple' => true ]);
 
         $builder->add('advert_image_delete', 'collection', [
             'type'   =>  'checkbox',
             'label' => false,
             'allow_add'    => true,
             'allow_delete' => true,
-            'data' => [],
+            'data' => [true],
             'required' => false
         ]);
 
