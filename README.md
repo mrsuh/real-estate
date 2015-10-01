@@ -1,4 +1,4 @@
-realEstateProject
+RealEstateProject
 ================
 
 This project is a simple  real estate database. You can create, update and search adverts and clients;
