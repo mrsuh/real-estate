@@ -2,7 +2,7 @@
 {% block content %}
     {{ form_start(form) }}
     <div class="row">
-        <div class="col-md-4">
+        <div class="col-md-6">
             <br>
             <div class="row">
                 <div class="col-md-4"><label>Логин*</label></div>
@@ -42,14 +42,11 @@
     </div>
     <br>
     <div class="row">
-        <div class="col-md-2">{{ form_widget(form.user_save, {'attr': {'class': 'btn btn-success btn-width'}}) }}</div>
-        {% if self %}
-        <div class="col-md-2"><button type="button" class="btn btn-danger btn-width pull-right" id="delete_button" style="display: none">Удалить</button></div>
-        {% else %}
-        <div class="col-md-2"><button type="button" class="btn btn-danger btn-width pull-right" id="delete_button">Удалить</button></div>
+        <div class="col-md-6">{{ form_widget(form.user_save, {'attr': {'class': 'btn btn-success btn-width'}}) }}
+        {% if not self %}
+            <button type="button" class="btn btn-danger btn-width pull-right" id="delete_button" >Удалить</button>
         {% endif %}
-
-    </div>
+        </div>
 
     {{ form_widget(form.user_delete, {'attr': {'style': 'display: none;'}}) }}
     {{ form_end(form) }}
