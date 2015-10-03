@@ -156,10 +156,10 @@ class AdvertModel
 
     public function findByParams($params)
     {
-        $params['meter_price_from'] = str_replace(',', '', $params['meter_price_from']);
-        $params['meter_price_to'] = str_replace(',', '', $params['meter_price_to']);
-        $params['price_from'] = str_replace(',', '', $params['price_from']);
-        $params['price_to'] = str_replace(',', '', $params['price_to']);
+        $params['meter_price_from'] = isset($params['meter_price_from']) ? str_replace(',', '', $params['meter_price_from']) : null;
+        $params['meter_price_to'] = isset($params['meter_price_to']) ? str_replace(',', '', $params['meter_price_to']) : null;
+        $params['price_from'] = isset($params['price_from']) ? str_replace(',', '', $params['price_from']): null;
+        $params['price_to'] = isset($params['price_to']) ? str_replace(',', '', $params['price_to']): null;
         return $this->paginator->paginate($this->advertRepo->findByParams($params), $params['pagination_page'], $params['pagination_items_on_page']);
     }
 

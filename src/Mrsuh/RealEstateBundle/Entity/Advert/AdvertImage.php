@@ -30,11 +30,11 @@ class AdvertImage
      *
      * @ORM\Column(name="type", type="string", length=255)
      */
-    public $type;
+    private $type;
 
     /**
      *
-     * @ORM\ManyToOne(targetEntity="Mrsuh\RealEstateBundle\Entity\Advert\Advert")
+     * @ORM\ManyToOne(targetEntity="Mrsuh\RealEstateBundle\Entity\Advert\Advert", inversedBy="img")
      * @ORM\JoinColumn(name="advert", referencedColumnName="id")
      */
     private $advert;
