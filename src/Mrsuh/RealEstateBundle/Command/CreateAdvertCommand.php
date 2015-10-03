@@ -56,7 +56,6 @@ class CreateAdvertCommand extends ContainerAwareCommand
                 'object_region' => $em->getRepository(C::REPO_ADDRESS_REGION)->findOneById(rand(1, 11)),
                 'object_city' => $em->getRepository(C::REPO_ADDRESS_CITY)->findOneById(1),
                 'object_region_city' => $em->getRepository(C::REPO_ADDRESS_REGION_CITY)->findOneById(rand(1, 4)),
-                'object_street' => $em->getRepository(C::REPO_ADDRESS_STREET)->findOneById(rand(1, 10)),
                 'object_house' => rand(1, 50),
                 'object_flat' => rand(1, 100),
                 'object_landmark' => 'Путь'
