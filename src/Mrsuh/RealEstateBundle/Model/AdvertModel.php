@@ -1,6 +1,7 @@
 <?php namespace Mrsuh\RealEstateBundle\Model;
 
 use Mrsuh\RealEstateBundle\C;
+use Mrsuh\RealEstateBundle\Exception\ValidationException;
 use Mrsuh\RealEstateBundle\Service\CommonFunction;
 
 class AdvertModel
@@ -11,12 +12,10 @@ class AdvertModel
     private $advertDescriptRepo;
     private $advertImageRepo;
     private $em;
-    private $paginator;
 
-    public function __construct($em, $paginator)
+    public function __construct($em)
     {
         $this->em = $em;
-        $this->paginator = $paginator;
 
         $this->advertRepo = $em->getRepository(C::REPO_ADVERT);
         $this->objectRepo = $em->getRepository(C::REPO_OBJECT);
@@ -111,7 +110,7 @@ class AdvertModel
 
             if (isset($params['advert_change_user'])) {
                 if ($currentUser->getId() !== $advert->getUser()->getId() && CommonFunction::checkRoles($currentUser->getRole(), [C::ROLE_USER])) {
-                    throw new \Exception('У вас недостаточно прав');
+                    throw new ValidationException('У вас недостаточно прав');
                 }
 
                 $user = $this->paramRepo['advert_user']->findOneById($params['advert_change_user']);
@@ -140,7 +139,6 @@ class AdvertModel
                 $this->advertImageRepo->create($advert, $i);
             }
 
-
             $this->em->flush();
             $this->em->commit();
         } catch (\Exception $e) {
@@ -160,7 +158,7 @@ class AdvertModel
         $params['meter_price_to'] = isset($params['meter_price_to']) ? str_replace(',', '', $params['meter_price_to']) : null;
         $params['price_from'] = isset($params['price_from']) ? str_replace(',', '', $params['price_from']): null;
         $params['price_to'] = isset($params['price_to']) ? str_replace(',', '', $params['price_to']): null;
-        return $this->paginator->paginate($this->advertRepo->findByParams($params), $params['pagination_page'], $params['pagination_items_on_page']);
+        return CommonFunction::paginate($this->advertRepo->findByParams($params), ['current_page' => $params['pagination_page'], 'items_on_page' => $params['pagination_items_on_page']]);
     }
 
     public function getAllRegionCity()
