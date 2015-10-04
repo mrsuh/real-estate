@@ -63,30 +63,14 @@ class EditAdvertForm extends AbstractType
         $builder->add('object_flat', 'text', ['required' => false, 'data' => $this->advert->getObject()->getFlat(), 'attr' =>['placeholder' => '97']]);
         $builder->add('object_landmark', 'textarea', ['required' => false, 'data' => $this->advert->getObject()->getLandmark(), 'attr' =>['placeholder' => 'Ориентир']]);
 
-        $builder->add('advert_image', 'collection', [
-            'type'   =>  new FileType(),
-            'allow_add'    => true,
-            'allow_delete' => true,
-            'data' => [
-                new AdvertImage(),
-                new AdvertImage(),
-                new AdvertImage(),
-                new AdvertImage(),
-                new AdvertImage(),
-                new AdvertImage(),
-                new AdvertImage(),
-                new AdvertImage(),
-                new AdvertImage(),
-                new AdvertImage()],
-            'required' => false,
-        ]);
+        $builder->add('advert_image', 'file', ['required' => false, 'multiple' => true ]);
 
         $builder->add('advert_image_delete', 'collection', [
             'type'   =>  'checkbox',
             'label' => false,
             'allow_add'    => true,
             'allow_delete' => true,
-            'data' => [],
+            'data' => [true],
             'required' => false
         ]);
 

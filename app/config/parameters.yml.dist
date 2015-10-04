@@ -26,7 +26,6 @@ parameters:
     fixtures_object_water_supply: '%kernel.root_dir%/config/fixtures/object/water_supply.yml'
     fixtures_object_wc: '%kernel.root_dir%/config/fixtures/object/wc.yml'
 
-    fixtures_address_region: '%kernel.root_dir%/config/fixtures/address/region.yml'
     fixtures_address_city: '%kernel.root_dir%/config/fixtures/address/city.yml'
 
     fixtures_advert_type: '%kernel.root_dir%/config/fixtures/advert/type.yml'

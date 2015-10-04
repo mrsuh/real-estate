@@ -79,14 +79,15 @@ class AdvertModel
             $params['advert_object'] = $this->objectRepo->create($params);
             $params['advert_user'] = $user;
             $params['advert_description'] = $this->advertDescriptRepo->create(['description' => $params['description_description'], 'comment' => $params['description_comment']]);
+            $params['advert_price'] = str_replace(',', '', $params['advert_price']);
+            $params['advert_meter_price'] = str_replace(',', '', $params['advert_meter_price']);
             $advert = $this->advertRepo->create($params);
 
             foreach ($params['advert_image'] as $i) {
-                if (is_null($i->getType())) {
+                if (is_null($i)) {
                     continue;
                 }
-                $i->setAdvert($advert);
-                $this->em->persist($i);
+                $this->advertImageRepo->create($advert, $i);
             }
 
             $this->em->flush();
@@ -105,6 +106,8 @@ class AdvertModel
         try {
             $params['object_region_city'] = $this->regionCityRepo->findOneById($params['object_region_city']);
             $params['advert_description'] = $this->advertDescriptRepo->update($advert->getDescription(), ['description' => $params['description_description'], 'comment' => $params['description_comment']]);
+            $params['advert_price'] = str_replace(',', '', $params['advert_price']);
+            $params['advert_meter_price'] = str_replace(',', '', $params['advert_meter_price']);
 
             if (isset($params['advert_change_user'])) {
                 if ($currentUser->getId() !== $advert->getUser()->getId() && CommonFunction::checkRoles($currentUser->getRole(), [C::ROLE_USER])) {
@@ -125,16 +128,18 @@ class AdvertModel
 
             foreach ($params['advert_image_delete'] as $k => $v) {
                 $img = $this->advertImageRepo->findOneById($k);
-                $this->advertImageRepo->delete($img);
+                if($img){
+                    $this->advertImageRepo->delete($img);
+                }
             }
 
             foreach ($params['advert_image'] as $i) {
-                if (is_null($i->getType())) {
+                if (is_null($i)) {
                     continue;
                 }
-                $i->setAdvert($advert);
-                $this->em->persist($i);
+                $this->advertImageRepo->create($advert, $i);
             }
+
 
             $this->em->flush();
             $this->em->commit();
@@ -151,6 +156,10 @@ class AdvertModel
 
     public function findByParams($params)
     {
+        $params['meter_price_from'] = isset($params['meter_price_from']) ? str_replace(',', '', $params['meter_price_from']) : null;
+        $params['meter_price_to'] = isset($params['meter_price_to']) ? str_replace(',', '', $params['meter_price_to']) : null;
+        $params['price_from'] = isset($params['price_from']) ? str_replace(',', '', $params['price_from']): null;
+        $params['price_to'] = isset($params['price_to']) ? str_replace(',', '', $params['price_to']): null;
         return $this->paginator->paginate($this->advertRepo->findByParams($params), $params['pagination_page'], $params['pagination_items_on_page']);
     }
 

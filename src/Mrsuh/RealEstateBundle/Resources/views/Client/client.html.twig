@@ -35,62 +35,27 @@
     <a href="##"><b>Характеристики</b></a>
     <hr>
     <div class="row">
-        <div class="col-md-6">
+        <div class="col-md-4">
             <div class="row">
-                <div class="col-md-2"><label>Тип недвижимости</label></div>
-                <div class="col-md-4">{{ form_widget(form.object_type, {'attr': {'class': 'form-control' }}) }}</div>
-                <div class="col-md-2"><label>Ипотека</label></div>
-                <div class="col-md-4">{{ form_widget(form.mortgage, {'attr': {'class': 'form-control' }}) }}</div>
-            </div>
-            <br>
-
-            <div class="row">
-                <div class="col-md-2"><label>Дата рождения клиента</label></div>
-                <div class="col-md-4">{{ form_widget(form.birth_day, {'attr': {'class': 'form-control', 'readonly': 'readonly' }}) }}</div>
-                <div class="col-md-2"><label>Горячий клиент</label></div>
-                <div class="col-md-4">{{ form_widget(form.hot, {'attr': {'class': 'form-control' }}) }}</div>
-            </div>
-            <br>
-
-            <div class="row">
-                <div class="col-md-2"><label>Комментарии</label></div>
+                <div class="col-md-6"><label>Тип недвижимости</label></div>
+                <div class="col-md-6">{{ form_widget(form.object_type, {'attr': {'class': 'form-control' }}) }}</div>
             </div>
             <br>
             <div class="row">
-                <div class="col-md-12">{{ form_widget(form.comment, {'attr': {'class': 'form-control' }}) }}</div>
-            </div>
-            <br>
-
-            <div class="row">
-                <div class="col-md-4"><label>Просмотренные объявления</label></div>
-                <div class="col-md-8">{{ form_widget(form.reviewed_adverts, {'attr': {'class': 'form-control' }}) }}
-                </div>
+                <div class="col-md-6"><label>Ипотека</label></div>
+                <div class="col-md-6">{{ form_widget(form.mortgage, {'attr': {'class': 'form-control' }}) }}</div>
             </div>
             <br>
             <div class="row">
-                <div class="col-md-12">
-
-                    {% if reviewedAdverts is not empty %}
-                        <table class="table table-bordered">
-                            <tr class="text-center active">
-                                <td>#</td>
-                                <td>Дата создания</td>
-                                <td>Специалист</td>
-                            </tr>
-
-                            {% for advert in  reviewedAdverts %}
-                                <tr class="text-center">
-                                    <td><a href="{{ url('advert', {'id': advert.id}) }}">{{ advert.id }}</a></td>
-                                    <td>{% if null != advert.createTime %}{{ advert.createTime|date("d.m.Y") }}{% endif %}</td>
-                                    <td>{{ advert.user.lastName }} {{ advert.user.firstName }} {{ advert.user.middleName }}</td>
-                                </tr>
-                            {% endfor %}
-
-                        </table>
-                    {% endif %}
-
-                </div>
+                <div class="col-md-6"><label>Дата рождения клиента</label></div>
+                <div class="col-md-6">{{ form_widget(form.birth_day, {'attr': {'class': 'form-control', 'readonly': 'readonly' }}) }}</div>
             </div>
+            <br>
+            <div class="row">
+                <div class="col-md-6"><label>Горячий клиент</label></div>
+                <div class="col-md-6">{{ form_widget(form.hot, {'attr': {'class': 'form-control' }}) }}</div>
+            </div>
+            <br>
         </div>
 
         <div class="col-md-3">
@@ -106,7 +71,7 @@
             </div>
 
             <div class="row">
-                <div class="col-md-8 col-md-offset-4">
+                <div class="col-md-12">
                     <div id="editClient_region_city" style="display: none;"></div>
                     {% for id,city in regionsCity %}
                         <div class="region_city" id="region_city_{{ id }}"
@@ -124,7 +89,7 @@
         </div>
 
 
-        <div class="col-md-3">
+        <div class="col-md-5">
             <div class="row">
                 <div class="col-md-4"><label>Цена</label></div>
                 <div class="col-md-4">{{ form_widget(form.price_from, {'attr': {'class': 'form-control' }}) }}</div>
@@ -186,6 +151,42 @@
             </div>
         </div>
     </div>
+        <br>
+        <hr>
+        <div class="row">
+            <div class="col-md-4"><label>Комментарии</label></div>
+            <div class="col-md-8">{{ form_widget(form.comment, {'attr': {'class': 'form-control' }}) }}</div>
+        </div>
+    <br>
+        <div class="row">
+            <div class="col-md-4"><label>Просмотренные объявления</label></div>
+            <div class="col-md-8">{{ form_widget(form.reviewed_adverts, {'attr': {'class': 'form-control' }}) }}
+            </div>
+        </div>
+        <br>
+        <div class="row">
+            <div class="col-md-12">
+                {% if reviewedAdverts is not empty %}
+                    <table class="table table-bordered">
+                        <tr class="text-center active">
+                            <td>#</td>
+                            <td>Дата создания</td>
+                            <td>Специалист</td>
+                        </tr>
+
+                        {% for advert in  reviewedAdverts %}
+                            <tr class="text-center">
+                                <td><a href="{{ url('advert', {'id': advert.id}) }}">{{ advert.id }}</a></td>
+                                <td>{% if null != advert.createTime %}{{ advert.createTime|date("d.m.Y") }}{% endif %}</td>
+                                <td>{{ advert.user.lastName }} {{ advert.user.firstName }} {{ advert.user.middleName }}</td>
+                            </tr>
+                        {% endfor %}
+
+                    </table>
+                {% endif %}
+            </div>
+        </div>
+    <br>
     <hr>
 
     <div>
@@ -204,6 +205,7 @@
             <div class="col-md-3"> {% if null != client.showTime %}{{ client.showTime|date("d.m.Y") }}{% endif %}</div>
         </div>
     </div>
+    <hr>
     <br>
 
     <button type="button" class="btn btn-success btn-width" id="submit_edit_client">Cохранить</button>
@@ -242,6 +244,17 @@
 
                 submit.click();
             });
+
+            $('#editClient_price_from').on('keyup', function(){
+                myPriceFormat($(this));
+            });
+
+            $('#editClient_price_to').on('keyup', function(){
+                myPriceFormat($(this));
+            });
+
+            myPriceFormat($('#editClient_price_from'));
+            myPriceFormat($('#editClient_price_to'));
         });
     </script>
 {% endblock %}

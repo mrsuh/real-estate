@@ -71,18 +71,17 @@
                 {{ advert.object.street }} ул{% if advert.object.house %}, {{ advert.object.house }}{% endif %}
             </td>
             <td class="text-center">
-                {{ advert.object.commonArea }} / {{ advert.object.liveArea }} / {{ advert.object.kitchenArea }}
-                м<sup>2</sup>
+                {{ advert.object.commonArea }} / {{ advert.object.liveArea }} / {{ advert.object.kitchenArea }}&nbsp;м<sup>2</sup>
             </td>
             <td class="text-center">
                 <div class="row">
                     <div class="col-md-12">
-                        {{ advert.price }} р
+                        {{ advert.price | number_format }}&nbsp;р
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-md-12">
-                        ({{ advert.meterPrice }} р/м<sup>2</sup>)
+                        ({{ advert.meterPrice }}&nbsp;р/м<sup>2</sup>)
                     </div>
                 </div>
             </td>

@@ -62,6 +62,9 @@ class ClientModel
             throw new \Exception('Клиент с телефоном ' . $params['phone1'] . ' уже существует');
         };
 
+        $params['price_from'] = str_replace(',', '', $params['price_from']);
+        $params['price_to'] = str_replace(',', '', $params['price_to']);
+
         $this->em->beginTransaction();
         try {
             $params['user'] = $user;
@@ -87,7 +90,8 @@ class ClientModel
     {
         $this->em->beginTransaction();
         try {
-
+            $params['price_from'] = str_replace(',', '', $params['price_from']);
+            $params['price_to'] = str_replace(',', '', $params['price_to']);
             $this->clientRepo->update($client, $params);
 
             if (isset($params['region_city'])) {

@@ -21,12 +21,11 @@ class LoadAddressParams extends AbstractFixture implements OrderedFixtureInterfa
     {
         $yaml = new Parser();
 
-        foreach ($yaml->parse(file_get_contents($this->container->getParameter('fixtures_address_region'))) as $p) {
-            $manager->getRepository(C::REPO_ADDRESS_REGION)->create($p);
-        }
-
         foreach ($yaml->parse(file_get_contents($this->container->getParameter('fixtures_address_city'))) as $c) {
             $city = $manager->getRepository(C::REPO_ADDRESS_CITY)->create($c['name']);
+            if(!$c['region']){
+                continue;
+            }
             foreach ($c['region'] as $r) {
                 $manager->getRepository(C::REPO_ADDRESS_REGION_CITY)->create($city, $r);
             }

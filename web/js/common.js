@@ -75,3 +75,23 @@ var order = function(formName, fields, submit)
         })
     });
 };
+
+var myPriceFormat = function(e){
+    return e.priceFormat({
+        prefix: '',
+        centsSeparator: '',
+        centsLimit: 0,
+        thousandsSeparator: ','
+    })
+};
+
+var mathMeterPrice = function (areaElem, priceElem, meterPriceElem) {
+    var meters = parseFloat(areaElem.val());
+    var price = parseFloat(priceElem.val().replace(/,/g, ''));
+    var meterPrice = null;
+    if (!isNaN(meters) && !isNaN(price)) {
+        meterPrice = (price / meters).toFixed(0);
+    }
+
+    myPriceFormat(meterPriceElem.val(meterPrice));
+};

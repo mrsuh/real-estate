@@ -26,7 +26,7 @@ class CreateAdvertForm extends AbstractType
         $builder->add('description_description', 'textarea', ['required' => false, 'attr' =>['value' => null, 'placeholder' => 'Описание']]);
         $builder->add('description_comment', 'textarea', ['required' => false, 'attr' =>['value' => null, 'placeholder' => 'Комментарии']]);
 
-        $builder->add('advert_exclusive', 'choice', ['choices' => [1 => 'да', 0 => 'нет']]);
+        $builder->add('advert_exclusive', 'choice', ['choices' => [1 => 'да', 0 => 'нет'], 'data' => 0]);
         $builder->add('advert_type', 'choice', ['choices' =>  $this->params['advert_type']]);
         $builder->add('advert_category', 'choice', ['choices' =>  $this->params['advert_category']]);
         $builder->add('advert_price', 'text', ['required' => false, 'attr' => ['placeholder' => '1200000']]);
@@ -45,10 +45,10 @@ class CreateAdvertForm extends AbstractType
         $builder->add('object_build_year', 'text', ['required' => false, 'attr' =>['value' => null, 'placeholder' => '2016']]);
         $builder->add('object_water_supply', 'choice', ['choices' => $this->params['object_water_supply']]);
         $builder->add('object_heating', 'choice', ['choices' => $this->params['object_heating']]);
-        $builder->add('object_new_house', 'choice', ['choices' => [1 => 'да', 0 => 'нет']]);
+        $builder->add('object_new_house', 'choice', ['choices' => [1 => 'да', 0 => 'нет'], 'data' => 0]);
         $builder->add('object_wc', 'choice', ['choices' => $this->params['object_wc']]);
         $builder->add('object_balcony', 'choice', ['choices' => $this->params['object_balcony']]);
-        $builder->add('object_mortgage', 'choice', ['choices' => [1 => 'да', 0 => 'нет']]);
+        $builder->add('object_mortgage', 'choice', ['choices' => [1 => 'да', 0 => 'нет'], 'data' => 0]);
 
         $builder->add('object_city', 'choice', ['choices' => $this->params['object_city']]);
         $builder->add('object_region_city', 'hidden');
@@ -57,23 +57,7 @@ class CreateAdvertForm extends AbstractType
         $builder->add('object_flat', 'text', ['required' => false, 'attr' =>['value' => null, 'placeholder' => '97']]);
         $builder->add('object_landmark', 'textarea', ['required' => false, 'attr' =>['value' => null, 'placeholder' => 'Ориентир']]);
 
-        $builder->add('advert_image', 'collection', [
-            'type'   =>  new FileType(),
-            'allow_add'    => true,
-            'allow_delete' => true,
-            'data' => [
-                new AdvertImage(),
-                new AdvertImage(),
-                new AdvertImage(),
-                new AdvertImage(),
-                new AdvertImage(),
-                new AdvertImage(),
-                new AdvertImage(),
-                new AdvertImage(),
-                new AdvertImage(),
-                new AdvertImage()],
-            'required' => false,
-        ]);
+        $builder->add('advert_image', 'file', ['required' => false, 'multiple' => true ]);
 
         $builder->add('submit', 'submit', array('label' => 'Создать'));
     }
