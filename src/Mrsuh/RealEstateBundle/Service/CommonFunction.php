@@ -2,9 +2,10 @@
 
 namespace Mrsuh\RealEstateBundle\Service;
 
+use Doctrine\ORM\Tools\Pagination\Paginator;
+
 class CommonFunction
 {
-
     public static function checkEmail($email, $exception = true)
     {
         if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
@@ -76,5 +77,73 @@ class CommonFunction
             $func = 'image'.$ext;
             return $func($img_o,$file_output);
         }
+    }
+
+    public static function paginate($query, $data)
+    {
+        if(!isset($data['items_on_page'])){
+            $data['items_on_page'] = 20;
+        }
+
+        if(!isset($data['pages_range'])){
+            $data['pages_range'] = 5;
+        }
+
+        $paginator = new Paginator($query);//@todo double request
+
+        $totalItems = count($paginator);
+        $pagesCount = ceil($totalItems / $data['items_on_page']);
+
+        if($data['current_page'] > $pagesCount){
+            $data['current_page'] = 1;
+        }
+
+        $paginator
+            ->getQuery()
+            ->setFirstResult($data['items_on_page'] * ($data['current_page']-1)) // set the offset
+            ->setMaxResults($data['items_on_page']); // set the limit
+
+        return [
+            'items' => $paginator,
+            'pagination' => [
+                'current_page' => $data['current_page'],
+                'total_pages' => $pagesCount,
+                'pages' => self::paginationNumbers($data['current_page'], $pagesCount, $data['pages_range'])
+            ]
+        ];
+    }
+
+    private static function paginationNumbers($page, $total, $range = 5)
+    {
+        if($range % 2 === 0){
+            $range++;
+        }
+
+        $half = ($range - 1)/2;
+
+        $right = $page + $half;
+
+        if($right > $total){
+            $left = $page - ($right - $total) - $half;
+        } else {
+            $left = $page - $half;
+        }
+
+        if($left <= 0){
+            $right += abs($left);
+            $right++;
+            $left = 1;
+        }
+
+        $numbers = [];
+
+        for($i=$left; $i<=$right && $i<=$total; $i++){
+            $numbers[] = [
+                'name' => $i,
+                'index' => $i
+            ];
+        }
+
+        return $numbers;
     }
 } 

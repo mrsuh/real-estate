@@ -18,7 +18,7 @@ services:
 
     model.client:
         class: Mrsuh\RealEstateBundle\Model\ClientModel
-        arguments: [@doctrine.orm.entity_manager, @knp_paginator]
+        arguments: [@doctrine.orm.entity_manager]
 
     model.user:
         class: Mrsuh\RealEstateBundle\Model\UserModel
@@ -26,7 +26,7 @@ services:
 
     model.advert:
         class: Mrsuh\RealEstateBundle\Model\AdvertModel
-        arguments: [@doctrine.orm.entity_manager, @knp_paginator]
+        arguments: [@doctrine.orm.entity_manager]
 
     model.mail:
         class: Mrsuh\RealEstateBundle\Model\MailModel
