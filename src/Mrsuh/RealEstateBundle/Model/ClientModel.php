@@ -1,6 +1,7 @@
 <?php namespace Mrsuh\RealEstateBundle\Model;
 
 use Mrsuh\RealEstateBundle\C;
+use Mrsuh\RealEstateBundle\Exception\ValidationException;
 use Mrsuh\RealEstateBundle\Service\CommonFunction;
 
 class ClientModel
@@ -10,16 +11,14 @@ class ClientModel
     private $clientRegionCityRepo;
     private $regionCityRepo;
     private $em;
-    private $paginator;
 
-    public function __construct($em, $paginator)
+    public function __construct($em)
     {
         $this->clientRepo = $em->getRepository(C::REPO_CLIENT);
         $this->advertRepo = $em->getRepository(C::REPO_ADVERT);
         $this->clientAdvertRepo = $em->getRepository(C::REPO_CLIENT_ADVERT);
         $this->clientRegionCityRepo = $em->getRepository(C::REPO_CLIENT_REGION_CITY);
         $this->regionCityRepo = $em->getRepository(C::REPO_ADDRESS_REGION_CITY);
-        $this->paginator = $paginator;
         $this->em = $em;
         $this->paramRepo = [
             'object_type' => $em->getRepository(C::REPO_OBJECT_TYPE),
@@ -59,7 +58,13 @@ class ClientModel
     public function create($params, $user)
     {
         if ($this->clientRepo->existClientByPhone($params['phone1'])) {
-            throw new \Exception('Клиент с телефоном ' . $params['phone1'] . ' уже существует');
+            throw new ValidationException('Клиент с телефоном ' . $params['phone1'] . ' уже существует');
+        };
+
+        if (isset($params['birth_day'])) {
+            if($params['birth_day'] > (new \DateTime())){
+                throw new ValidationException('Неверно указана дата рождения клиента');
+            }
         };
 
         $params['price_from'] = str_replace(',', '', $params['price_from']);
@@ -135,7 +140,7 @@ class ClientModel
 
     public function findByParams($params)
     {
-        return $this->paginator->paginate($this->clientRepo->findByParams($params), $params['pagination_page'], $params['pagination_items_on_page']);
+        return CommonFunction::paginate($this->clientRepo->findByParams($params), ['current_page' => $params['pagination_page'], 'items_on_page' => $params['pagination_items_on_page']]);
     }
 
     public function getRegionCityByClientId($id)

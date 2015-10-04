@@ -12,7 +12,7 @@
 
     <div class="row">
         {% if pagination and pagination.items is not empty %}
-        <div class="col-md-8"><b>Всего результатов:</b> {{ pagination.getTotalItemCount }}</div>
+        <div class="col-md-8"><b>Всего результатов:</b> {{ pagination.items | length }}</div>
             <div class="col-md-2"><b class="pull-right">Показывать на странице:</b></div>
         <div class="col-md-2">{{ form_widget(form.pagination_items_on_page, {'attr': {'class': 'form-control' }}) }}</div>
         {% else %}
@@ -53,8 +53,8 @@
             var max_page = 1;
 
             {% if pagination %}
-            current_page = {{ pagination.getPaginationData.current }};
-            max_page = {{ pagination.getPaginationData.pageCount }};
+            current_page = {{ pagination.pagination.current_page }};
+            max_page = {{ pagination.pagination.total_pages }};
             {% endif %}
 
             pagination('findClient', current_page, max_page, submit);

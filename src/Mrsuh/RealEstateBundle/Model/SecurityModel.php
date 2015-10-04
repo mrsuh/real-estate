@@ -23,7 +23,7 @@ class SecurityModel
 
     public function authorize($user, $role)
     {
-        $token = new WsseToken(array($role));
+        $token = new WsseToken([$role]);
         $token->setUser($user);
         $this->tokenStorage->setToken($token);
     }

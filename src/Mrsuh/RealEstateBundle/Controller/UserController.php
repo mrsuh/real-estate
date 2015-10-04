@@ -1,5 +1,6 @@
 <?php namespace Mrsuh\RealEstateBundle\Controller;
 
+use Mrsuh\RealEstateBundle\Exception\ValidationException;
 use Mrsuh\RealEstateBundle\Form\User\CreateUserForm;
 use Mrsuh\RealEstateBundle\Form\User\EditUserForm;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -43,10 +44,15 @@ class UserController extends Controller
                 }
 
                 $form = $this->createForm(new EditUserForm($user));
-            } catch (\Exception $e) {
+            } catch (ValidationException $e) {
                 $this->addFlash(
                     'warning',
                     'Произошла ошибка: ' . $e->getMessage()
+                );
+            } catch (\Exception $e) {
+                $this->addFlash(
+                    'warning',
+                    'Произошла ошибка'
                 );
             }
         }
@@ -75,10 +81,15 @@ class UserController extends Controller
 
                 return $this->redirect($this->generateUrl('user', ['id' => $user->getId()]));
 
-            } catch (\Exception $e) {
+            } catch (ValidationException $e) {
                 $this->addFlash(
                     'warning',
                     'Произошла ошибка: ' . $e->getMessage()
+                );
+            } catch (\Exception $e) {
+                $this->addFlash(
+                    'warning',
+                    'Произошла ошибка'
                 );
             }
         }
@@ -107,10 +118,15 @@ class UserController extends Controller
                     'Данные успешно сохранены'
                 );
 
-            } catch (\Exception $e) {
+            } catch (ValidationException $e) {
                 $this->addFlash(
                     'warning',
                     'Произошла ошибка: ' . $e->getMessage()
+                );
+            } catch (\Exception $e) {
+                $this->addFlash(
+                    'warning',
+                    'Произошла ошибка'
                 );
             }
         }
