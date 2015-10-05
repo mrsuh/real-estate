@@ -22,6 +22,10 @@ class MailModel
             ->setFrom($this->mailerUser)
             ->setBody($params['body'], 'text/html');
 
+        if(isset($params['attach'])){
+            $message->attach(\Swift_Attachment::fromPath($params['attach']));
+        }
+
         $mailer->send($message);
     }
 }

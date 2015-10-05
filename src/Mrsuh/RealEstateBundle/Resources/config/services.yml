@@ -32,3 +32,7 @@ services:
         class: Mrsuh\RealEstateBundle\Model\MailModel
         arguments: [@mailer, %mailer_user%]
 
+    model.security:
+        class: Mrsuh\RealEstateBundle\Model\SecurityModel
+        arguments: [@model.user, @model.mail, %database_name%, %kernel.root_dir%]
+
