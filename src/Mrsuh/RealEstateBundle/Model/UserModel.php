@@ -23,6 +23,11 @@ class UserModel
         $this->mail = $mail;
     }
 
+    public function getSystemUser()
+    {
+        return $this->userRepo->findOneByUsername(C::SYSTEM_USER);
+    }
+
     public function getAllExceptSystem()
     {
         return $this->userRepo->findAllExceptSystem();

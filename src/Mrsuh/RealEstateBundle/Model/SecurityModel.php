@@ -7,24 +7,38 @@ use Symfony\Component\Security\Core\Encoder\MessageDigestPasswordEncoder;
 
 class SecurityModel
 {
-
-    private $tokenStorage;
-    private $em;
     private $userModel;
-    private $session;
+    private $mailModel;
+    private $dbName;
+    private $rootDir;
 
-    public function __construct($tokenStorage, $em, $userModel, $mailModel, $session)
+    public function __construct($userModel, $mailModel, $dbName, $rootDir)
     {
-        $this->tokenStorage = $tokenStorage;
-        $this->em = $em;
         $this->userModel = $userModel;
-        $this->session = $session;
+        $this->mailModel = $mailModel;
+        $this->dbName = $dbName;
+        $this->rootDir = $rootDir;
     }
 
-    public function authorize($user, $role)
+    public function createDbDump()
     {
-        $token = new WsseToken([$role]);
-        $token->setUser($user);
-        $this->tokenStorage->setToken($token);
+        $date = new \DateTime();
+
+        $attach = $this->rootDir . '/../' . $this->dbName . '_' . $date->format('Y-m-d') . '.sql';
+
+        exec('mysqldump ' . $this->dbName . ' > ' . $attach);
+        if(!file_exists($attach)){
+            throw new \Exception('Database dump error');
+        }
+
+        $email = $this->userModel->getSystemUser()->getEmail();
+        $this->mailModel->sendMail([
+            'to'=> $email,
+            'body' => 'DB dump',
+            'subject' => 'Real-Estate DB Dump ' .  $date->format('Y-m-d'),
+            'attach' => $attach
+        ]);
+
+        unlink($attach);
     }
 }
