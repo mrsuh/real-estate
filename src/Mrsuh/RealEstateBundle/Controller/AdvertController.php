@@ -1,5 +1,6 @@
 <?php namespace Mrsuh\RealEstateBundle\Controller;
 
+use Mrsuh\RealEstateBundle\Exception\ValidationException;
 use Mrsuh\RealEstateBundle\Form\Advert\ChangeUserAdvertListForm;
 use Mrsuh\RealEstateBundle\Form\Advert\CreateAdvertForm;
 use Mrsuh\RealEstateBundle\Form\Advert\FindAdvertByClientForm;
@@ -8,7 +9,6 @@ use Mrsuh\RealEstateBundle\Form\Advert\EditAdvertForm;
 use Mrsuh\RealEstateBundle\Service\CommonFunction;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\Security\Core\Security;
 use Mrsuh\RealEstateBundle\C;
 
 class AdvertController extends Controller
@@ -19,7 +19,6 @@ class AdvertController extends Controller
 
         $params = $modelAdvert->getAdvertParams();
         $form = $this->createForm(new CreateAdvertForm($params));
-        $regionsCity = $modelAdvert->getAllRegionCity();
 
         if ($request->isMethod('POST')) {
             $form->handleRequest($request);
@@ -37,10 +36,15 @@ class AdvertController extends Controller
                 );
                 return $this->redirect($this->generateUrl('advert', ['id' => $advert->getId()]));
 
-            } catch (\Exception $e) {
+            } catch (ValidationException $e) {
                 $this->addFlash(
                     'warning',
                     'Произошла ошибка: ' . $e->getMessage()
+                );
+            } catch (\Exception $e) {
+                $this->addFlash(
+                    'warning',
+                    'Произошла ошибка'
                 );
             }
         }
@@ -48,7 +52,7 @@ class AdvertController extends Controller
         return $this->render('MrsuhRealEstateBundle:Advert:create_advert.html.twig', [
             'pageName' => 'Добавить объявление',
             'form' => $form->createView(),
-            'regionsCity' => $regionsCity
+            'regionsCity' => $modelAdvert->getAllRegionCity()
         ]);
     }
 
@@ -58,21 +62,28 @@ class AdvertController extends Controller
 
         $params = $modelAdvert->getAdvertParams();
         $form = $this->createForm(new FindAdvertForm($params));
-        $regionsCity = $modelAdvert->getAllRegionCity();
         $pagination = [];
         $regions = [];
         if ($request->isMethod('POST')) {
-            $form->handleRequest($request);
-            $formData = $form->getData();
-            $regions = $formData['object_region_city'];
-            $pagination = $modelAdvert->findByParams($formData);
+            try{
+                $form->handleRequest($request);
+                $formData = $form->getData();
+                $regions = $formData['object_region_city'];
+                $pagination = $modelAdvert->findByParams($formData);
+
+            } catch (\Exception $e) {
+                $this->addFlash(
+                    'warning',
+                    'Произошла ошибка'
+                );
+            }
         }
 
         return $this->render('MrsuhRealEstateBundle:Advert:find_advert.html.twig', [
             'pageName' => 'Поиск объявления',
             'pagination' => $pagination,
             'form' => $form->createView(),
-            'regionsCity' => $regionsCity,
+            'regionsCity' => $modelAdvert->getAllRegionCity(),
             'regions' => $regions
         ]);
     }
@@ -85,21 +96,28 @@ class AdvertController extends Controller
         $params = $modelAdvert->getAdvertParams();
         $client = $modelClient->getOneById($clientId);
         $form = $this->createForm(new FindAdvertByClientForm($params, $client));
-        $regionsCity = $modelAdvert->getAllRegionCity();
         $clientRegionsCity = $modelClient->getRegionCityByClientId($client->getId());
         $pagination = [];
 
         if ($request->isMethod('POST')) {
-            $form->handleRequest($request);
-            $formData = $form->getData();
-            $pagination = $modelAdvert->findByParams($formData);
-            $clientRegionsCity = array_keys($formData['object_region_city']);
+            try{
+                $form->handleRequest($request);
+                $formData = $form->getData();
+                $pagination = $modelAdvert->findByParams($formData);
+                $clientRegionsCity = array_keys($formData['object_region_city']);
+
+            } catch (\Exception $e) {
+                $this->addFlash(
+                    'warning',
+                    'Произошла ошибка'
+                );
+            }
         }
 
         return $this->render('MrsuhRealEstateBundle:Advert:find_advert_by_client.html.twig', [
             'pageName' => 'Поиск объявления по клиенту #' . $client->getId(),
             'pagination' => $pagination, 'form' => $form->createView(),
-            'regionsCity' => $regionsCity,
+            'regionsCity' => $modelAdvert->getAllRegionCity(),
             'clientRegionsCity' => $clientRegionsCity,
             'client' => $client]);
     }
@@ -113,8 +131,16 @@ class AdvertController extends Controller
         $pagination = $modelAdvert->findByParams($params);
 
         if ($request->isMethod('POST')) {
-            $form->handleRequest($request);
-            $pagination = $modelAdvert->findByParams(array_merge($params, (array)$form->getData()));
+            try{
+                $form->handleRequest($request);
+                $pagination = $modelAdvert->findByParams(array_merge($params, (array)$form->getData()));
+
+            } catch (\Exception $e) {
+                $this->addFlash(
+                    'warning',
+                    'Произошла ошибка'
+                );
+            }
         }
 
         return $this->render('MrsuhRealEstateBundle:Advert:change_user_list.html.twig', [
@@ -131,7 +157,6 @@ class AdvertController extends Controller
         $advert = $modelAdvert->getOneById($id);
         $params = $modelAdvert->getAdvertParams();
         $form = $this->createForm(new EditAdvertForm($params, $advert));
-        $regionsCity = $modelAdvert->getAllRegionCity();
 
         if ($request->isMethod('POST')) {
             $form->handleRequest($request);
@@ -148,26 +173,27 @@ class AdvertController extends Controller
                     'Данные успешно сохранены'
                 );
 
-            } catch (\Exception $e) {
+            } catch (ValidationException $e) {
                 $this->addFlash(
                     'warning',
                     'Произошла ошибка: ' . $e->getMessage()
                 );
+            } catch (\Exception $e) {
+                $this->addFlash(
+                    'warning',
+                    'Произошла ошибка'
+                );
             }
         }
 
-        if ($this->getUser()->getId() === $advert->getUser()->getId() || CommonFunction::checkRoles($this->getUser()->getRole(), [C::ROLE_ADMIN])) {
-            $self = true;
-        } else {
-            $self = false;
-        }
+        $self = ($this->getUser()->getId() === $advert->getUser()->getId() || CommonFunction::checkRoles($this->getUser()->getRole(), [C::ROLE_ADMIN])) ? true : false;
 
         return $this->render('MrsuhRealEstateBundle:Advert:advert.html.twig', [
             'pageName' => 'Объявление #' . $advert->getId(),
             'advert' => $advert,
             'form' => $form->createView(),
             'self' => $self,
-            'regionsCity' => $regionsCity,
+            'regionsCity' => $modelAdvert->getAllRegionCity(),
         ]);
     }
 }

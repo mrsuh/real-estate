@@ -1,6 +1,7 @@
 <?php namespace Mrsuh\RealEstateBundle\Model;
 
 use Mrsuh\RealEstateBundle\C;
+use Mrsuh\RealEstateBundle\Exception\ValidationException;
 use Mrsuh\RealEstateBundle\Service\CommonFunction;
 
 class UserModel
@@ -40,7 +41,7 @@ class UserModel
     public function create($params)
     {
         if ($this->userRepo->findOneByUsername($params['username'])) {
-            throw new \Exception('Пользователь с логином ' . $params['username'] . ' уже существует');
+            throw new ValidationException('Пользователь с логином ' . $params['username'] . ' уже существует');
         };
 
         CommonFunction::checkEmail($params['email']);
@@ -64,7 +65,7 @@ class UserModel
 
         if (!empty($params['password'])) {
             if (C::PASSWORD_LENGTH > strlen($params['password'])) {
-                throw new \Exception('Пароль должен содержать не менее ' . C::PASSWORD_LENGTH . ' символов ');
+                throw new ValidationException('Пароль должен содержать не менее ' . C::PASSWORD_LENGTH . ' символов ');
             }
 
             $mail = [

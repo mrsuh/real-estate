@@ -1,10 +1,6 @@
 var pagination = function(formName, current_page, max_page, submit)
 {
-    var pagination_start = $('#pagination_start');
-    var pagination_fin = $('#pagination_fin');
-
-    var pagination_previous = $('#pagination_previous');
-    var pagination_next = $('#pagination_next');
+    var pagination_button = $('.pagination a');
 
     var pagination_page = $('#' + formName + '_pagination_page');
     var pagination_items_on_page = $('#' + formName + '_pagination_items_on_page');
@@ -14,32 +10,11 @@ var pagination = function(formName, current_page, max_page, submit)
         submit();
     });
 
-    pagination_next.click(function(){
-        var c_page = current_page;
-        if(++c_page <= max_page) {
-            pagination_page.val(c_page);
-            submit();
-        }
-    });
-
-    pagination_previous.click(function(){
-        var c_page = current_page;
-        if(--c_page >= 1) {
-            pagination_page.val(c_page);
-            submit();
-        }
-    });
-
-    pagination_start.click(function(){
-        if(current_page != 1) {
-            pagination_page.val(1);
-            submit();
-        }
-    });
-
-    pagination_fin.click(function(){
-        if(current_page != max_page) {
-            pagination_page.val(max_page);
+    pagination_button.click(function(){
+        console.info('oooo');
+      var page = $(this).data('page');
+        if(current_page != page){
+            pagination_page.val(page);
             submit();
         }
     });
