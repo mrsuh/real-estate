@@ -1,0 +1,50 @@
+#!/bin/sh
+
+cd "$( cd `dirname $0` && pwd )/.."
+
+if [ `command -v composer` ]; then
+    composer install
+else
+    if [ ! -e "composer.phar" ] ; then
+        php -r "readfile('https://getcomposer.org/installer');" | php
+    else
+        php composer.phar self-update
+    fi
+    php composer.phar install
+fi
+
+if [ -d app/config/fixtures/address ] ; then
+  for f in app/config/fixtures/address/* ; do
+  f_yml="$(echo $f | cut -d. -f1-2)"
+  if [ ! -f "$f_yml" ] ; then
+    cp $f $f_yml
+    echo "Fixtures created from $(basename $f)"
+  fi
+  done
+fi
+
+if [ -d app/config/fixtures/advert ] ; then
+  for f in app/config/fixtures/advert/* ; do
+  f_yml="$(echo $f | cut -d. -f1-2)"
+  if [ ! -f "$f_yml" ] ; then
+    cp $f $f_yml
+    echo "Fixtures created from $(basename $f)"
+  fi
+  done
+fi
+
+if [ -d app/config/fixtures/object ] ; then
+  for f in app/config/fixtures/object/* ; do
+  f_yml="$(echo $f | cut -d. -f1-2)"
+  if [ ! -f "$f_yml" ] ; then
+    cp $f $f_yml
+    echo "Fixtures created from $(basename $f)"
+  fi
+  done
+fi
+
+if [ "1" = "$#" ] && [ "install" = "$1" ]; then
+    sh bin/install;
+else
+    sh bin/update;
+fi

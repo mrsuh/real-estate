@@ -1,72 +1,7 @@
 #!/bin/bash
 
-if [ ! -e "composer.phar" ] ; then
-    php -r "readfile('https://getcomposer.org/installer');" | php
-else
-    php composer.phar self-update
-fi
-
-php composer.phar install
-
 php app/console doctrine:database:create
 php app/console doctrine:schema:create
-
-if [ ! -e "app/config/fixtures/object/balcony.yml" ] ; then
-    cp app/config/fixtures/object/balcony.yml.dist app/config/fixtures/object/balcony.yml
-    echo "Fixtures created from balcony.yml.dist"
-fi
-
-if [ ! -e "app/config/fixtures/object/heating.yml" ] ; then
-    cp app/config/fixtures/object/heating.yml.dist app/config/fixtures/object/heating.yml
-    echo "Fixtures created from heating.yml.dist"
-fi
-
-if [ ! -e "app/config/fixtures/object/state.yml" ] ; then
-    cp app/config/fixtures/object/state.yml.dist app/config/fixtures/object/state.yml
-    echo "Fixtures created from state.yml.dist"
-fi
-
-if [ ! -e "app/config/fixtures/object/type.yml" ] ; then
-    cp app/config/fixtures/object/type.yml.dist app/config/fixtures/object/type.yml
-    echo "Fixtures created from type.yml.dist"
-fi
-
-if [ ! -e "app/config/fixtures/object/wall.yml" ] ; then
-    cp app/config/fixtures/object/wall.yml.dist app/config/fixtures/object/wall.yml
-    echo "Fixtures created from wall.yml.dist"
-fi
-
-if [ ! -e "app/config/fixtures/object/water_supply.yml" ] ; then
-    cp app/config/fixtures/object/water_supply.yml.dist app/config/fixtures/object/water_supply.yml
-    echo "Fixtures created from water_supply.yml.dist"
-fi
-
-if [ ! -e "app/config/fixtures/object/wc.yml" ] ; then
-    cp app/config/fixtures/object/wc.yml.dist app/config/fixtures/object/wc.yml
-    echo "Fixtures created from wc.yml.dist"
-fi
-
-
-if [ ! -e "app/config/fixtures/address/city.yml" ] ; then
-    cp app/config/fixtures/address/city.yml.dist app/config/fixtures/address/city.yml
-    echo "Fixtures created from city.yml.dist"
-fi
-
-if [ ! -e "app/config/fixtures/address/region.yml" ] ; then
-    cp app/config/fixtures/address/region.yml.dist app/config/fixtures/address/region.yml
-    echo "Fixtures created from region.yml.dist"
-fi
-
-
-if [ ! -e "app/config/fixtures/advert/type.yml" ] ; then
-    cp app/config/fixtures/advert/type.yml.dist app/config/fixtures/advert/type.yml
-    echo "Fixtures created from advert/type.yml.dist"
-fi
-
-if [ ! -e "app/config/fixtures/advert/category.yml" ] ; then
-    cp app/config/fixtures/advert/category.yml.dist app/config/fixtures/advert/category.yml
-    echo "Fixtures created from advert/category.yml.dist"
-fi
 
 yes | php app/console doctrine:fixtures:load
 

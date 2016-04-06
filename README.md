@@ -1,5 +1,5 @@
-RealEstateProject
-================
+RealEstate
+==========
 
 This project is a simple  real estate database. You can create, update and search adverts and clients;
 
@@ -13,5 +13,5 @@ Installation
 -------
 
 ```
-bash bin/install
+sh bin/deploy install
 ```
